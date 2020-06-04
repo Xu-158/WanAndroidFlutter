@@ -32,8 +32,10 @@ class _RootPageState extends State<RootPage> {
         currentIndex: currentIndex,
         items: bottomItem,
         onTap: (int index) {
-          currentIndex = index;
-          _pageController.jumpToPage(currentIndex);
+          setState(() {
+            currentIndex = index;
+            _pageController.jumpToPage(currentIndex);
+          });
         },
         type: BottomNavigationBarType.fixed,
       ),

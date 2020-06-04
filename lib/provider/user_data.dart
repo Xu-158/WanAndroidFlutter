@@ -11,8 +11,6 @@ class UserData extends ChangeNotifier{
     notifyListeners();
   }
 
-
-
 }
 
 enum LoginStatus{
