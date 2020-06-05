@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/tabs/data_page.dart';
 import 'package:wanandroidflutter/tabs/home_page.dart';
 import 'package:wanandroidflutter/tabs/mine_page.dart';
+import 'package:wanandroidflutter/util/size_util.dart';
 
 class RootPage extends StatefulWidget {
   @override
@@ -22,6 +23,7 @@ class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
+    SizeUtil.initSize(context);
     return Scaffold(
       body: PageView(
         controller: _pageController,

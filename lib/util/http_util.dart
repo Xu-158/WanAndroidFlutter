@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:wanandroidflutter/common/global_val.dart';
+import 'package:wanandroidflutter/common/global.dart';
 
 Future requestGet({
   contentType = '',
