@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wanandroidflutter/common/global.dart';
+import 'package:wanandroidflutter/util/http_util.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,6 +7,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    HttpUtil().requestGet('/banner/json').then((e){
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,21 +24,9 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  width: 250.px,
-                  height: 200.1.px,
-                  color: Colors.red,
+                Text(
+                  ''
                 ),
-                Container(
-                  width: 250.px,
-                  height: 200.px,
-                  color: Colors.blue,
-                ),
-                Container(
-                  width:250,
-                  height: 200,
-                  color: Colors.green,
-                )
               ],
             ),
           ),
