@@ -3,6 +3,10 @@ import 'package:wanandroidflutter/util/size_util.dart';
 
 String baseUrl= 'https://www.wanandroid.com';
 
+enum ReqStatus{
+  success,error,loading
+}
+
 extension IntFit on int{
   double get px{
     return SizeUtil.setPx(this.toDouble());

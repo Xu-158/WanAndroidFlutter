@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wanandroidflutter/tabs/data_page.dart';
-import 'package:wanandroidflutter/tabs/home_page.dart';
-import 'package:wanandroidflutter/tabs/mine_page.dart';
+import 'package:wanandroidflutter/page/tabs/data_page.dart';
+import 'package:wanandroidflutter/page/tabs/home_page.dart';
+import 'package:wanandroidflutter/page/tabs/mine_page.dart';
 import 'package:wanandroidflutter/util/size_util.dart';
 
 class RootPage extends StatefulWidget {
