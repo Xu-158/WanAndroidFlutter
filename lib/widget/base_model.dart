@@ -6,8 +6,23 @@ class BaseModel extends ChangeNotifier {
 
   ReqStatus get getReqStatus => reqStatus;
 
+  bool disposed = false;
+
   void setState(ReqStatus status) {
     reqStatus = status;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    disposed = true;
+  }
+
+  @override
+  void notifyListeners() {
+    if(!disposed){
+      super.notifyListeners();
+    }
   }
 }

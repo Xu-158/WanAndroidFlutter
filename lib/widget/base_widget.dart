@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wanandroidflutter/widget/base_model.dart';
 
-class BaseWidget<T extends ChangeNotifier> extends StatefulWidget {
-  BaseWidget({this.viewModel, this.child, this.builder});
-  final Widget Function(BuildContext context, T value, Widget child) builder;
+class BaseWidget<T extends BaseModel> extends StatefulWidget {
+
+  final Widget Function(BuildContext context, T viewModel, Widget child) builder;
   final T viewModel;
   final Widget child;
+  final Function(T) onLoading;
+
+  BaseWidget({this.viewModel, this.child, this.builder,this.onLoading});
   @override
-  _BaseWidgetState createState() => _BaseWidgetState();
+  _BaseWidgetState<T> createState() => _BaseWidgetState<T>();
 }
 
-class _BaseWidgetState<T extends ChangeNotifier> extends State<BaseWidget> {
+class _BaseWidgetState<T extends BaseModel> extends State<BaseWidget<T>> {
   T viewModel;
   @override
   void initState() {
     super.initState();
     viewModel = widget.viewModel;
+    if(widget.onLoading!=null){
+      widget.onLoading(viewModel);
+    }
   }
 
   @override

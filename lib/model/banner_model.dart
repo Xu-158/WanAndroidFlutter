@@ -1,9 +1,3 @@
-import 'package:wanandroidflutter/util/http_util.dart';
-
-class BannerRequestModel {
-  Stream getBanner() => Stream.fromFuture(HttpUtil.requestGet('/banner/json'));
-}
-
 class BannerModel {
   String desc;
   int id;
