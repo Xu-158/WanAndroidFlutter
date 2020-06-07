@@ -2,7 +2,7 @@ import 'package:wanandroidflutter/api/api.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/model/banner_model.dart';
 import 'package:wanandroidflutter/model/home_article_model.dart';
-import 'package:wanandroidflutter/widget/base_model.dart';
+import 'package:wanandroidflutter/widget/base/base_model.dart';
 
 class HomeViewModel extends BaseModel {
   List<BannerModel> bannerList = List();

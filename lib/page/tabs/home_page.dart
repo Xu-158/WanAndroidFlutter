@@ -4,7 +4,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:wanandroidflutter/api/view_model/home_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/page/web_view_page.dart';
-import 'package:wanandroidflutter/widget/base_widget.dart';
+import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/loading_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,14 +13,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
+  final HomeViewModel viewModel = HomeViewModel();
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
         backgroundColor: Colors.grey[100],
         body: ListView(
           children: <Widget>[
-            BannerWidget(),
-            ArticleListWidget(),
+            BannerWidget(viewModel: viewModel),
+            ArticleListWidget(viewModel:viewModel),
           ],
         ));
   }
@@ -30,7 +32,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
 }
 
 class BannerWidget extends StatelessWidget {
-  final HomeViewModel viewModel = HomeViewModel();
+  final HomeViewModel viewModel;
+  BannerWidget({this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +73,8 @@ class BannerWidget extends StatelessWidget {
 }
 
 class ArticleListWidget extends StatelessWidget {
-  final HomeViewModel viewModel = HomeViewModel();
+  final HomeViewModel viewModel;
+  ArticleListWidget({this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +111,7 @@ class ArticleListWidget extends StatelessWidget {
                           children: <Widget>[
                             Visibility(
                               visible: model?.getArticleList[index]?.author == '' ? false : true,
-                              child: Text('作者：${model?.getArticleList[index]?.author}',
+                              child: Text('by：${model?.getArticleList[index]?.author}',
                                   style: TextStyle(color: Colors.white)),
                             ),
                             Spacer(),
@@ -119,13 +123,14 @@ class ArticleListWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context){
-                      String _tilte =  (model?.getArticleList[index]?.title).toString();
-                      return WebViewPage(openUrl: model?.getArticleList[index]?.link,title: _tilte,);
-                    }
-                  ));
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    String _tilte = (model?.getArticleList[index]?.title).toString();
+                    return WebViewPage(
+                      openUrl: model?.getArticleList[index]?.link,
+                      title: _tilte,
+                    );
+                  }));
                 },
               );
             },
