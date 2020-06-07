@@ -30,7 +30,7 @@ class HttpUtil {
   static Future requestGet(url,
       {Map<String, dynamic> parameters,
       contentType = 'application/json',
-      options}) async {
+      Options options}) async {
     Response response =
         await dio.get(url, queryParameters: parameters, options: options);
     return response.data;
@@ -39,7 +39,7 @@ class HttpUtil {
   static Future requestPost(url,
       {Map<String, dynamic> parameters,
       contentType = 'application/json',
-      options}) async {
+        Options options}) async {
     Response response =
         await dio.post(url, queryParameters: parameters, options: options);
     return response.data;

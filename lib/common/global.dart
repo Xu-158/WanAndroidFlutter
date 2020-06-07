@@ -25,3 +25,7 @@ extension Double on double{
     return SizeUtil.setRpx(this);
   }
 }
+
+double get winWidth =>SizeUtil.screenWidth;
+
+double get winHeight =>SizeUtil.screenHeight;

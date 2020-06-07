@@ -1,11 +1,7 @@
 import 'package:wanandroidflutter/util/http_util.dart';
 
-class BannerRequestModel{
-  Stream getBanner() => Stream.fromFuture(
-      HttpUtil.requestGet('/banner/json')
-  );
-
-  Future getBanner1()=> HttpUtil.requestGet('/banner/json');
+class BannerRequestModel {
+  Stream getBanner() => Stream.fromFuture(HttpUtil.requestGet('/banner/json'));
 }
 
 class BannerModel {
@@ -20,13 +16,13 @@ class BannerModel {
 
   BannerModel(
       {this.desc,
-        this.id,
-        this.imagePath,
-        this.isVisible,
-        this.order,
-        this.title,
-        this.type,
-        this.url});
+      this.id,
+      this.imagePath,
+      this.isVisible,
+      this.order,
+      this.title,
+      this.type,
+      this.url});
 
   BannerModel.fromJson(Map<String, dynamic> json) {
     desc = json['desc'];
