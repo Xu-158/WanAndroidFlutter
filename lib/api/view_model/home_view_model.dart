@@ -14,7 +14,7 @@ class HomeViewModel extends BaseModel {
   List<HomeArticleModel> get getArticleList => articleList;
 
   void getHomeArticleData() {
-    Api.getHomeArticleList().then((value){
+    Api.getHomeArticleList().then((value) {
       if (value['errorCode'] == 0) {
         value['data']['datas'].map((m) {
           HomeArticleModel model = HomeArticleModel.fromJson(m);
@@ -22,25 +22,11 @@ class HomeViewModel extends BaseModel {
         }).toList();
         setState(ReqStatus.success);
       }
+    }).catchError((e) {
+      setState(ReqStatus.error);
+      print("error+==========${e.toString()}");
     });
-//    catchError((e){
-//      print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee${e.toString()}");
-//    });
   }
-
-//  void getHomeArticleData() {
-//    Api.getHomeArticleList().listen((value) {
-//      if (value['errorCode'] == 0) {
-//        value['data'].map((m) {
-//          HomeArticleModel model = HomeArticleModel.fromJson(m);
-//          articleList.add(model);
-//        }).toList();
-//        setState(ReqStatus.success);
-//      }
-//    }, onError: () {
-//      setState(ReqStatus.error);
-//    });
-//  }
 
   void getBannerData() {
     Api.getBanner().listen((res) {

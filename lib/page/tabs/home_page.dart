@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:wanandroidflutter/api/view_model/home_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
+import 'package:wanandroidflutter/page/web_view_page.dart';
 import 'package:wanandroidflutter/widget/base_widget.dart';
 import 'package:wanandroidflutter/widget/loading_widget.dart';
 
@@ -85,13 +86,47 @@ class ArticleListWidget extends StatelessWidget {
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              return Card(
-                child: ListTile(
-                  title: Text(
-                    model.getArticleList[index].title,
-                    style: TextStyle(color: Colors.black),
+              return InkWell(
+                child: Card(
+                  color: Colors.blueGrey,
+                  elevation: 4,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.px, horizontal: 10.px),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(model.getArticleList[index].title,
+                                  style: TextStyle(color: Colors.white, fontSize: 16), maxLines: 2),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Visibility(
+                              visible: model?.getArticleList[index]?.author == '' ? false : true,
+                              child: Text('作者：${model?.getArticleList[index]?.author}',
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                            Spacer(),
+                            Text(model?.getArticleList[index]?.niceDate,
+                                style: TextStyle(color: Colors.white)),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      String _tilte =  (model?.getArticleList[index]?.title).toString();
+                      return WebViewPage(openUrl: model?.getArticleList[index]?.link,title: _tilte,);
+                    }
+                  ));
+                },
               );
             },
           );
