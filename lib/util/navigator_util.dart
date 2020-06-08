@@ -1,14 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class NavigatorUtil{
+enum PushType {
+  material,
+  cupertino,
+}
+
+class NavigatorUtil {
   static GlobalKey<NavigatorState> navKey = GlobalKey();
 
-  static push(Widget page){
-    navKey.currentState.push(MaterialPageRoute(
-      builder: (context){
-        return page;
-      }
-    ));
+  static Route pushUtil(PushType pushType, Widget page) {
+    Route route;
+    switch (pushType) {
+      case PushType.material:
+        route = MaterialPageRoute(builder: (context) {
+          return page;
+        });
+        break;
+      case PushType.cupertino:
+        route = CupertinoPageRoute(builder: (context) {
+          return page;
+        });
+        break;
+    }
+    return route;
+  }
+
+  static Future push(Widget page, {PushType type = PushType.cupertino}) {
+    return navKey.currentState.push(pushUtil(type, page));
+  }
+
+  static Future<dynamic> maybePop([result]) {
+    return navKey.currentState.maybePop(result ?? '');
+  }
+
+  void popToRootPage() {
+    navKey.currentState.popUntil(ModalRoute.withName('/'));
   }
 }

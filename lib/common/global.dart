@@ -7,7 +7,7 @@ enum ReqStatus{
   success,error,loading
 }
 
-extension IntFit on int{
+extension Int on int{
   double get px{
     return SizeUtil.setPx(this.toDouble());
   }

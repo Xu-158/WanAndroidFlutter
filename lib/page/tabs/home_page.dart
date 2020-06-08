@@ -89,7 +89,9 @@ class BannerWidget extends StatelessWidget {
                 ),
               );
             },
-            onTap: (index) {},
+            onTap: (index) {
+              model.cardOnTap(url: model?.getBannerList[index].url,title: model?.getBannerList[index].title);
+            },
           );
         } else {
           return LoadingWidget();
