@@ -10,7 +10,6 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-
   PageController _pageController = PageController();
 
   int currentIndex = 0;
@@ -34,6 +33,7 @@ class _RootPageState extends State<RootPage> {
         currentIndex: currentIndex,
         items: bottomItem,
         onTap: (int index) {
+          interceptors(index);
           setState(() {
             currentIndex = index;
             _pageController.jumpToPage(currentIndex);
@@ -42,5 +42,18 @@ class _RootPageState extends State<RootPage> {
         type: BottomNavigationBarType.fixed,
       ),
     );
+  }
+
+  interceptors(int index) {
+    switch (index) {
+      case 0:
+        break;
+      case 1:
+        break;
+      case 2:
+        break;
+      default:
+        break;
+    }
   }
 }
