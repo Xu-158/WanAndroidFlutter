@@ -36,11 +36,7 @@ class HttpUtil {
     try {
       Response response =
           await dio.get(url, queryParameters: parameters, options: options);
-      if (response.statusCode == 200) {
-        return response.data;
-      } else {
-        throw Exception('请求失败');
-      }
+      return response.data;
     } catch (e) {
       print("requestGet--ERROR => $url");
     }
@@ -53,11 +49,7 @@ class HttpUtil {
     try {
       Response response =
           await dio.post(url, queryParameters: parameters, options: options);
-      if (response.statusCode == 200) {
-        return response.data;
-      } else {
-        throw Exception('请求失败');
-      }
+      return response.data;
     } catch (e) {
       print("requestPost--ERROR => $url");
     }
