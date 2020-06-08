@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/util/size_util.dart';
 
 String baseUrl= 'https://www.wanandroid.com';
@@ -29,3 +30,10 @@ extension Double on double{
 double get winWidth =>SizeUtil.screenWidth;
 
 double get winHeight =>SizeUtil.screenHeight;
+
+///==============ThemeColor=============
+Color get themeColor => Colors.blueGrey;
+
+Color get widgetColor => Colors.grey;
+
+Color get bottomNavBtnColor => Colors.grey;

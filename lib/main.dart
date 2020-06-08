@@ -14,7 +14,6 @@ void main() {
         SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
-
 }
 
 class MyApp extends StatelessWidget {

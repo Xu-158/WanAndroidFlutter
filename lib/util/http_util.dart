@@ -33,25 +33,19 @@ class HttpUtil {
       {Map<String, dynamic> parameters,
       contentType = 'application/json',
       Options options}) async {
-    try {
+//    try {
       Response response =
           await dio.get(url, queryParameters: parameters, options: options);
       return response.data;
-    } catch (e) {
-      print("requestGet--ERROR => $url");
-    }
+//    } catch (e) {}
   }
 
   static Future requestPost(url,
       {Map<String, dynamic> parameters,
       contentType = 'application/json',
       Options options}) async {
-    try {
-      Response response =
-          await dio.post(url, queryParameters: parameters, options: options);
-      return response.data;
-    } catch (e) {
-      print("requestPost--ERROR => $url");
-    }
+    Response response =
+        await dio.post(url, queryParameters: parameters, options: options);
+    return response.data;
   }
 }
