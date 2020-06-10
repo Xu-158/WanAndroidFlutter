@@ -7,17 +7,17 @@ import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_model.dart';
 
 class HomeArticleViewModel extends BaseModel {
-  List<HomeArticleModel> articleList = List();
+  List<HomeArticleModel> _articleList = List();
 
-  EasyRefreshController _controller = EasyRefreshController();
+  EasyRefreshController _easyRefreshController = EasyRefreshController();
 
   int articlePage = 0;
 
   int totalPage = 0;
 
-  List<HomeArticleModel> get getArticleList => articleList;
+  List<HomeArticleModel> get getArticleList => _articleList;
 
-  EasyRefreshController get getEasyRefreshController => _controller;
+  EasyRefreshController get getEasyRefreshController => _easyRefreshController;
 
   void getHomeArticleData({int page = 0}) {
     Api.getHomeArticleList(page: page).then((value) {
@@ -25,7 +25,7 @@ class HomeArticleViewModel extends BaseModel {
         totalPage = ((value['data']['total']) / 20).round();
         value['data']['datas'].map((m) {
           HomeArticleModel model = HomeArticleModel.fromJson(m);
-          articleList.add(model);
+          _articleList.add(model);
         }).toList();
         setState(ReqStatus.success);
       }
@@ -36,9 +36,9 @@ class HomeArticleViewModel extends BaseModel {
   }
 
   Future<void> onRefresh() {
-    articleList.clear();
+    _articleList.clear();
     getHomeArticleData();
-    _controller.finishLoad();
+    _easyRefreshController.finishLoad();
     return Future.value();
   }
 
@@ -61,6 +61,6 @@ class HomeArticleViewModel extends BaseModel {
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _easyRefreshController.dispose();
   }
 }

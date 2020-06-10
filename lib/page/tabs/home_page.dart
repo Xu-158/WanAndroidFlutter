@@ -16,39 +16,39 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
+
   final BannerViewModel _bannerViewModel = BannerViewModel();
   final HomeArticleViewModel _homeArticleViewModel = HomeArticleViewModel();
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
       backgroundColor: themeColor,
       body: SafeArea(
-        child: EasyRefresh.custom(
+        child: EasyRefresh(
           controller: _homeArticleViewModel.getEasyRefreshController,
           header: ClassicalHeader(
               refreshedText: '正在刷新',
               refreshReadyText: '刷新',
               refreshText: '下拉刷新'),
           footer: ClassicalFooter(
-              noMoreText: '没有更多了',
-              loadingText: '正在加载',
-              loadedText: '加载更多'),
+              noMoreText: '没有更多了', loadingText: '正在加载', loadedText: '加载更多'),
           onRefresh: _homeArticleViewModel.onRefresh,
           onLoad: _homeArticleViewModel.onLoad,
-          slivers: <Widget>[
-            SliverAppBar(
-              backgroundColor: themeColor,
-              expandedHeight: 200.px,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: BannerWidget(viewModel: _bannerViewModel),
-                centerTitle: true,
-                title: Text("Android"),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: themeColor,
+                expandedHeight: 200.px,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: BannerWidget(viewModel: _bannerViewModel),
+                ),
               ),
-            ),
-            SliverToBoxAdapter(child: ArticleListWidget(viewModel: _homeArticleViewModel)),
-          ],
+              SliverToBoxAdapter(
+                  child: ArticleListWidget(viewModel: _homeArticleViewModel)),
+            ],
+          ),
         ),
       ),
     );
@@ -70,13 +70,13 @@ class BannerWidget extends StatelessWidget {
         v.getBannerData();
       },
       builder: (context, model, child) {
-        if(model.getReqStatus == ReqStatus.error){
+        if (model.getReqStatus == ReqStatus.error) {
           return ErrorWidgetPage();
         }
-        if(model.getReqStatus == ReqStatus.loading && model.bannerList.isEmpty){
+        if (model.getReqStatus == ReqStatus.loading &&
+            model.bannerList.isEmpty) {
           return LoadingWidget();
-        }
-        if (model.reqStatus == ReqStatus.success) {
+        } else {
           return Swiper(
             viewportFraction: 0.7,
             scale: 1,
@@ -106,8 +106,6 @@ class BannerWidget extends StatelessWidget {
                   title: model?.getBannerList[index].title);
             },
           );
-        } else {
-          return LoadingWidget();
         }
       },
     );
@@ -126,7 +124,13 @@ class ArticleListWidget extends StatelessWidget {
         v.getHomeArticleData();
       },
       builder: (context, model, child) {
-        if (model.reqStatus == ReqStatus.success) {
+        if (model.getReqStatus == ReqStatus.error) {
+          return ErrorWidgetPage();
+        }
+        if (model.getReqStatus == ReqStatus.loading &&
+            model.getArticleList.isEmpty) {
+          return LoadingWidget();
+        } else {
           return ListView.builder(
             padding: EdgeInsets.symmetric(horizontal: 5.px),
             itemCount: model.getArticleList.length,
@@ -135,7 +139,7 @@ class ArticleListWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return InkWell(
                 child: Card(
-                  color: widgetColor.withOpacity(0.4),
+                  color: Colors.white24,
                   elevation: 8,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -148,7 +152,7 @@ class ArticleListWidget extends StatelessWidget {
                             Expanded(
                               child: Text(model.getArticleList[index].title,
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
+                                      color: Colors.black, fontSize: 16),
                                   maxLines: 2),
                             )
                           ],
@@ -162,11 +166,11 @@ class ArticleListWidget extends StatelessWidget {
                                       : true,
                               child: Text(
                                   'by：${model?.getArticleList[index]?.author}',
-                                  style: TextStyle(color: Colors.white)),
+                                  style: TextStyle(color: Colors.black)),
                             ),
                             Spacer(),
                             Text(model?.getArticleList[index]?.niceDate,
-                                style: TextStyle(color: Colors.white)),
+                                style: TextStyle(color: Colors.black)),
                           ],
                         )
                       ],
@@ -179,8 +183,6 @@ class ArticleListWidget extends StatelessWidget {
               );
             },
           );
-        } else {
-          return LoadingWidget();
         }
       },
     );

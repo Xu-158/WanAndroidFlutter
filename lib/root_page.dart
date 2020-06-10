@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/common/global.dart';
-import 'package:wanandroidflutter/page/tabs/data_page.dart';
+import 'package:wanandroidflutter/page/tabs/project_page.dart';
 import 'package:wanandroidflutter/page/tabs/home_page.dart';
 import 'package:wanandroidflutter/page/tabs/mine_page.dart';
 import 'package:wanandroidflutter/util/size_util.dart';
@@ -17,7 +17,7 @@ class _RootPageState extends State<RootPage> {
 
   List<BottomNavigationBarItem> bottomItem = [
     BottomNavigationBarItem(icon: Icon(Icons.ac_unit), title: Text('首页')),
-    BottomNavigationBarItem(icon: Icon(Icons.timer), title: Text('data')),
+    BottomNavigationBarItem(icon: Icon(Icons.timer), title: Text('项目')),
     BottomNavigationBarItem(icon: Icon(Icons.map), title: Text('我的')),
   ];
 
@@ -28,10 +28,10 @@ class _RootPageState extends State<RootPage> {
       body: PageView(
         controller: _pageController,
         physics: NeverScrollableScrollPhysics(),
-        children: <Widget>[HomePage(), DataPage(), MinePage()],
+        children: <Widget>[HomePage(), ProjectPage(), MinePage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: themeColor,
+//        backgroundColor: themeColor,
         currentIndex: currentIndex,
         items: bottomItem,
         onTap: (int index) {
