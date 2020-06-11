@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
         tabBarTheme: TabBarTheme(
-          unselectedLabelColor: Colors.red,
-          labelColor: Colors.red,
+          unselectedLabelColor: Colors.white,
+          labelColor: Colors.black,
         ),
-        indicatorColor: Colors.red,
-        primaryColor: Colors.red,
+//        indicatorColor: Colors.red,
+//        primaryColor: Colors.red,
       ),
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => RootPage()

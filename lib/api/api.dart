@@ -7,4 +7,10 @@ class Api {
 
   static Future getHomeArticleList({page = 0}) =>
       HttpUtil.requestGet('/article/list/$page/json');
+
+  ///ProjectPage Api======================================================================
+  static Future getProjectTree() => HttpUtil.requestGet('/project/tree/json');
+
+  static Future getProjectList({page = 0, cid = 294}) =>
+      HttpUtil.requestGet('/project/list/$page/json?cid=$cid');
 }
