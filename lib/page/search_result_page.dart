@@ -5,6 +5,7 @@ import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/base/error_widget.dart';
 import 'package:wanandroidflutter/widget/base/loading_widget.dart';
+import 'package:wanandroidflutter/widget/common/line.dart';
 
 class SearchResultPage extends StatefulWidget {
   final String keys;
@@ -19,6 +20,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('${widget.keys}'),
         leading: IconButton(
@@ -31,7 +33,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
       body: BaseWidget<SearchResultViewModel>(
         viewModel: _searchResultViewModel,
         onFirstLoading: (v) {
-          v.getSearchResultData(key:widget.keys);
+          v.getSearchResultData(key: widget.keys);
         },
         builder: (context, viewModel, child) {
           if (viewModel.getReqStatus == ReqStatus.error) {
@@ -41,21 +43,25 @@ class _SearchResultPageState extends State<SearchResultPage> {
               viewModel.getSearchResultList.isEmpty) {
             return LoadingWidget();
           } else {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              child: Wrap(
-                spacing: 20,
-                children: viewModel.getSearchResultList.map((e) {
-                  return InkWell(
-                    child: Chip(
-                      elevation: 3,
-                      backgroundColor: Colors.white,
-                      label: Text(e.title),
+            return ListView.builder(
+              itemCount: viewModel.getSearchResultList.length,
+              itemBuilder: (context, index) {
+                var list = viewModel.getSearchResultList[index];
+                return Column(
+                  children: <Widget>[
+                    InkWell(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                        child: Column(
+                          children: <Widget>[Text(list.title,style: TextStyle(fontSize: 16),)],
+                        ),
+                      ),
+                      onTap: () => viewModel.searchOnTap(key: list.title),
                     ),
-                    onTap: ()=>viewModel.searchOnTap(key: e.title),
-                  );
-                }).toList(),
-              ),
+                    HorizontalLine(color: Colors.black,height: 1,)
+                  ],
+                );
+              },
             );
           }
         },

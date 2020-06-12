@@ -17,17 +17,20 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: TextField(
-          controller: _hotSearchViewModel.getTextController,
-          autofocus: true,
-          decoration: InputDecoration(
-              fillColor: themeColor,
-              filled: true,
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(30))),
+        title: Container(
+          height: 35.px,
+          child: TextField(
+            controller: _hotSearchViewModel.getTextController,
+            decoration: InputDecoration(
+                fillColor: Colors.white,
+                filled: true,
+                contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(30))),
+          ),
         ),
         leading: IconButton(
           icon: Icon(Icons.keyboard_arrow_left),
@@ -53,8 +56,7 @@ class _SearchPageState extends State<SearchPage> {
           if (viewModel.getReqStatus == ReqStatus.error) {
             return ErrorWidgetPage();
           }
-          if (viewModel.getReqStatus == ReqStatus.loading &&
-              viewModel.getHotSearchList.isEmpty) {
+          if (viewModel.getReqStatus == ReqStatus.loading && viewModel.getHotSearchList.isEmpty) {
             return LoadingWidget();
           } else {
             return Container(
@@ -64,11 +66,11 @@ class _SearchPageState extends State<SearchPage> {
                 children: viewModel.getHotSearchList.map((e) {
                   return InkWell(
                     child: Chip(
-                      elevation: 3,
+                      elevation: 4,
                       backgroundColor: Colors.white,
                       label: Text(e.name),
                     ),
-                    onTap: ()=>viewModel.searchOnTap(key: e.name),
+                    onTap: () => viewModel.searchOnTap(key: e.name),
                   );
                 }).toList(),
               ),
