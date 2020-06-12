@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/page/tabs/project_page.dart';
 import 'package:wanandroidflutter/page/tabs/home_page.dart';
 import 'package:wanandroidflutter/page/tabs/mine_page.dart';
@@ -30,7 +31,7 @@ class _RootPageState extends State<RootPage> {
         children: <Widget>[HomePage(), ProjectPage(), MinePage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
-//        backgroundColor: themeColor,
+        backgroundColor: themeColor,
         currentIndex: currentIndex,
         items: bottomItem,
         onTap: (int index) {

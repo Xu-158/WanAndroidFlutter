@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:wanandroidflutter/api/view_model/banner_view_model.dart';
 import 'package:wanandroidflutter/api/view_model/home_artcile_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
+import 'package:wanandroidflutter/page/search_page.dart';
+import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
-import 'package:wanandroidflutter/widget/error_widget.dart';
-import 'package:wanandroidflutter/widget/loading_widget.dart';
+import 'package:wanandroidflutter/widget/base/error_widget.dart';
+import 'package:wanandroidflutter/widget/base/loading_widget.dart';
+import 'package:wanandroidflutter/widget/common/line.dart';
+import 'package:wanandroidflutter/widget/easyRefresh_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,7 +19,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
-
   final BannerViewModel _bannerViewModel = BannerViewModel();
   final HomeArticleViewModel _homeArticleViewModel = HomeArticleViewModel();
 
@@ -24,16 +26,10 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      backgroundColor: themeColor,
-      body: SafeArea(
-        child: EasyRefresh(
+      body: Container(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        child: RefreshWidget(
           controller: _homeArticleViewModel.getEasyRefreshController,
-          header: ClassicalHeader(
-              refreshedText: '正在刷新',
-              refreshReadyText: '刷新',
-              refreshText: '下拉刷新'),
-          footer: ClassicalFooter(
-              noMoreText: '没有更多了', loadingText: '正在加载', loadedText: '加载更多'),
           onRefresh: _homeArticleViewModel.onRefresh,
           onLoad: _homeArticleViewModel.onLoad,
           child: CustomScrollView(
@@ -50,6 +46,12 @@ class _HomePageState extends State<HomePage>
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.search),
+        onPressed: () {
+          NavigatorUtil.push(SearchPage());
+        },
       ),
     );
   }
@@ -131,19 +133,22 @@ class ArticleListWidget extends StatelessWidget {
             model.getArticleList.isEmpty) {
           return LoadingWidget();
         } else {
-          return ListView.builder(
-            padding: EdgeInsets.symmetric(horizontal: 5.px),
-            itemCount: model.getArticleList.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return InkWell(
-                child: Card(
-                  color: Colors.white24,
-                  elevation: 8,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 10.px, horizontal: 10.px),
+          return Container(
+            decoration: BoxDecoration(
+                color: themeColor.withBlue(160),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(40),
+                )),
+            padding: EdgeInsets.all(0),
+            child: ListView.builder(
+              itemCount: model.getArticleList.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return InkWell(
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.px, horizontal: 5.px),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
@@ -152,7 +157,7 @@ class ArticleListWidget extends StatelessWidget {
                             Expanded(
                               child: Text(model.getArticleList[index].title,
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 16),
+                                      color: Colors.white, fontSize: 17),
                                   maxLines: 2),
                             )
                           ],
@@ -166,22 +171,25 @@ class ArticleListWidget extends StatelessWidget {
                                       : true,
                               child: Text(
                                   'by：${model?.getArticleList[index]?.author}',
-                                  style: TextStyle(color: Colors.black)),
+                                  style: TextStyle(color: Colors.white)),
                             ),
                             Spacer(),
                             Text(model?.getArticleList[index]?.niceDate,
-                                style: TextStyle(color: Colors.black)),
+                                style: TextStyle(color: Colors.white)),
                           ],
-                        )
+                        ),
+                        HorizontalLine(
+                          height: 1,
+                        ),
                       ],
                     ),
                   ),
-                ),
-                onTap: () => model.cardOnTap(
-                    url: model?.getArticleList[index]?.link,
-                    title: model?.getArticleList[index]?.title),
-              );
-            },
+                  onTap: () => model.cardOnTap(
+                      url: model?.getArticleList[index]?.link,
+                      title: model?.getArticleList[index]?.title),
+                );
+              },
+            ),
           );
         }
       },

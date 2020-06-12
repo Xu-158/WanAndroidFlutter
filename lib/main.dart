@@ -1,7 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/root_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 
@@ -9,11 +7,11 @@ void main() {
   runApp(MyApp());
 
 ///沉浸式状态栏
-  if (Platform.isAndroid) {
-    SystemUiOverlayStyle systemUiOverlayStyle =
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  }
+//  if (Platform.isAndroid) {
+//    SystemUiOverlayStyle systemUiOverlayStyle =
+//        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+//    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+//  }
 }
 
 class MyApp extends StatelessWidget {
@@ -23,14 +21,12 @@ class MyApp extends StatelessWidget {
       title: 'FlutterWanAndroid',
       navigatorKey: NavigatorUtil.navKey,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white,
+//        primaryColor: Colors.grey,
+        scaffoldBackgroundColor: themeColor,
         tabBarTheme: TabBarTheme(
-          unselectedLabelColor: Colors.white,
+          unselectedLabelColor: Colors.white24,
           labelColor: Colors.black,
         ),
-//        indicatorColor: Colors.red,
-//        primaryColor: Colors.red,
       ),
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => RootPage()

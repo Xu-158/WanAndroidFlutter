@@ -6,8 +6,8 @@ import 'package:wanandroidflutter/api/view_model/project_tree_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/model/project_list_model.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
-import 'package:wanandroidflutter/widget/error_widget.dart';
-import 'package:wanandroidflutter/widget/loading_widget.dart';
+import 'package:wanandroidflutter/widget/base/error_widget.dart';
+import 'package:wanandroidflutter/widget/base/loading_widget.dart';
 
 class ProjectPage extends StatefulWidget {
   @override

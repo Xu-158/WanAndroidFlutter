@@ -33,19 +33,27 @@ class HttpUtil {
       {Map<String, dynamic> parameters,
       contentType = 'application/json',
       Options options}) async {
-//    try {
       Response response =
           await dio.get(url, queryParameters: parameters, options: options);
-      return response.data;
-//    } catch (e) {}
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        throw Exception('后端接口出现异常');
+      }
   }
 
   static Future requestPost(url,
       {Map<String, dynamic> parameters,
-      contentType = 'application/json',
-      Options options}) async {
+        contentType = 'application/json',
+        Options options,
+        dynamic data}) async {
     Response response =
-        await dio.post(url, queryParameters: parameters, options: options);
-    return response.data;
+    await dio.post(url, queryParameters: parameters, data:data,options: options);
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('后端接口出现异常');
+    }
   }
+
 }
