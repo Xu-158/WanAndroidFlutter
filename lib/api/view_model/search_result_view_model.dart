@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/model/search_model.dart';
-import 'package:wanandroidflutter/page/search_result_page.dart';
+import 'package:wanandroidflutter/page/web_view_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_model.dart';
 
@@ -28,7 +28,12 @@ class SearchResultViewModel extends BaseModel{
   }
 
   /// =============== Route =================
-  void searchOnTap({key}) {
-    NavigatorUtil.push(SearchResultPage(keys:key));
+  void searchResultOnTap({url, title}) {
+    NavigatorUtil.push(WebViewPage(
+      openUrl: url,
+      title: title,
+      isHtml: true,
+    ));
   }
+
 }

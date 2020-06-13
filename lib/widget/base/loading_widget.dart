@@ -8,8 +8,7 @@ class LoadingWidget extends StatelessWidget {
     return Center(
         child: Container(
           decoration: BoxDecoration(
-              color: Colors.black54.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(20.0)),
+              color: Colors.black54.withOpacity(0.2)),
           width: winWidth,
           height: winHeight,
           child: Column(

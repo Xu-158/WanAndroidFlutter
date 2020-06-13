@@ -1,24 +1,45 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:html/dom.dart' as dom;
 
 class WebViewPage extends StatefulWidget {
   final String openUrl;
   final String title;
-  WebViewPage({this.openUrl = 'https://flutterchina.club/',this.title = "WebView"});
+  final bool isHtml;
+  WebViewPage(
+      {this.openUrl = 'https://flutterchina.club/',
+      this.title = "WebView",
+      this.isHtml});
   @override
   _WebViewPageState createState() => _WebViewPageState();
 }
 
 class _WebViewPageState extends State<WebViewPage> {
   final Completer<WebViewController> _controller =
-  Completer<WebViewController>();
+      Completer<WebViewController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: widget.isHtml
+            ? Html(
+                data: widget.title,
+                customTextStyle: (dom.Node node, TextStyle baseStyle) {
+                  if (node is dom.Element) {
+                    switch (node.localName) {
+                      case "em":
+                        return baseStyle.merge(TextStyle(
+                            color: Colors.black, height: 1, fontSize: 18));
+                    }
+                  }
+                  return baseStyle;
+                },
+                defaultTextStyle: TextStyle(color: Colors.black, fontSize: 18),
+              )
+            : Text(widget.title),
       ),
       body: WebView(
         initialUrl: widget.openUrl,
