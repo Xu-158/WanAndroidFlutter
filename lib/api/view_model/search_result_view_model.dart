@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/model/search_model.dart';
 import 'package:wanandroidflutter/page/web_view_page.dart';
@@ -7,24 +8,50 @@ import 'package:wanandroidflutter/widget/base/base_model.dart';
 
 import '../api.dart';
 
-class SearchResultViewModel extends BaseModel{
+class SearchResultViewModel extends BaseModel {
   List<SearchModel> _list = List();
+
+  EasyRefreshController _easyRefreshController = EasyRefreshController();
+
+  String thisKey;
+
+  int totalPage = 1;
+
+  int currentPage = 0;
 
   List<SearchModel> get getSearchResultList => _list;
 
-  void getSearchResultData({@required key}) {
-    if (reqStatus == ReqStatus.success) return;
-    if(_list.isNotEmpty) _list.clear();
-    Api.postSearch(key: key).then((value) {
+  EasyRefreshController get getEasyRefreshController => _easyRefreshController;
+
+  void getSearchResultData({@required key, page = 0}) {
+    thisKey = key;
+    Api.postSearch(key: key, page: page).then((value) {
       if (value == null) throw Exception('getHotSearchData is null');
+      totalPage = ((value['data']['total']) / 20).round();
       value['data']['datas'].map((e) {
         SearchModel m = SearchModel.fromJson(e);
         _list.add(m);
       }).toList();
       setState(ReqStatus.success);
-    }).catchError((e){
+    }).catchError((e) {
       setState(ReqStatus.error);
     });
+  }
+
+  Future<void> onRefresh() {
+    _list.clear();
+    getSearchResultData(key: thisKey, page: 0);
+    print('keykeykeykeykeykeykeykey$thisKey');
+    _easyRefreshController.finishLoad();
+    return Future.value();
+  }
+
+  Future<void> onLoad() {
+    if (currentPage < totalPage) {
+      currentPage++;
+      getSearchResultData(key: thisKey, page: currentPage);
+    }
+    return Future.value();
   }
 
   /// =============== Route =================
@@ -35,5 +62,4 @@ class SearchResultViewModel extends BaseModel{
       isHtml: true,
     ));
   }
-
 }

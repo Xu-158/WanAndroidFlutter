@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/root_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 

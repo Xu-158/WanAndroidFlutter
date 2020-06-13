@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:wanandroidflutter/common/global.dart';
 
 class RefreshWidget extends StatelessWidget {
   final EasyRefreshController controller;
@@ -28,9 +29,17 @@ class RefreshWidget extends StatelessWidget {
     return EasyRefresh(
       controller: controller,
       header: ClassicalHeader(
-          refreshedText: '正在刷新', refreshReadyText: '刷新', refreshText: '下拉刷新'),
+          infoColor: themeColor,
+          textColor: themeColor,
+          refreshedText: '正在刷新',
+          refreshReadyText: '刷新',
+          refreshText: '下拉刷新'),
       footer: ClassicalFooter(
-          noMoreText: '没有更多了', loadingText: '正在加载', loadedText: '加载更多'),
+          textColor: themeColor,
+          infoColor: themeColor,
+          noMoreText: '没有更多了',
+          loadingText: '正在加载',
+          loadedText: '加载更多'),
       onRefresh: onRefresh,
       onLoad: onLoad,
       child: child,

@@ -1,15 +1,17 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
+import 'package:wanandroidflutter/util/regexp_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:html/dom.dart' as dom;
 
 class WebViewPage extends StatefulWidget {
   final String openUrl;
+
   final String title;
+
+// 标题是否包含HTML标签
   final bool isHtml;
+
   WebViewPage(
       {this.openUrl = 'https://flutterchina.club/',
       this.title = "WebView",
@@ -23,24 +25,10 @@ class _WebViewPageState extends State<WebViewPage> {
       Completer<WebViewController>();
   @override
   Widget build(BuildContext context) {
+    var title = filterHtml(widget.title);
     return Scaffold(
       appBar: AppBar(
-        title: widget.isHtml
-            ? Html(
-                data: widget.title,
-                customTextStyle: (dom.Node node, TextStyle baseStyle) {
-                  if (node is dom.Element) {
-                    switch (node.localName) {
-                      case "em":
-                        return baseStyle.merge(TextStyle(
-                            color: Colors.white, height: 1, fontSize: 18));
-                    }
-                  }
-                  return baseStyle;
-                },
-                defaultTextStyle: TextStyle(color: Colors.white, fontSize: 18),
-              )
-            : Text(widget.title),
+        title: Text(title,maxLines: 1,overflow: TextOverflow.ellipsis,),
         leading: IconButton(
           icon: Icon(Icons.keyboard_arrow_left),
           onPressed: () => NavigatorUtil.maybePop(),

@@ -1,38 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:wanandroidflutter/widget/base/base_model.dart';
+import 'package:wanandroidflutter/common/global.dart';
+import 'package:wanandroidflutter/widget/base/error_widget.dart';
+import 'package:wanandroidflutter/widget/base/loading_widget.dart';
 
-class BaseWidget<T extends BaseModel> extends StatefulWidget {
-  final Widget Function(BuildContext context, T viewModel, Widget child)
-      builder;
-  final T viewModel;
+class BaseWidget extends StatelessWidget {
+  final ReqStatus reqStatus;
   final Widget child;
-  final Function(T) onFirstLoading;
 
-  BaseWidget({this.viewModel, this.child, this.builder, this.onFirstLoading});
-  @override
-  _BaseWidgetState<T> createState() => _BaseWidgetState<T>();
-}
-
-class _BaseWidgetState<T extends BaseModel> extends State<BaseWidget<T>> {
-  T viewModel;
-  @override
-  void initState() {
-    super.initState();
-    viewModel = widget.viewModel;
-    if (widget.onFirstLoading != null) {
-      widget.onFirstLoading(viewModel);
-    }
-  }
-
+  const BaseWidget({Key key, this.reqStatus, this.child}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<T>.value(
-      value: viewModel,
-      child: Consumer<T>(
-        child: widget.child,
-        builder: widget.builder,
-      ),
-    );
+    if (reqStatus == ReqStatus.error) {
+      return ErrorWidgetPage();
+    }
+    if (reqStatus == ReqStatus.loading) {
+      return LoadingWidget();
+    } else {
+      return child;
+    }
   }
 }
+

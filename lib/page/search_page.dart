@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/api/view_model/hot_search_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
+import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
-import 'package:wanandroidflutter/widget/base/error_widget.dart';
-import 'package:wanandroidflutter/widget/base/loading_widget.dart';
 import 'package:wanandroidflutter/widget/common/line.dart';
 import 'package:wanandroidflutter/widget/common/small_widget.dart';
 
@@ -44,6 +43,7 @@ class _SearchPageState extends State<SearchPage> {
         actions: <Widget>[
           FloatingActionButton(
             heroTag: 'SearchIcon',
+            backgroundColor: Colors.transparent,
             child: Icon(Icons.search),
             onPressed: () {
               _hotSearchViewModel.searchOnTap(
@@ -54,20 +54,15 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ],
       ),
-      body: BaseWidget<HotSearchViewModel>(
+      body: BasePage<HotSearchViewModel>(
         viewModel: _hotSearchViewModel,
         onFirstLoading: (v) {
           v.getHotSearchData();
         },
         builder: (context, viewModel, child) {
-          if (viewModel.getReqStatus == ReqStatus.error) {
-            return ErrorWidgetPage();
-          }
-          if (viewModel.getReqStatus == ReqStatus.loading &&
-              viewModel.getHotSearchList.isEmpty) {
-            return LoadingWidget();
-          } else {
-            return Container(
+          return BaseWidget(
+            reqStatus: viewModel.reqStatus,
+            child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,8 +134,8 @@ class _SearchPageState extends State<SearchPage> {
                       ))
                 ],
               ),
-            );
-          }
+            ),
+          );
         },
       ),
     );

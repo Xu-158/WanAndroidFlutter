@@ -5,9 +5,8 @@ import 'package:wanandroidflutter/api/view_model/project_list_view_model.dart';
 import 'package:wanandroidflutter/api/view_model/project_tree_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/model/project_list_model.dart';
+import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
-import 'package:wanandroidflutter/widget/base/error_widget.dart';
-import 'package:wanandroidflutter/widget/base/loading_widget.dart';
 
 class ProjectPage extends StatefulWidget {
   @override
@@ -22,20 +21,15 @@ class _ProjectPageState extends State<ProjectPage>
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<ProjectTreeViewModel>(
+    return BasePage<ProjectTreeViewModel>(
       viewModel: _projectTreeViewModel,
       onFirstLoading: (v) {
         v.getProjectTreeData();
       },
       builder: (context, viewModel, child) {
-        if (viewModel.getReqStatus == ReqStatus.error) {
-          return ErrorWidgetPage();
-        }
-        if (viewModel.getReqStatus == ReqStatus.loading &&
-            viewModel.getProjectTreeList.isEmpty) {
-          return LoadingWidget();
-        } else {
-          return DefaultTabController(
+        return BaseWidget(
+          reqStatus: viewModel.reqStatus,
+          child: DefaultTabController(
             length: viewModel.getProjectTreeList.length,
             child: Scaffold(
               appBar: AppBar(
@@ -43,11 +37,11 @@ class _ProjectPageState extends State<ProjectPage>
                   isScrollable: true,
                   indicatorColor: Colors.white,
                   tabs: List.generate(viewModel.getProjectTreeList.length,
-                      (index) {
-                    return Tab(
-                      text: '${viewModel.getProjectTreeList[index].name}',
-                    );
-                  }),
+                          (index) {
+                        return Tab(
+                          text: '${viewModel.getProjectTreeList[index].name}',
+                        );
+                      }),
                 ),
                 actions: <Widget>[
                   Icon(Icons.arrow_forward_ios),
@@ -55,14 +49,14 @@ class _ProjectPageState extends State<ProjectPage>
               ),
               body: TabBarView(
                 children:
-                    List.generate(viewModel.getProjectTreeList.length, (index) {
+                List.generate(viewModel.getProjectTreeList.length, (index) {
                   return ProjectDetailsPage(
                       id: viewModel.getProjectTreeList[index].id);
                 }),
               ),
             ),
-          );
-        }
+          ),
+        );
       },
     );
   }
@@ -81,23 +75,18 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BaseWidget<ProjectListViewModel>(
+    return BasePage<ProjectListViewModel>(
       viewModel: _projectListViewModel,
       onFirstLoading: (v) {
         v.getProjectListData(cid: widget.id);
       },
       builder: (context, viewModel, child) {
-        if (viewModel.getReqStatus == ReqStatus.error) {
-          return ErrorWidgetPage();
-        }
-        if (viewModel.getReqStatus == ReqStatus.loading &&
-            viewModel.getProjectList.isEmpty) {
-          return LoadingWidget();
-        } else {
-          return EasyRefresh(
+        return BaseWidget(
+          reqStatus: viewModel.reqStatus,
+          child: EasyRefresh(
             controller: _projectListViewModel.getEasyRefreshController,
-            onRefresh: ()=>_projectListViewModel.onRefresh(cid: widget.id),
-            onLoad: ()=>_projectListViewModel.onLoad(cid: widget.id),
+            onRefresh: () => _projectListViewModel.onRefresh(cid: widget.id),
+            onLoad: () => _projectListViewModel.onLoad(cid: widget.id),
             child: ListView.builder(
                 itemCount: viewModel.getProjectList.length,
                 itemBuilder: (context, index) {
@@ -109,11 +98,11 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage>
                       children: <Widget>[
                         InkWell(
                           child: Card(
-                            color: Colors.white60,
+                            color: themeColor.withOpacity(0.2),
                             elevation: 15,
                             shape: RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
+                              BorderRadius.all(Radius.circular(15.0)),
                             ),
                             //对Widget截取的行为，比如这里 Clip.antiAlias 指抗锯齿
                             clipBehavior: Clip.antiAlias,
@@ -138,7 +127,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage>
                             maxLines: 2,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                                fontSize: 20,
                                 color: Colors.black54),
                           ),
                         ),
@@ -146,8 +135,8 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage>
                     ),
                   );
                 }),
-          );
-        }
+          ),
+        );
       },
     );
   }

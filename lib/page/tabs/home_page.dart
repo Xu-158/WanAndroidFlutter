@@ -7,9 +7,8 @@ import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/model/home_article_model.dart';
 import 'package:wanandroidflutter/page/search_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
+import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
-import 'package:wanandroidflutter/widget/base/error_widget.dart';
-import 'package:wanandroidflutter/widget/base/loading_widget.dart';
 import 'package:wanandroidflutter/widget/common/article_widget.dart';
 import 'file:///C:/Users/13521/Desktop/wan_android_flutter/lib/widget/common/easyRefresh_widget.dart';
 
@@ -69,49 +68,43 @@ class BannerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<BannerViewModel>(
+    return BasePage<BannerViewModel>(
       viewModel: viewModel,
       onFirstLoading: (v) {
         v.getBannerData();
       },
       builder: (context, model, child) {
-        if (model.getReqStatus == ReqStatus.error) {
-          return ErrorWidgetPage();
-        }
-        if (model.getReqStatus == ReqStatus.loading &&
-            model.bannerList.isEmpty) {
-          return LoadingWidget();
-        } else {
-          return Swiper(
-            viewportFraction: 0.8,
-            scale: 0.9,
-            layout: SwiperLayout.DEFAULT,
-            itemWidth: winWidth * 0.90.px,
-            itemHeight: winHeight * 0.28.px,
-            itemCount: model.getBannerList.length,
-            itemBuilder: (BuildContext context, int index) {
-              String url = model.getBannerList[index].imagePath;
-              return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusDirectional.circular(10),
-                ),
-                elevation: 10,
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: CachedNetworkImageProvider(url))),
-                ),
-              );
-            },
-            onTap: (index) {
-              model.cardOnTap(
-                  url: model?.getBannerList[index].url,
-                  title: model?.getBannerList[index].title);
-            },
-          );
-        }
+        return BaseWidget(
+            reqStatus: model.reqStatus,
+            child: Swiper(
+              viewportFraction: 0.8,
+              scale: 0.9,
+              layout: SwiperLayout.DEFAULT,
+              itemWidth: winWidth * 0.90.px,
+              itemHeight: winHeight * 0.28.px,
+              itemCount: model.getBannerList.length,
+              itemBuilder: (BuildContext context, int index) {
+                String url = model.getBannerList[index].imagePath;
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.circular(10),
+                  ),
+                  elevation: 10,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: CachedNetworkImageProvider(url))),
+                  ),
+                );
+              },
+              onTap: (index) {
+                model.cardOnTap(
+                    url: model?.getBannerList[index].url,
+                    title: model?.getBannerList[index].title);
+              },
+            ));
       },
     );
   }
@@ -123,20 +116,15 @@ class ArticleListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<HomeArticleViewModel>(
+    return BasePage<HomeArticleViewModel>(
       viewModel: viewModel,
       onFirstLoading: (v) {
         v.getHomeArticleData();
       },
       builder: (context, model, child) {
-        if (model.getReqStatus == ReqStatus.error) {
-          return ErrorWidgetPage();
-        }
-        if (model.getReqStatus == ReqStatus.loading &&
-            model.getArticleList.isEmpty) {
-          return LoadingWidget();
-        } else {
-          return ListView.builder(
+        return BaseWidget(
+          reqStatus: model.reqStatus,
+          child: ListView.builder(
             itemCount: model.getArticleList.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -149,8 +137,8 @@ class ArticleListWidget extends StatelessWidget {
                 time: m?.niceDate,
               );
             },
-          );
-        }
+          ),
+        );
       },
     );
   }

@@ -10,9 +10,7 @@ class ArticleTileWidget extends StatelessWidget {
   final String subTitle;
   final String time;
 
-  const ArticleTileWidget(
-      {Key key, this.onTap, this.title, this.subTitle, this.time})
-      : super(key: key);
+  ArticleTileWidget({this.onTap, this.title = "", this.subTitle, this.time});
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -21,23 +19,26 @@ class ArticleTileWidget extends StatelessWidget {
         child: Column(
           children: <Widget>[
             SmallWidget(
-              height: 70,
-              textWidget: Html(
-                data: title,
-                customTextStyle: (dom.Node node, TextStyle baseStyle) {
-                  if (node is dom.Element) {
-                    switch (node.localName) {
-                      case "em":
-                        return baseStyle.merge(TextStyle(
-                            color: Colors.yellow.withOpacity(0.8),
-                            fontWeight: FontWeight.bold,
-                            height: 1,
-                            fontSize: 20));
+              height: 70.px,
+              width: winWidth,
+              textWidget: SingleChildScrollView(
+                child: Html(
+                  data: title,
+                  customTextStyle: (dom.Node node, TextStyle baseStyle) {
+                    if (node is dom.Element) {
+                      switch (node.localName) {
+                        case "em":
+                          return baseStyle.merge(TextStyle(
+                              color: Colors.yellow.withOpacity(0.8),
+                              fontWeight: FontWeight.bold,
+                              height: 1,
+                              fontSize: 20));
+                      }
                     }
-                  }
-                  return baseStyle;
-                },
-                defaultTextStyle: TextStyle(color: Colors.white, fontSize: 18),
+                    return baseStyle;
+                  },
+                  defaultTextStyle: TextStyle(color: Colors.white, fontSize: 18),
+                ),
               ),
               bgColor: themeColor,
             ),
