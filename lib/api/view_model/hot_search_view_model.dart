@@ -49,7 +49,7 @@ class HotSearchViewModel extends BaseModel {
       showToast(message: '搜索内容为空');
       return;
     }
-    _historySearchList.add(key);
+    _historySearchList.insert(0,key);
     SPUtil.setData(
         type: 'List', key: SPUtil.historySearch, value: _historySearchList);
     notifyListeners();

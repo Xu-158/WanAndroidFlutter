@@ -23,12 +23,22 @@ class WebViewPage extends StatefulWidget {
 class _WebViewPageState extends State<WebViewPage> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
+
+  String filterTitle;
+
+  @override
+  void initState() {
+    super.initState();
+    filterTitle = widget.title;
+    if(widget.isHtml){
+      filterTitle = filterHtml(widget.title);
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    var title = filterHtml(widget.title);
     return Scaffold(
       appBar: AppBar(
-        title: Text(title,maxLines: 1,overflow: TextOverflow.ellipsis,),
+        title: Text(filterTitle,maxLines: 1,overflow: TextOverflow.ellipsis,),
         leading: IconButton(
           icon: Icon(Icons.keyboard_arrow_left),
           onPressed: () => NavigatorUtil.maybePop(),

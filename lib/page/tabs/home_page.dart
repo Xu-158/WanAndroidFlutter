@@ -47,8 +47,8 @@ class _HomePageState extends State<HomePage>
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
-        foregroundColor: themeColor,
+        backgroundColor: themeColor,
+        foregroundColor: Colors.white,
         heroTag: 'SearchIcon',
         child: Icon(Icons.search, size: 28.px),
         onPressed: () {

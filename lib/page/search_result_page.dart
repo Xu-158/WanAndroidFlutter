@@ -4,7 +4,7 @@ import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_Page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/common/article_widget.dart';
-import 'package:wanandroidflutter/widget/common/line.dart';
+import 'package:wanandroidflutter/widget/common/easyRefresh_widget.dart';
 
 class SearchResultPage extends StatefulWidget {
   final String keys;
@@ -37,27 +37,28 @@ class _SearchResultPageState extends State<SearchResultPage> {
         builder: (context, viewModel, child) {
           return BaseWidget(
             reqStatus: viewModel.reqStatus,
-            child: ListView.builder(
-              itemCount: viewModel.getSearchResultList.length,
-              itemBuilder: (context, index) {
-                var v = viewModel.getSearchResultList[index];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    ArticleTileWidget(
-                      onTap: () => viewModel.searchResultOnTap(
-                          title: v.title, url: v.link),
-                      title: v?.title,
-                      subTitle: v?.shareUser,
-                      time: v?.niceDate,
-                    ),
-                    HorizontalLine(
-                      color: Colors.grey.withOpacity(0.8),
-                      height: 1,
-                    )
-                  ],
-                );
-              },
+            child: RefreshWidget(
+              controller: viewModel.getEasyRefreshController,
+              onRefresh: viewModel.onRefresh,
+              onLoad: viewModel.onLoad,
+              child: ListView.builder(
+                itemCount: viewModel.getSearchResultList.length,
+                itemBuilder: (context, index) {
+                  var v = viewModel.getSearchResultList[index];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      ArticleTileWidget(
+                        onTap: () => viewModel.searchResultOnTap(
+                            title: v.title, url: v.link),
+                        title: v?.title,
+                        subTitle: v?.shareUser,
+                        time: v?.niceDate,
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           );
         },

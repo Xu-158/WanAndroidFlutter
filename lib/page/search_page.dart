@@ -24,11 +24,19 @@ class _SearchPageState extends State<SearchPage> {
           height: 35.px,
           child: TextField(
             controller: _hotSearchViewModel.getTextController,
+            onSubmitted: (v) {
+              _hotSearchViewModel.searchOnTap(
+                  key: _hotSearchViewModel.getTextController.text);
+            },
+            cursorColor: themeColor,
             decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(30)),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(30))),
@@ -67,12 +75,18 @@ class _SearchPageState extends State<SearchPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SmallWidget(
-                    text: '热门搜索',
-                    fontColor: Colors.white,
-                    bgColor: Colors.blue,
-                    fontSize: 18,
-                    height: 35.px,
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusDirectional.circular(20),
+                    ),
+                    elevation: 5,
+                    child: SmallWidget(
+                      text: '热门搜索',
+                      fontColor: Colors.white,
+                      bgColor: Colors.blue,
+                      fontSize: 18,
+                      height: 35.px,
+                    ),
                   ),
                   Wrap(
                     spacing: 25,
@@ -99,22 +113,27 @@ class _SearchPageState extends State<SearchPage> {
                             ),
                           ),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SmallWidget(
-                                text: '搜索记录',
-                                fontColor: Colors.white,
-                                bgColor: Colors.blue,
-                                fontSize: 18,
-                                height: 35.px,
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusDirectional.circular(20),
+                                ),
+                                elevation: 5,
+                                child: SmallWidget(
+                                  text: '搜索记录',
+                                  fontColor: Colors.white,
+                                  bgColor: Colors.blue,
+                                  fontSize: 18,
+                                  height: 35.px,
+                                ),
                               ),
                               Spacer(),
-                              SmallWidget(
-                                textWidget: IconButton(
-                                  icon: Icon(Icons.clear),
-                                  onPressed: () =>
-                                      viewModel.clearHistorySearch(),
-                                ),
-                              )
+                              IconButton(
+                                padding: EdgeInsets.only(bottom: 10),
+                                icon: Icon(Icons.clear),
+                                onPressed: () => viewModel.clearHistorySearch(),
+                              ),
                             ],
                           ),
                           Wrap(
