@@ -37,11 +37,11 @@ class _ProjectPageState extends State<ProjectPage>
                   isScrollable: true,
                   indicatorColor: Colors.white,
                   tabs: List.generate(viewModel.getProjectTreeList.length,
-                          (index) {
-                        return Tab(
-                          text: '${viewModel.getProjectTreeList[index].name}',
-                        );
-                      }),
+                      (index) {
+                    return Tab(
+                      text: '${viewModel.getProjectTreeList[index].name}',
+                    );
+                  }),
                 ),
                 actions: <Widget>[
                   Icon(Icons.arrow_forward_ios),
@@ -49,7 +49,7 @@ class _ProjectPageState extends State<ProjectPage>
               ),
               body: TabBarView(
                 children:
-                List.generate(viewModel.getProjectTreeList.length, (index) {
+                    List.generate(viewModel.getProjectTreeList.length, (index) {
                   return ProjectDetailsPage(
                       id: viewModel.getProjectTreeList[index].id);
                 }),
@@ -98,11 +98,11 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage>
                       children: <Widget>[
                         InkWell(
                           child: Card(
-                            color: themeColor.withOpacity(0.2),
+                            color: Colors.white,
                             elevation: 15,
                             shape: RoundedRectangleBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(15.0)),
+                                  BorderRadius.all(Radius.circular(15.0)),
                             ),
                             //对Widget截取的行为，比如这里 Clip.antiAlias 指抗锯齿
                             clipBehavior: Clip.antiAlias,
@@ -131,6 +131,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage>
                                 color: Colors.black54),
                           ),
                         ),
+                        SizedBox(height: 15.px),
                       ],
                     ),
                   );

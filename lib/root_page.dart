@@ -15,9 +15,9 @@ class _RootPageState extends State<RootPage> {
   int currentIndex = 0;
 
   List<BottomNavigationBarItem> bottomItem = [
-    BottomNavigationBarItem(icon: Icon(Icons.ac_unit), title: Text('首页')),
-    BottomNavigationBarItem(icon: Icon(Icons.timer), title: Text('项目')),
-    BottomNavigationBarItem(icon: Icon(Icons.map), title: Text('我的')),
+    BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
+    BottomNavigationBarItem(icon: Icon(Icons.transfer_within_a_station), title: Text('项目')),
+    BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('我的')),
   ];
 
   @override
