@@ -7,23 +7,23 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Container(
-          decoration: BoxDecoration(
-              color: Colors.black54.withOpacity(0.2)),
-          width: winWidth,
-          height: winHeight,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              CupertinoActivityIndicator(
-                radius: 25.px,
-                animating: true,
-              ),
-              Text('loading',style: TextStyle(
-                color: Colors.grey,
-                fontSize: 18
-              ),)
-            ],
+      color: Colors.white,
+      width: winWidth,
+      height: winHeight,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          CupertinoActivityIndicator(
+            radius: 25.px,
+            animating: true,
           ),
-        ));
+          Text(
+            'loading',
+            style: TextStyle(color: Colors.grey, fontSize: 18),
+          )
+        ],
+      ),
+    ));
   }
 }

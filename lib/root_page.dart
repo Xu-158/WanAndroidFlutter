@@ -31,7 +31,7 @@ class _RootPageState extends State<RootPage> {
         children: <Widget>[HomePage(), ProjectPage(), MinePage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: themeColor,
+        backgroundColor: Colors.white,
         currentIndex: currentIndex,
         items: bottomItem,
         onTap: (int index) {

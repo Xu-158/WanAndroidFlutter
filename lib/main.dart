@@ -6,7 +6,7 @@ import 'package:wanandroidflutter/util/navigator_util.dart';
 void main() {
   runApp(MyApp());
 
-///沉浸式状态栏
+  ///沉浸式状态栏
 //  if (Platform.isAndroid) {
 //    SystemUiOverlayStyle systemUiOverlayStyle =
 //        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
@@ -21,11 +21,10 @@ class MyApp extends StatelessWidget {
       title: 'FlutterWanAndroid',
       navigatorKey: NavigatorUtil.navKey,
       theme: ThemeData(
-//        primaryColor: Colors.grey,
-        scaffoldBackgroundColor: themeColor,
+        scaffoldBackgroundColor: Colors.white,
         tabBarTheme: TabBarTheme(
-          unselectedLabelColor: Colors.white24,
-          labelColor: Colors.black,
+          unselectedLabelColor: Colors.white,
+          labelColor: Colors.white,
         ),
       ),
       routes: <String, WidgetBuilder>{

@@ -4,13 +4,14 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:wanandroidflutter/api/view_model/banner_view_model.dart';
 import 'package:wanandroidflutter/api/view_model/home_artcile_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
+import 'package:wanandroidflutter/model/home_article_model.dart';
 import 'package:wanandroidflutter/page/search_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/base/error_widget.dart';
 import 'package:wanandroidflutter/widget/base/loading_widget.dart';
-import 'package:wanandroidflutter/widget/common/line.dart';
-import 'package:wanandroidflutter/widget/easyRefresh_widget.dart';
+import 'package:wanandroidflutter/widget/common/article_widget.dart';
+import 'file:///C:/Users/13521/Desktop/wan_android_flutter/lib/widget/common/easyRefresh_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,8 +27,7 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      body: SafeArea(
         child: RefreshWidget(
           controller: _homeArticleViewModel.getEasyRefreshController,
           onRefresh: _homeArticleViewModel.onRefresh,
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage>
           child: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
-                backgroundColor: themeColor,
+                backgroundColor: Colors.white,
                 expandedHeight: 200.px,
                 flexibleSpace: FlexibleSpaceBar(
                   background: BannerWidget(viewModel: _bannerViewModel),
@@ -48,7 +48,10 @@ class _HomePageState extends State<HomePage>
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.search),
+        backgroundColor: Colors.white,
+        foregroundColor: themeColor,
+        heroTag: 'SearchIcon',
+        child: Icon(Icons.search, size: 28.px),
         onPressed: () {
           NavigatorUtil.push(SearchPage());
         },
@@ -80,10 +83,10 @@ class BannerWidget extends StatelessWidget {
           return LoadingWidget();
         } else {
           return Swiper(
-            viewportFraction: 0.7,
-            scale: 1,
-            layout: SwiperLayout.STACK,
-            itemWidth: winWidth * 0.90,
+            viewportFraction: 0.8,
+            scale: 0.9,
+            layout: SwiperLayout.DEFAULT,
+            itemWidth: winWidth * 0.90.px,
             itemHeight: winHeight * 0.28.px,
             itemCount: model.getBannerList.length,
             itemBuilder: (BuildContext context, int index) {
@@ -133,63 +136,19 @@ class ArticleListWidget extends StatelessWidget {
             model.getArticleList.isEmpty) {
           return LoadingWidget();
         } else {
-          return Container(
-            decoration: BoxDecoration(
-                color: themeColor.withBlue(160),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(40),
-                )),
-            padding: EdgeInsets.all(0),
-            child: ListView.builder(
-              itemCount: model.getArticleList.length,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return InkWell(
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.px, horizontal: 5.px),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(model.getArticleList[index].title,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 17),
-                                  maxLines: 2),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Visibility(
-                              visible:
-                                  model?.getArticleList[index]?.author == ''
-                                      ? false
-                                      : true,
-                              child: Text(
-                                  'by：${model?.getArticleList[index]?.author}',
-                                  style: TextStyle(color: Colors.white)),
-                            ),
-                            Spacer(),
-                            Text(model?.getArticleList[index]?.niceDate,
-                                style: TextStyle(color: Colors.white)),
-                          ],
-                        ),
-                        HorizontalLine(
-                          height: 1,
-                        ),
-                      ],
-                    ),
-                  ),
-                  onTap: () => model.cardOnTap(
-                      url: model?.getArticleList[index]?.link,
-                      title: model?.getArticleList[index]?.title),
-                );
-              },
-            ),
+          return ListView.builder(
+            itemCount: model.getArticleList.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              HomeArticleModel m = model.getArticleList[index];
+              return ArticleTileWidget(
+                onTap: () => model.cardOnTap(url: m?.link, title: m?.title),
+                title: m?.title,
+                subTitle: m?.author,
+                time: m?.niceDate,
+              );
+            },
           );
         }
       },

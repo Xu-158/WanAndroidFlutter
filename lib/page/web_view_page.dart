@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:html/dom.dart' as dom;
 
@@ -12,7 +13,7 @@ class WebViewPage extends StatefulWidget {
   WebViewPage(
       {this.openUrl = 'https://flutterchina.club/',
       this.title = "WebView",
-      this.isHtml});
+      this.isHtml = false});
   @override
   _WebViewPageState createState() => _WebViewPageState();
 }
@@ -40,6 +41,10 @@ class _WebViewPageState extends State<WebViewPage> {
                 defaultTextStyle: TextStyle(color: Colors.white, fontSize: 18),
               )
             : Text(widget.title),
+        leading: IconButton(
+          icon: Icon(Icons.keyboard_arrow_left),
+          onPressed: () => NavigatorUtil.maybePop(),
+        ),
       ),
       body: WebView(
         initialUrl: widget.openUrl,

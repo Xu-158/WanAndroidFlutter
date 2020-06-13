@@ -42,12 +42,15 @@ class _SearchPageState extends State<SearchPage> {
           },
         ),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
+          FloatingActionButton(
+            heroTag: 'SearchIcon',
+            child: Icon(Icons.search),
             onPressed: () {
               _hotSearchViewModel.searchOnTap(
                   key: _hotSearchViewModel.getTextController.text);
             },
+            elevation: 0,
+            shape: RoundedRectangleBorder(),
           ),
         ],
       ),
@@ -73,6 +76,8 @@ class _SearchPageState extends State<SearchPage> {
                     text: '热门搜索',
                     fontColor: Colors.white,
                     bgColor: Colors.blue,
+                    fontSize: 18,
+                    height: 35.px,
                   ),
                   Wrap(
                     spacing: 25,
@@ -88,46 +93,50 @@ class _SearchPageState extends State<SearchPage> {
                     }).toList(),
                   ),
                   Visibility(
-                    visible: viewModel.getHistorySearchList.isNotEmpty,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: HorizontalLine(height: 0.5,),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            SmallWidget(
-                              text: '搜索记录',
-                              fontColor: Colors.white,
-                              bgColor: Colors.blue,
+                      visible: viewModel.getHistorySearchList.isNotEmpty,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: HorizontalLine(
+                              height: 0.5,
                             ),
-                            Spacer(),
-                            SmallWidget(
-                              textWidget: IconButton(
-                                icon: Icon(Icons.clear),
-                                onPressed: ()=>viewModel.clearHistorySearch(),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              SmallWidget(
+                                text: '搜索记录',
+                                fontColor: Colors.white,
+                                bgColor: Colors.blue,
+                                fontSize: 18,
+                                height: 35.px,
                               ),
-                            )
-                          ],
-                        ),
-                        Wrap(
-                          spacing: 25,
-                          children: viewModel.getHistorySearchList.map((e) {
-                            return InkWell(
-                              child: Chip(
-                                elevation: 4,
-                                backgroundColor: Colors.white,
-                                label: Text(e),
-                              ),
-                              onTap: () => viewModel.searchOnTap(key: e),
-                            );
-                          }).toList(),
-                        ),
-                      ],
-                    )
-                  )
+                              Spacer(),
+                              SmallWidget(
+                                textWidget: IconButton(
+                                  icon: Icon(Icons.clear),
+                                  onPressed: () =>
+                                      viewModel.clearHistorySearch(),
+                                ),
+                              )
+                            ],
+                          ),
+                          Wrap(
+                            spacing: 25,
+                            children: viewModel.getHistorySearchList.map((e) {
+                              return InkWell(
+                                child: Chip(
+                                  elevation: 4,
+                                  backgroundColor: Colors.white,
+                                  label: Text(e),
+                                ),
+                                onTap: () => viewModel.searchOnTap(key: e),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ))
                 ],
               ),
             );

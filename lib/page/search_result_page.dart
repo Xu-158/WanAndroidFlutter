@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:wanandroidflutter/api/view_model/search_result_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/base/error_widget.dart';
 import 'package:wanandroidflutter/widget/base/loading_widget.dart';
+import 'package:wanandroidflutter/widget/common/article_widget.dart';
 import 'package:wanandroidflutter/widget/common/line.dart';
-import 'package:html/dom.dart' as dom;
-import 'package:wanandroidflutter/widget/common/small_widget.dart';
 
 class SearchResultPage extends StatefulWidget {
   final String keys;
@@ -49,61 +47,16 @@ class _SearchResultPageState extends State<SearchResultPage> {
             return ListView.builder(
               itemCount: viewModel.getSearchResultList.length,
               itemBuilder: (context, index) {
-                var list = viewModel.getSearchResultList[index];
+                var v = viewModel.getSearchResultList[index];
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    InkWell(
-                      child: Container(
-                        color: Colors.black45,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                        child: Column(
-                          children: <Widget>[
-                            SmallWidget(
-                              textWidget: Html(
-                                data: list.title,
-                                customTextStyle:
-                                    (dom.Node node, TextStyle baseStyle) {
-                                  if (node is dom.Element) {
-                                    switch (node.localName) {
-                                      case "em":
-                                        return baseStyle.merge(TextStyle(
-                                            color: Colors.red,
-                                            height: 1,
-                                            fontSize: 18));
-                                    }
-                                  }
-                                  return baseStyle;
-                                },
-                                defaultTextStyle: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                              bgColor: Colors.white,
-                            ),
-                            SmallWidget(
-                              bgColor: Colors.white,
-                              fontColor: Colors.white,
-                              textWidget: Row(
-                                children: <Widget>[
-                                  Text(
-                                    list?.shareUser==''?'by : 未知':'by : ${list?.shareUser}',
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    list?.niceDate,
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
+                    ArticleTileWidget(
                       onTap: () => viewModel.searchResultOnTap(
-                          title: list.title, url: list.link),
+                          title: v.title, url: v.link),
+                      title: v?.title,
+                      subTitle: v?.shareUser,
+                      time: v?.niceDate,
                     ),
                     HorizontalLine(
                       color: Colors.grey.withOpacity(0.8),
