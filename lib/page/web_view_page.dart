@@ -32,12 +32,12 @@ class _WebViewPageState extends State<WebViewPage> {
                     switch (node.localName) {
                       case "em":
                         return baseStyle.merge(TextStyle(
-                            color: Colors.black, height: 1, fontSize: 18));
+                            color: Colors.white, height: 1, fontSize: 18));
                     }
                   }
                   return baseStyle;
                 },
-                defaultTextStyle: TextStyle(color: Colors.black, fontSize: 18),
+                defaultTextStyle: TextStyle(color: Colors.white, fontSize: 18),
               )
             : Text(widget.title),
       ),

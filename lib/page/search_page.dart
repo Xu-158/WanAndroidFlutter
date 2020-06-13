@@ -5,6 +5,8 @@ import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/base/error_widget.dart';
 import 'package:wanandroidflutter/widget/base/loading_widget.dart';
+import 'package:wanandroidflutter/widget/common/line.dart';
+import 'package:wanandroidflutter/widget/common/small_widget.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -26,7 +28,8 @@ class _SearchPageState extends State<SearchPage> {
             decoration: InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
-                contentPadding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(30))),
@@ -42,7 +45,8 @@ class _SearchPageState extends State<SearchPage> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              _hotSearchViewModel.searchOnTap(key: _hotSearchViewModel.getTextController.text);
+              _hotSearchViewModel.searchOnTap(
+                  key: _hotSearchViewModel.getTextController.text);
             },
           ),
         ],
@@ -56,23 +60,75 @@ class _SearchPageState extends State<SearchPage> {
           if (viewModel.getReqStatus == ReqStatus.error) {
             return ErrorWidgetPage();
           }
-          if (viewModel.getReqStatus == ReqStatus.loading && viewModel.getHotSearchList.isEmpty) {
+          if (viewModel.getReqStatus == ReqStatus.loading &&
+              viewModel.getHotSearchList.isEmpty) {
             return LoadingWidget();
           } else {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              child: Wrap(
-                spacing: 20,
-                children: viewModel.getHotSearchList.map((e) {
-                  return InkWell(
-                    child: Chip(
-                      elevation: 4,
-                      backgroundColor: Colors.white,
-                      label: Text(e.name),
-                    ),
-                    onTap: () => viewModel.searchOnTap(key: e.name),
-                  );
-                }).toList(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SmallWidget(
+                    text: '热门搜索',
+                    fontColor: Colors.white,
+                    bgColor: Colors.blue,
+                  ),
+                  Wrap(
+                    spacing: 25,
+                    children: viewModel.getHotSearchList.map((e) {
+                      return InkWell(
+                        child: Chip(
+                          elevation: 4,
+                          backgroundColor: Colors.white,
+                          label: Text(e.name),
+                        ),
+                        onTap: () => viewModel.searchOnTap(key: e.name),
+                      );
+                    }).toList(),
+                  ),
+                  Visibility(
+                    visible: viewModel.getHistorySearchList.isNotEmpty,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: HorizontalLine(height: 0.5,),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            SmallWidget(
+                              text: '搜索记录',
+                              fontColor: Colors.white,
+                              bgColor: Colors.blue,
+                            ),
+                            Spacer(),
+                            SmallWidget(
+                              textWidget: IconButton(
+                                icon: Icon(Icons.clear),
+                                onPressed: ()=>viewModel.clearHistorySearch(),
+                              ),
+                            )
+                          ],
+                        ),
+                        Wrap(
+                          spacing: 25,
+                          children: viewModel.getHistorySearchList.map((e) {
+                            return InkWell(
+                              child: Chip(
+                                elevation: 4,
+                                backgroundColor: Colors.white,
+                                label: Text(e),
+                              ),
+                              onTap: () => viewModel.searchOnTap(key: e),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    )
+                  )
+                ],
               ),
             );
           }
