@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:wanandroidflutter/api/view_model/project_list_view_model.dart';
 import 'package:wanandroidflutter/api/view_model/project_tree_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/model/project_list_model.dart';
 import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
+import 'package:wanandroidflutter/widget/common/easyRefresh_widget.dart';
 
 class ProjectPage extends StatefulWidget {
   @override
@@ -83,7 +83,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage>
       builder: (context, viewModel, child) {
         return BaseWidget(
           reqStatus: viewModel.reqStatus,
-          child: EasyRefresh(
+          child: RefreshWidget(
             controller: _projectListViewModel.getEasyRefreshController,
             onRefresh: () => _projectListViewModel.onRefresh(cid: widget.id),
             onLoad: () => _projectListViewModel.onLoad(cid: widget.id),

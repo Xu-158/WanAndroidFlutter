@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/root_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
+import 'package:wanandroidflutter/util/path_util.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async{
+  /// 初始化
+  WidgetsFlutterBinding.ensureInitialized();
+
+   PathUtil.getTemporary().then((value) => runApp(MyApp()));
 
   ///沉浸式状态栏
 //  if (Platform.isAndroid) {

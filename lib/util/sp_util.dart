@@ -5,9 +5,10 @@ import 'package:wanandroidflutter/widget/common/toast.dart';
 class SPUtil {
   //key
   static String get historySearch => 'historySearch';
+  static String get userInfo => 'userInfo';
 
   static Future setData(
-      {@required type, @required key, @required value}) async {
+      {@required String type, @required key, @required value}) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     switch (type) {
       case 'String':
@@ -30,11 +31,8 @@ class SPUtil {
     }
   }
 
-  static Future get({@required type, @required key}) async {
+  static Future get({@required String type, @required key}) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-//    if(!sp.containsKey(key)){
-//      showToast(message: '获取失败');
-//    }
     switch (type) {
       case 'String':
         return sp.getString(key);

@@ -22,4 +22,21 @@ class Api {
     return HttpUtil.requestPost('/article//query/$page/json',
         data: form, contentType: 'application/x-www-form-urlencoded');
   }
+
+  ///Login Api===================================================================
+  static Future login({username, password}) {
+    FormData form =
+        FormData.fromMap({'username': username, 'password': password});
+    return HttpUtil.requestPost('/user/login', data: form);
+  }
+
+  static Future register({username, password, repassword}) {
+    FormData form = FormData.fromMap(
+        {'username': username, 'password': password, 'repassword': repassword});
+    return HttpUtil.requestPost('/user/register', data: form);
+  }
+
+  static Future logout() {
+    return HttpUtil.requestGet('/user/logout/json');
+  }
 }

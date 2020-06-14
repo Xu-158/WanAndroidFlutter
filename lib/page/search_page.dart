@@ -6,6 +6,7 @@ import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/common/line.dart';
 import 'package:wanandroidflutter/widget/common/small_widget.dart';
+import 'package:wanandroidflutter/widget/common/text_field_widget.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -20,27 +21,13 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Container(
-          height: 35.px,
-          child: TextField(
-            controller: _hotSearchViewModel.getTextController,
-            onSubmitted: (v) {
-              _hotSearchViewModel.searchOnTap(
-                  key: _hotSearchViewModel.getTextController.text);
-            },
-            cursorColor: themeColor,
-            decoration: InputDecoration(
-                fillColor: Colors.white,
-                filled: true,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(30)),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(30))),
-          ),
+        title: MyTextField(
+          height: 40,
+          controller: _hotSearchViewModel.getTextController,
+          onSubmitted: (v) {
+            _hotSearchViewModel.searchOnTap(
+                key: _hotSearchViewModel.getTextController.text);
+          },
         ),
         leading: IconButton(
           icon: Icon(Icons.keyboard_arrow_left),
@@ -117,7 +104,8 @@ class _SearchPageState extends State<SearchPage> {
                             children: <Widget>[
                               Card(
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadiusDirectional.circular(20),
+                                  borderRadius:
+                                      BorderRadiusDirectional.circular(20),
                                 ),
                                 elevation: 5,
                                 child: SmallWidget(
