@@ -36,16 +36,22 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        BackButton1(),
-                        SmallWidget(
-                          text: '注册',
-                          fontColor: Colors.white,
-                          fontSize: 20,
-                          height: 45.px,
+                        Flexible(
+                            fit: FlexFit.tight, flex: 1, child: BackButton1()),
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.tight,
+                          child: SmallWidget(
+                            text: '注册',
+                            fontColor: Colors.white,
+                            fontSize: 20,
+                            height: 45.px,
+                          ),
                         ),
-                        Container(width: 10)
+                        Flexible(
+                            fit: FlexFit.tight, flex: 1, child: Container())
                       ],
                     ),
                     Row(
@@ -82,6 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               width: 230.px,
                               borderRadius: 10.0,
                               autoFocus: true,
+                              showSuffixIcon: true,
                             ),
                             SizedBox(height: 10),
                             MyTextField(
@@ -90,6 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               width: 230.px,
                               borderRadius: 10.0,
                               isPassword: true,
+                              showSuffixIcon: true,
                             ),
                             SizedBox(height: 10),
                             MyTextField(
@@ -98,6 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               width: 230.px,
                               borderRadius: 10.0,
                               isPassword: true,
+                              showSuffixIcon: true,
                             ),
                           ],
                         ),
@@ -112,13 +121,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: SmallWidget(
                   bgColor: themeColor,
                   fontColor: Colors.white,
-                  width: winWidth * 0.7,
+                  width: winWidth * 0.9,
                   height: 40.px,
                   fontSize: 20,
                   text: '注册',
                 ),
               ),
-              onTap: ()=>registerViewModel.register(),
+              onTap: () => registerViewModel.register(),
             )
           ],
         ),

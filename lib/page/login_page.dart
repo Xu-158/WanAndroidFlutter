@@ -52,6 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                               Icon(
                                 Icons.call_missed_outgoing,
                                 color: Colors.white,
+                                size: 30,
                               ),
                               SmallWidget(
                                 text: '注册',
@@ -95,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                               width: 230.px,
                               borderRadius: 10.0,
                               autoFocus: true,
+                              showSuffixIcon: true,
                             ),
                             SizedBox(height: 10),
                             MyTextField(
@@ -103,6 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                               width: 230.px,
                               borderRadius: 10.0,
                               isPassword: true,
+                              showSuffixIcon: true,
                             ),
                             SizedBox(height: 10),
                           ],
@@ -118,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: SmallWidget(
                   bgColor: themeColor,
                   fontColor: Colors.white,
-                  width: winWidth * 0.7,
+                  width: winWidth * 0.9,
                   height: 40.px,
                   fontSize: 20,
                   text: '登录',

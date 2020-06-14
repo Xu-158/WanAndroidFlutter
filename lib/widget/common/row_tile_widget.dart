@@ -4,27 +4,28 @@ import 'package:wanandroidflutter/common/global.dart';
 class RowTileWidget extends StatelessWidget {
   final String title;
   final Function onTap;
+  final Widget icon;
 
-  const RowTileWidget({Key key, this.title, this.onTap}) : super(key: key);
+  const RowTileWidget({Key key, this.title, this.onTap, this.icon})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50.px,
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-          color: themeColor,
-          border: Border.symmetric(vertical: BorderSide(color: Colors.grey))),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: InkWell(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10), child: icon),
+              Container(
                 child: Text(title,
-                    style: TextStyle(fontSize: 18, color: Colors.white)),
+                    style: TextStyle(fontSize: 18, color: Colors.black)),
               ),
+              Spacer(),
               Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.white,
+                color: Colors.grey,
               )
             ],
           ),

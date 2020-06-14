@@ -20,7 +20,7 @@ class UserViewModel extends BaseModel {
 
   void initUser() {
     SPUtil.get(type: 'String', key: SPUtil.userInfo).then((value) {
-      if (value != null) {
+      if (value != null && value != '') {
         user = UserModel.fromJson(jsonDecode(value));
         userStatus = UserStatus.login;
         setState(ReqStatus.success);
@@ -30,7 +30,7 @@ class UserViewModel extends BaseModel {
 
   void goLogin() {
     NavigatorUtil.push(LoginPage()).then((value) {
-      if (value != null) {
+      if (value != null && value != '') {
         user = UserModel.fromJson(value);
         userStatus = UserStatus.login;
         setState(ReqStatus.success);
@@ -39,11 +39,10 @@ class UserViewModel extends BaseModel {
   }
 
   void logout() {
-    if(userStatus == UserStatus.logout){
+    if (userStatus == UserStatus.logout) {
       return showToast(message: '您还未登录');
     }
     Api.logout().then((value) {
-      showToast(message: value.toString());
       SPUtil.remove(SPUtil.userInfo);
       userStatus = UserStatus.logout;
       user.admin = false;
@@ -58,7 +57,7 @@ class UserViewModel extends BaseModel {
       user.token = '';
       user.type = 0;
       user.username = '';
-      showToast(message: '我清除掉了');
+      showToast(message: '退出成功');
       setState(ReqStatus.success);
     });
   }

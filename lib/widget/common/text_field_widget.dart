@@ -1,14 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/common/global.dart';
 
-class MyTextField extends StatelessWidget {
+// ignore: must_be_immutable
+class MyTextField extends StatefulWidget {
   final TextEditingController controller;
   final Function onSubmitted;
   final double borderRadius;
   final double height;
   final double width;
   final bool autoFocus;
-  final bool isPassword;
+  bool isPassword;
+  final bool showSuffixIcon;
 
   MyTextField(
       {this.controller,
@@ -17,30 +20,53 @@ class MyTextField extends StatelessWidget {
       this.height = 50,
       this.width = double.infinity,
       this.autoFocus = false,
-      this.isPassword = false});
+      this.isPassword = false,
+      this.showSuffixIcon = false});
+  @override
+  _MyTextFieldState createState() => _MyTextFieldState();
+}
 
+class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
-      width: width,
+      height: widget.height,
+      width: widget.width,
+      alignment: Alignment.center,
       child: TextField(
-        controller: controller,
-        onSubmitted: onSubmitted,
+        controller: widget.controller,
+        onSubmitted: widget.onSubmitted,
         cursorColor: themeColor,
-        autofocus: autoFocus,
-        obscureText: isPassword,
+        autofocus: widget.autoFocus,
+        obscureText: widget.isPassword,
         decoration: InputDecoration(
             fillColor: Colors.white,
             filled: true,
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
-            focusedBorder: OutlineInputBorder(
+            suffix: widget.showSuffixIcon
+                ? Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      InkWell(
+                        child: Icon(Icons.remove_red_eye, color: themeColor),
+                        onTap: () {
+                          widget.isPassword = !widget.isPassword;
+                          setState(() {});
+                        },
+                      ),
+                      InkWell(
+                        child: Icon(Icons.clear, color: themeColor),
+                        onTap: () => widget.controller.clear(),
+                      )
+                    ],
+                  )
+                : SizedBox(),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+            enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
-                borderRadius: BorderRadius.circular(borderRadius)),
+                borderRadius: BorderRadius.circular(widget.borderRadius)),
             border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
-                borderRadius: BorderRadius.circular(borderRadius))),
+                borderRadius: BorderRadius.circular(widget.borderRadius))),
       ),
     );
   }

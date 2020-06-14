@@ -133,7 +133,7 @@ class ArticleListWidget extends StatelessWidget {
               return ArticleTileWidget(
                 onTap: () => model.cardOnTap(url: m?.link, title: m?.title),
                 title: m?.title,
-                subTitle: m?.author,
+                subTitle: m?.shareUser,
                 time: m?.niceDate,
               );
             },
