@@ -11,7 +11,7 @@ class RowTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50.px,
+      height: 45.px,
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: InkWell(
           child: Row(

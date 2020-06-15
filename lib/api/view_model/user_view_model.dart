@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:wanandroidflutter/common/global.dart';
+import 'package:wanandroidflutter/model/user_integral_model.dart';
 import 'package:wanandroidflutter/model/user_model.dart';
 import 'package:wanandroidflutter/page/login_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
@@ -10,19 +11,27 @@ import 'package:wanandroidflutter/widget/common/toast.dart';
 import '../api.dart';
 
 class UserViewModel extends BaseModel {
-  static UserModel user = UserModel();
-
+  UserModel user = UserModel();
   UserModel get getUser => user;
 
   UserStatus userStatus = UserStatus.logout;
-
   UserStatus get getUserStatus => userStatus;
+
+  UserIntegralModel userIntegralModel = UserIntegralModel();
+  UserIntegralModel get getUserIntegral => userIntegralModel;
 
   void initUser() {
     SPUtil.get(type: 'String', key: SPUtil.userInfo).then((value) {
       if (value != null && value != '') {
         user = UserModel.fromJson(jsonDecode(value));
         userStatus = UserStatus.login;
+        Api.getUserIntegral().then((value) {
+          if (value == null) throw Exception('getUserIntegral is null');
+          userIntegralModel = UserIntegralModel.fromJson(value['data']);
+          setState(ReqStatus.success);
+        }).catchError((e) {
+          setState(ReqStatus.error);
+        });
         setState(ReqStatus.success);
       }
     });

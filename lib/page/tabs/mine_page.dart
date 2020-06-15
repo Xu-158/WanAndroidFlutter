@@ -14,7 +14,8 @@ class MinePage extends StatefulWidget {
   _MinePageState createState() => _MinePageState();
 }
 
-class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin {
+class _MinePageState extends State<MinePage>
+    with AutomaticKeepAliveClientMixin {
   UserViewModel userViewModel = UserViewModel();
 
   @override
@@ -53,13 +54,15 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                                   margin: EdgeInsets.symmetric(horizontal: 50),
                                   child: Text(
                                     '请先登录您的账号',
-                                    style: TextStyle(fontSize: 20, color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
                                   ),
                                 ),
                                 InkWell(
                                   child: Container(
-                                    decoration:
-                                        BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle),
                                     padding: EdgeInsets.all(5),
                                     margin: EdgeInsets.only(right: 5),
                                     child: Icon(
@@ -80,8 +83,9 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                               children: <Widget>[
                                 Container(
                                   padding: EdgeInsets.all(10),
-                                  decoration:
-                                      BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle),
                                   child: FlutterLogo(size: 60),
                                 ),
                                 Column(
@@ -89,20 +93,11 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                                   children: <Widget>[
                                     Row(
                                       children: <Widget>[
-                                        Icon(Icons.person_outline, color: Colors.white),
-                                        Text(
-                                          '${model?.getUser?.nickname}',
-                                          style: TextStyle(fontSize: 20, color: Colors.white),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 20),
-                                    Row(
-                                      children: <Widget>[
                                         Container(
                                           decoration: BoxDecoration(
-                                              color: Colors.white, shape: BoxShape.circle),
-                                          padding: EdgeInsets.all(5),
+                                              color: Colors.white,
+                                              shape: BoxShape.circle),
+                                          padding: EdgeInsets.all(3),
                                           margin: EdgeInsets.only(right: 5),
                                           child: Icon(
                                             Icons.beenhere,
@@ -111,10 +106,26 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                                           ),
                                         ),
                                         Text(
-                                          'id: ${model?.getUser?.id}',
-                                          style: TextStyle(fontSize: 16, color: Colors.white),
-                                        )
+                                          '${model?.getUser?.nickname}',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white),
+                                        ),
                                       ],
+                                    ),
+                                    SizedBox(height: 20),
+                                    Text(
+                                      'id: ${model?.getUser?.id}',
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white),
+                                    ),
+                                    SizedBox(height: 20),
+                                    Text(
+                                      model.getReqStatus == ReqStatus.error
+                                          ? '积分:获取失败'
+                                          : '积分: ${model?.getUserIntegral?.coinCount ?? 0}',
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white),
                                     )
                                   ],
                                 )
@@ -124,6 +135,14 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                         ],
                       ),
                     ),
+                  ),
+                  RowTileWidget(
+                    icon: Icon(
+                      Icons.list,
+                      color: Colors.green,
+                    ),
+                    title: 'TODO',
+                    onTap: () {},
                   ),
                   RowTileWidget(
                     icon: Icon(
@@ -139,7 +158,7 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                       color: Colors.blue,
                     ),
                     title: '设置',
-                    onTap: () => userViewModel.logout(),
+                    onTap: () {},
                   ),
                   RowTileWidget(
                     icon: Icon(

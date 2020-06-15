@@ -39,4 +39,9 @@ class Api {
   static Future logout() {
     return HttpUtil.requestGet('/user/logout/json');
   }
+
+  ///Integral Api================================================================
+  static Future getUserIntegral() {
+    return HttpUtil.requestGet('/lg/coin/userinfo/json');
+  }
 }
