@@ -44,4 +44,17 @@ class Api {
   static Future getUserIntegral() {
     return HttpUtil.requestGet('/lg/coin/userinfo/json');
   }
+
+  ///Collect Api===================================================================
+  static Future getCollectArticleList({page = 0}) {
+    return HttpUtil.requestGet('/lg/collect/list/$page/json');
+  }
+
+  static Future doCollectArticle({articleId = 1186}) {
+    return HttpUtil.requestPost('/lg/collect/$articleId/json');
+  }
+
+  static Future unCollectArticle({articleId = 1186}) {
+    return HttpUtil.requestPost('/lg/uncollect_originId/$articleId/json');
+  }
 }

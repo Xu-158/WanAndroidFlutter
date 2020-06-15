@@ -1,0 +1,79 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:wanandroidflutter/api/api.dart';
+import 'package:wanandroidflutter/common/global.dart';
+import 'package:wanandroidflutter/model/collect_articles_model.dart';
+import 'package:wanandroidflutter/page/web_view_page.dart';
+import 'package:wanandroidflutter/util/navigator_util.dart';
+import 'package:wanandroidflutter/widget/base/base_model.dart';
+import 'package:wanandroidflutter/widget/common/toast.dart';
+
+class CollectArticleViewModel extends BaseModel {
+  List<CollectArticlesModel> _list = List<CollectArticlesModel>();
+  List<CollectArticlesModel> get getCollectArticleList => _list;
+
+  EasyRefreshController _easyRefreshController = EasyRefreshController();
+  EasyRefreshController get getEasyRefreshController => _easyRefreshController;
+
+  int totalPage = 1;
+  int currentPage = 0;
+
+  void getCollectArticleListData({page = 0}) {
+    Api.getCollectArticleList(page: page).then((value) {
+      if (value == null) throw Exception('getBanner is null');
+      totalPage = ((value['data']['total']) / 20).round();
+      value['data']['datas'].map((m) {
+        CollectArticlesModel collectArticlesModel =
+            CollectArticlesModel.fromJson(m);
+        _list.add(collectArticlesModel);
+      }).toList();
+      setState(ReqStatus.success);
+    });
+  }
+
+  Future<void> onRefresh() {
+    _list.clear();
+    getCollectArticleListData(page: 0);
+    _easyRefreshController.finishLoad();
+    return Future.value();
+  }
+
+  Future<void> onLoad() {
+    if (currentPage < totalPage) {
+      currentPage++;
+      getCollectArticleListData(page: currentPage);
+    }
+    return Future.value();
+  }
+
+  void doCollect({@required articleId}) {
+    Api.doCollectArticle(articleId: articleId).then((value) {
+      if (value['errorCode'] == 0) {
+        showToast(message: '收藏成功');
+      } else {
+        showToast(message: '收藏失败');
+      }
+    });
+  }
+
+  void unCollect({@required articleId, inCollectPage = false}) {
+    Api.unCollectArticle(articleId: articleId).then((value) {
+      if (value['errorCode'] == 0) {
+        showToast(message: '取消成功');
+      } else {
+        showToast(message: '取消失败');
+      }
+      if (inCollectPage) {
+        getCollectArticleListData(page: 0);
+      }
+    });
+  }
+
+  /// =============== Route =================
+  void cardOnTap({url, title}) {
+    NavigatorUtil.push(WebViewPage(
+      openUrl: url,
+      title: title,
+    ));
+  }
+}

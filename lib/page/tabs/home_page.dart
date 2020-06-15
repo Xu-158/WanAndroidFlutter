@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:wanandroidflutter/api/view_model/banner_view_model.dart';
+import 'package:wanandroidflutter/api/view_model/collect_article_view_model.dart';
 import 'package:wanandroidflutter/api/view_model/home_artcile_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/model/home_article_model.dart';
@@ -17,7 +18,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   final BannerViewModel _bannerViewModel = BannerViewModel();
   final HomeArticleViewModel _homeArticleViewModel = HomeArticleViewModel();
 
@@ -39,7 +41,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                   background: BannerWidget(viewModel: _bannerViewModel),
                 ),
               ),
-              SliverToBoxAdapter(child: ArticleListWidget(viewModel: _homeArticleViewModel)),
+              SliverToBoxAdapter(
+                  child: ArticleListWidget(viewModel: _homeArticleViewModel)),
             ],
           ),
         ),
@@ -92,13 +95,15 @@ class BannerWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            fit: BoxFit.cover, image: CachedNetworkImageProvider(url))),
+                            fit: BoxFit.cover,
+                            image: CachedNetworkImageProvider(url))),
                   ),
                 );
               },
               onTap: (index) {
                 model.cardOnTap(
-                    url: model?.getBannerList[index].url, title: model?.getBannerList[index].title);
+                    url: model?.getBannerList[index].url,
+                    title: model?.getBannerList[index].title);
               },
             ));
       },
@@ -131,6 +136,10 @@ class ArticleListWidget extends StatelessWidget {
                 title: m?.title,
                 subTitle: m?.shareUser,
                 time: m?.niceDate,
+                doCollect: () => m.collect
+                    ? CollectArticleViewModel().unCollect(articleId: m.id)
+                    : CollectArticleViewModel().doCollect(articleId: m.id),
+                isCollect: m.collect,
               );
             },
           ),

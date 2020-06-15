@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wanandroidflutter/api/view_model/collect_article_view_model.dart';
 import 'package:wanandroidflutter/api/view_model/search_result_view_model.dart';
 import 'package:wanandroidflutter/widget/base/base_Page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
@@ -49,6 +50,12 @@ class _SearchResultPageState extends State<SearchResultPage> {
                         title: v?.title,
                         subTitle: v?.shareUser,
                         time: v?.niceDate,
+                        doCollect: () => v.collect
+                            ? CollectArticleViewModel()
+                                .unCollect(articleId: v.id)
+                            : CollectArticleViewModel()
+                                .doCollect(articleId: v.id),
+                        isCollect: v.collect,
                       ),
                     ],
                   );

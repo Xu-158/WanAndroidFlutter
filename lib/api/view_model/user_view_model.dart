@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/model/user_integral_model.dart';
 import 'package:wanandroidflutter/model/user_model.dart';
 import 'package:wanandroidflutter/page/login_page.dart';
+import 'package:wanandroidflutter/page/tabs/collect_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/util/sp_util.dart';
 import 'package:wanandroidflutter/widget/base/base_model.dart';
@@ -69,5 +71,14 @@ class UserViewModel extends BaseModel {
       showToast(message: '退出成功');
       setState(ReqStatus.success);
     });
+  }
+
+  /// =============== Route =================
+  void push({@required title}) {
+    switch (title) {
+      case '收藏':
+        NavigatorUtil.push(CollectPage());
+        break;
+    }
   }
 }

@@ -150,7 +150,7 @@ class _MinePageState extends State<MinePage>
                       color: Colors.red,
                     ),
                     title: '收藏',
-                    onTap: () {},
+                    onTap: ()=>model.push(title: '收藏'),
                   ),
                   RowTileWidget(
                     icon: Icon(

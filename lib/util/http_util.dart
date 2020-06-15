@@ -20,7 +20,7 @@ class HttpUtil {
   //拦截器
   static InterceptorsWrapper interceptorsWrapper =
       InterceptorsWrapper(onRequest: (RequestOptions options) {
-    debugPrint("===================== 请求Url:::${options.baseUrl}${options.uri} ===========");
+    debugPrint("===================== 请求Url:::${options.uri} ===========");
     debugPrint("===params:::${options.queryParameters}");
     debugPrint("===cookieHeader:::${options.headers[HttpHeaders.setCookieHeader]}");
   }, onResponse: (Response response) {
