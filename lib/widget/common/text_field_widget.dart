@@ -12,6 +12,7 @@ class MyTextField extends StatefulWidget {
   final bool autoFocus;
   bool isPassword;
   final bool showSuffixIcon;
+  final String hintText;
 
   MyTextField(
       {this.controller,
@@ -21,7 +22,8 @@ class MyTextField extends StatefulWidget {
       this.width = double.infinity,
       this.autoFocus = false,
       this.isPassword = false,
-      this.showSuffixIcon = false});
+      this.showSuffixIcon = false,
+      this.hintText = ''});
   @override
   _MyTextFieldState createState() => _MyTextFieldState();
 }
@@ -32,7 +34,7 @@ class _MyTextFieldState extends State<MyTextField> {
     return Container(
       height: widget.height,
       width: widget.width,
-      alignment: Alignment.center,
+//      alignment: Alignment.center,
       child: TextField(
         controller: widget.controller,
         onSubmitted: widget.onSubmitted,
@@ -40,6 +42,8 @@ class _MyTextFieldState extends State<MyTextField> {
         autofocus: widget.autoFocus,
         obscureText: widget.isPassword,
         decoration: InputDecoration(
+            hintText: widget.hintText,
+            hintStyle: TextStyle(fontSize: 14,color: Colors.grey),
             fillColor: Colors.white,
             filled: true,
             suffix: widget.showSuffixIcon
@@ -60,7 +64,10 @@ class _MyTextFieldState extends State<MyTextField> {
                     ],
                   )
                 : SizedBox(),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+            contentPadding: const EdgeInsets.only(bottom: 8, left: 10),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+                borderRadius: BorderRadius.circular(widget.borderRadius)),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
                 borderRadius: BorderRadius.circular(widget.borderRadius)),

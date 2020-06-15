@@ -28,85 +28,91 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Card(
                 color: themeColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
                 elevation: 5,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Row(
-//                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Flexible(
-                            fit: FlexFit.tight, flex: 1, child: BackButton1()),
+                        Flexible(fit: FlexFit.tight, flex: 1, child: BackButton1()),
                         Flexible(
                           flex: 1,
                           fit: FlexFit.tight,
                           child: SmallWidget(
                             text: '注册',
                             fontColor: Colors.white,
-                            fontSize: 20,
+                            fontSize: 24,
                             height: 45.px,
                           ),
                         ),
-                        Flexible(
-                            fit: FlexFit.tight, flex: 1, child: Container())
+                        Flexible(fit: FlexFit.tight, flex: 1, child: Container())
                       ],
                     ),
                     Row(
                       children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            SmallWidget(
-                              text: '用户名:',
-                              fontColor: Colors.white,
-                              fontSize: 18,
-                              height: 40.px,
-                            ),
-                            SmallWidget(
-                              text: '密 码:',
-                              fontColor: Colors.white,
-                              fontSize: 18,
-                              height: 40.px,
-                            ),
-                            SmallWidget(
-                              text: '密 码:',
-                              fontColor: Colors.white,
-                              fontSize: 18,
-                              height: 40.px,
-                            ),
-                          ],
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.center,
+                                height: 45.px,
+                                child: Text(
+                                  '用户名:',
+                                  style: TextStyle(color: Colors.white, fontSize: 18),
+                                ),
+                              ),
+                              Container(
+                                height: 45.px,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  '密  码:',
+                                  style: TextStyle(color: Colors.white, fontSize: 18),
+                                ),
+                              ),
+                              Container(
+                                height: 45.px,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  '密  码:',
+                                  style: TextStyle(color: Colors.white, fontSize: 18),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             MyTextField(
                               controller: registerViewModel.getUserNameC,
-                              height: 40,
+                              height: 40.px,
                               width: 230.px,
                               borderRadius: 10.0,
                               autoFocus: true,
-                              showSuffixIcon: true,
+                              hintText: '支持数字，中文',
                             ),
                             SizedBox(height: 10),
                             MyTextField(
                               controller: registerViewModel.getPassWord1C,
-                              height: 40,
+                              height: 40.px,
                               width: 230.px,
                               borderRadius: 10.0,
                               isPassword: true,
                               showSuffixIcon: true,
+                              hintText: '输入密码',
                             ),
                             SizedBox(height: 10),
                             MyTextField(
                               controller: registerViewModel.getPassWord2C,
-                              height: 40,
+                              height: 40.px,
                               width: 230.px,
                               borderRadius: 10.0,
                               isPassword: true,
                               showSuffixIcon: true,
+                              hintText: '再次输入密码',
                             ),
                           ],
                         ),

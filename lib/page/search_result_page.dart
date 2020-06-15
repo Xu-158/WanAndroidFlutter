@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/api/view_model/search_result_view_model.dart';
-import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_Page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/common/article_widget.dart';
+import 'package:wanandroidflutter/widget/common/back_button.dart';
 import 'package:wanandroidflutter/widget/common/easyRefresh_widget.dart';
 
 class SearchResultPage extends StatefulWidget {
@@ -22,12 +22,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('${widget.keys}'),
-        leading: IconButton(
-          icon: Icon(Icons.keyboard_arrow_left),
-          onPressed: () {
-            NavigatorUtil.maybePop();
-          },
-        ),
+        leading: BackButton1(),
       ),
       body: BasePage<SearchResultViewModel>(
         viewModel: _searchResultViewModel,

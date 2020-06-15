@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/api/view_model/login_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
@@ -19,118 +20,116 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
-      child: Container(
-        height: winHeight,
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: winWidth,
-              height: 300.px,
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: Card(
-                color: themeColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                elevation: 5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        BackButton1(),
-                        SmallWidget(
-                          text: '登录',
-                          fontColor: Colors.white,
-                          fontSize: 22,
-                          height: 45.px,
-                        ),
-                        InkWell(
-                          child: Column(
-                            children: <Widget>[
-                              Icon(
+      child: Column(
+        children: <Widget>[
+          Container(
+            width: winWidth,
+            height: 300.px,
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: Card(
+              color: themeColor,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+              elevation: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      BackButton1(),
+                      Text('登录', style: TextStyle(color: Colors.white, fontSize: 24)),
+                      InkWell(
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              decoration:
+                                  BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                              padding: EdgeInsets.all(5),
+                              margin: EdgeInsets.only(right: 5),
+                              child: Icon(
                                 Icons.call_missed_outgoing,
-                                color: Colors.white,
-                                size: 30,
+                                color: themeColor,
+                                size: 40,
                               ),
-                              SmallWidget(
-                                text: '注册',
-                                fontColor: Colors.white,
-                                fontSize: 14,
-                                height: 40.px,
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          NavigatorUtil.push(RegisterPage());
+                        },
+                      )
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.center,
+                              height: 45.px,
+                              child: Text(
+                                '用户名:',
+                                style: TextStyle(color: Colors.white, fontSize: 18),
                               ),
-                            ],
+                            ),
+                            Container(
+                              height: 45.px,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '密  码:',
+                                style: TextStyle(color: Colors.white, fontSize: 18),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: <Widget>[
+                          MyTextField(
+                            controller: viewModel.getUserNameC,
+                            height: 40.px,
+                            width: 230.px,
+                            borderRadius: 10.0,
+                            autoFocus: true,
+                            hintText: '输入账号',
                           ),
-                          onTap: () {
-                            NavigatorUtil.push(RegisterPage());
-                          },
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            SmallWidget(
-                              text: '用户名:',
-                              fontColor: Colors.white,
-                              fontSize: 18,
-                              height: 40.px,
-                            ),
-                            SmallWidget(
-                              text: '密 码:',
-                              fontColor: Colors.white,
-                              fontSize: 18,
-                              height: 40.px,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            MyTextField(
-                              controller: viewModel.getUserNameC,
-                              height: 40,
-                              width: 230.px,
-                              borderRadius: 10.0,
-                              autoFocus: true,
-                              showSuffixIcon: true,
-                            ),
-                            SizedBox(height: 10),
-                            MyTextField(
-                              controller: viewModel.getPassWordC,
-                              height: 40,
-                              width: 230.px,
-                              borderRadius: 10.0,
-                              isPassword: true,
-                              showSuffixIcon: true,
-                            ),
-                            SizedBox(height: 10),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                          SizedBox(height: 10),
+                          MyTextField(
+                            controller: viewModel.getPassWordC,
+                            height: 40.px,
+                            width: 230.px,
+                            borderRadius: 10.0,
+                            isPassword: true,
+                            showSuffixIcon: true,
+                            hintText: '输入密码',
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            InkWell(
-              child: Card(
-                child: SmallWidget(
-                  bgColor: themeColor,
-                  fontColor: Colors.white,
-                  width: winWidth * 0.9,
-                  height: 40.px,
-                  fontSize: 20,
-                  text: '登录',
-                ),
+          ),
+          InkWell(
+            child: Card(
+              child: SmallWidget(
+                bgColor: themeColor,
+                fontColor: Colors.white,
+                width: winWidth * 0.9,
+                height: 40.px,
+                fontSize: 20,
+                text: '登录',
               ),
-              onTap: () => viewModel.login(),
             ),
-          ],
-        ),
+            onTap: () => viewModel.login(),
+          ),
+        ],
       ),
     )));
   }

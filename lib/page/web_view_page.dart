@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/util/regexp_util.dart';
+import 'package:wanandroidflutter/widget/common/back_button.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
@@ -39,10 +39,7 @@ class _WebViewPageState extends State<WebViewPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(filterTitle,maxLines: 1,overflow: TextOverflow.ellipsis,),
-        leading: IconButton(
-          icon: Icon(Icons.keyboard_arrow_left),
-          onPressed: () => NavigatorUtil.maybePop(),
-        ),
+        leading: BackButton1(),
       ),
       body: WebView(
         initialUrl: widget.openUrl,

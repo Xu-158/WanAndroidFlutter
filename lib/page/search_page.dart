@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/api/view_model/hot_search_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
-import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
+import 'package:wanandroidflutter/widget/common/back_button.dart';
 import 'package:wanandroidflutter/widget/common/line.dart';
 import 'package:wanandroidflutter/widget/common/small_widget.dart';
 import 'package:wanandroidflutter/widget/common/text_field_widget.dart';
@@ -25,24 +25,18 @@ class _SearchPageState extends State<SearchPage> {
           height: 40,
           controller: _hotSearchViewModel.getTextController,
           onSubmitted: (v) {
-            _hotSearchViewModel.searchOnTap(
-                key: _hotSearchViewModel.getTextController.text);
+            _hotSearchViewModel.searchOnTap(key: _hotSearchViewModel.getTextController.text);
           },
+          hintText: '支持多个关键词，用空格隔开',
         ),
-        leading: IconButton(
-          icon: Icon(Icons.keyboard_arrow_left),
-          onPressed: () {
-            NavigatorUtil.maybePop();
-          },
-        ),
+        leading: BackButton1(),
         actions: <Widget>[
           FloatingActionButton(
             heroTag: 'SearchIcon',
             backgroundColor: Colors.transparent,
             child: Icon(Icons.search),
             onPressed: () {
-              _hotSearchViewModel.searchOnTap(
-                  key: _hotSearchViewModel.getTextController.text);
+              _hotSearchViewModel.searchOnTap(key: _hotSearchViewModel.getTextController.text);
             },
             elevation: 0,
             shape: RoundedRectangleBorder(),
@@ -104,8 +98,7 @@ class _SearchPageState extends State<SearchPage> {
                             children: <Widget>[
                               Card(
                                 shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadiusDirectional.circular(20),
+                                  borderRadius: BorderRadiusDirectional.circular(20),
                                 ),
                                 elevation: 5,
                                 child: SmallWidget(

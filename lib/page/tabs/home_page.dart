@@ -10,15 +10,14 @@ import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/common/article_widget.dart';
-import 'file:///C:/Users/13521/Desktop/wan_android_flutter/lib/widget/common/easyRefresh_widget.dart';
+import 'package:wanandroidflutter/widget/common/easyRefresh_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with AutomaticKeepAliveClientMixin {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   final BannerViewModel _bannerViewModel = BannerViewModel();
   final HomeArticleViewModel _homeArticleViewModel = HomeArticleViewModel();
 
@@ -40,8 +39,7 @@ class _HomePageState extends State<HomePage>
                   background: BannerWidget(viewModel: _bannerViewModel),
                 ),
               ),
-              SliverToBoxAdapter(
-                  child: ArticleListWidget(viewModel: _homeArticleViewModel)),
+              SliverToBoxAdapter(child: ArticleListWidget(viewModel: _homeArticleViewModel)),
             ],
           ),
         ),
@@ -94,15 +92,13 @@ class BannerWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: CachedNetworkImageProvider(url))),
+                            fit: BoxFit.cover, image: CachedNetworkImageProvider(url))),
                   ),
                 );
               },
               onTap: (index) {
                 model.cardOnTap(
-                    url: model?.getBannerList[index].url,
-                    title: model?.getBannerList[index].title);
+                    url: model?.getBannerList[index].url, title: model?.getBannerList[index].title);
               },
             ));
       },

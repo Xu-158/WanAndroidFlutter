@@ -18,29 +18,29 @@ class ArticleTileWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
         child: Column(
           children: <Widget>[
-            SmallWidget(
-              height: 70.px,
-              width: winWidth,
-              textWidget: SingleChildScrollView(
-                child: Html(
-                  data: title,
-                  customTextStyle: (dom.Node node, TextStyle baseStyle) {
-                    if (node is dom.Element) {
-                      switch (node.localName) {
-                        case "em":
-                          return baseStyle.merge(TextStyle(
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical:10),
+              decoration: BoxDecoration(color: themeColor, borderRadius: BorderRadius.circular(10)),
+              child: Html(
+                data: title,
+                customTextStyle: (dom.Node node, TextStyle baseStyle) {
+                  if (node is dom.Element) {
+                    switch (node.localName) {
+                      case "em":
+                        return baseStyle.merge(
+                          TextStyle(
                               color: Colors.yellow.withOpacity(0.8),
                               fontWeight: FontWeight.bold,
                               height: 1,
-                              fontSize: 20));
-                      }
+                              fontSize: 20),
+                        );
                     }
-                    return baseStyle;
-                  },
-                  defaultTextStyle: TextStyle(color: Colors.white, fontSize: 18),
-                ),
+                  }
+                  return baseStyle;
+                },
+                defaultTextStyle: TextStyle(color: Colors.white, fontSize: 18),
               ),
-              bgColor: themeColor,
             ),
             SmallWidget(
               bgColor: themeColor,
@@ -57,7 +57,7 @@ class ArticleTileWidget extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),
