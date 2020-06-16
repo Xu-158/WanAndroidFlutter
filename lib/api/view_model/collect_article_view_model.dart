@@ -46,6 +46,8 @@ class CollectArticleViewModel extends BaseModel {
   }
 
   void doCollect({@required articleId}) {
+    print('收藏操作');
+    setState(ReqStatus.success);
     Api.doCollectArticle(articleId: articleId).then((value) {
       if (value['errorCode'] == 0) {
         showToast(message: '收藏成功');
@@ -56,6 +58,8 @@ class CollectArticleViewModel extends BaseModel {
   }
 
   void unCollectByHome({@required articleId}) {
+    print('取消收藏操作');
+    setState(ReqStatus.success);
     Api.unCollectArticleByHome(articleId: articleId).then((value) {
       if (value['errorCode'] == 0) {
         showToast(message: '取消成功');

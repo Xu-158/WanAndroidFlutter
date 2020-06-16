@@ -18,8 +18,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with AutomaticKeepAliveClientMixin {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
   final BannerViewModel _bannerViewModel = BannerViewModel();
   final HomeArticleViewModel _homeArticleViewModel = HomeArticleViewModel();
 
@@ -41,8 +40,7 @@ class _HomePageState extends State<HomePage>
                   background: BannerWidget(viewModel: _bannerViewModel),
                 ),
               ),
-              SliverToBoxAdapter(
-                  child: ArticleListWidget(viewModel: _homeArticleViewModel)),
+              SliverToBoxAdapter(child: ArticleListWidget(viewModel: _homeArticleViewModel)),
             ],
           ),
         ),
@@ -95,15 +93,13 @@ class BannerWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: CachedNetworkImageProvider(url))),
+                            fit: BoxFit.cover, image: CachedNetworkImageProvider(url))),
                   ),
                 );
               },
               onTap: (index) {
                 model.cardOnTap(
-                    url: model?.getBannerList[index].url,
-                    title: model?.getBannerList[index].title);
+                    url: model?.getBannerList[index].url, title: model?.getBannerList[index].title);
               },
             ));
       },
@@ -136,9 +132,12 @@ class ArticleListWidget extends StatelessWidget {
                 title: m?.title,
                 subTitle: m?.shareUser,
                 time: m?.niceDate,
-                doCollect: () => m.collect
-                    ? CollectArticleViewModel().unCollectByHome(articleId: m.id)
-                    : CollectArticleViewModel().doCollect(articleId: m.id),
+                doCollect: () {
+                  m.collect
+                      ? CollectArticleViewModel().unCollectByHome(articleId: m.id)
+                      : CollectArticleViewModel().doCollect(articleId: m.id);
+                  m.collect = !m.collect;
+                },
                 isCollect: m.collect,
               );
             },

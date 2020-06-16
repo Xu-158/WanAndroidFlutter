@@ -45,16 +45,16 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       ArticleTileWidget(
-                        onTap: () => viewModel.searchResultOnTap(
-                            title: v.title, url: v.link),
+                        onTap: () => viewModel.searchResultOnTap(title: v.title, url: v.link),
                         title: v?.title,
                         subTitle: v?.shareUser,
                         time: v?.niceDate,
-                        doCollect: () => v.collect
-                            ? CollectArticleViewModel()
-                                .unCollectByHome(articleId: v.id)
-                            : CollectArticleViewModel()
-                                .doCollect(articleId: v.id),
+                        doCollect: () {
+                          v.collect
+                              ? CollectArticleViewModel().unCollectByHome(articleId: v.id)
+                              : CollectArticleViewModel().doCollect(articleId: v.id);
+                          v.collect = !v.collect;
+                        },
                         isCollect: v.collect,
                       ),
                     ],
