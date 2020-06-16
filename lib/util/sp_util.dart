@@ -6,6 +6,7 @@ class SPUtil {
   //key
   static String get historySearch => 'historySearch';
   static String get userInfo => 'userInfo';
+  static String get qqAvatarUrl => 'qqAvatarUrl';
 
   static Future setData(
       {@required String type, @required key, @required value}) async {

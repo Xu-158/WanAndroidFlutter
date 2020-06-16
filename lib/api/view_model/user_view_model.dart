@@ -23,11 +23,18 @@ class UserViewModel extends BaseModel {
   UserIntegralModel userIntegralModel = UserIntegralModel();
   UserIntegralModel get getUserIntegral => userIntegralModel;
 
+  TextEditingController controller = TextEditingController();
+  TextEditingController get getController => controller;
+
+  String qqAvatarUrl = '';
+  String get getQQAvatarUrl => qqAvatarUrl;
+
   void initUser() {
     SPUtil.get(type: 'String', key: SPUtil.userInfo).then((value) {
       if (value != null && value != '') {
         user = UserModel.fromJson(jsonDecode(value));
         userStatus = UserStatus.login;
+        SPUtil.get(type: 'String', key: SPUtil.qqAvatarUrl).then((value) => qqAvatarUrl = value??'');
         setState(ReqStatus.success);
       }
     });
@@ -42,6 +49,15 @@ class UserViewModel extends BaseModel {
 
   void goLogin() {
     NavigatorUtil.push(LoginPage());
+  }
+
+  void getQQAvatar() {
+    qqAvatarUrl = controller.text;
+    qqAvatarUrl = 'http://q1.qlogo.cn/g?b=qq&nk=$qqAvatarUrl&s=640';
+    print("url::::$qqAvatarUrl");
+    SPUtil.setData(type: 'String', key: SPUtil.qqAvatarUrl, value: qqAvatarUrl);
+    setState(ReqStatus.success);
+    NavigatorUtil.maybePop();
   }
 
   void logout() {
@@ -64,6 +80,7 @@ class UserViewModel extends BaseModel {
       user.type = 0;
       user.username = '';
       userIntegralModel.coinCount = 0;
+      qqAvatarUrl = '';
       showToast(message: '退出成功');
       setState(ReqStatus.success);
       NavigatorUtil.pushAndRemoveUntil(RootPage());
