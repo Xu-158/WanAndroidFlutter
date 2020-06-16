@@ -107,6 +107,7 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                                           width: 230.px,
                                           borderRadius: 10.0,
                                           hintText: '请输入QQ号码',
+                                          autoFocus: true,
                                         ),
                                         onCancelTap: () => NavigatorUtil.maybePop(),
                                         onOkTap: () => userViewModel.getQQAvatar());

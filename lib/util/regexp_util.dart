@@ -1,4 +1,4 @@
-// Android避坑指南，发现了一个极度不<em class='highlight'>安全</em>的操作
+// example: Android避坑指南，发现了一个极度不<em class='highlight'>安全</em>的操作
 String filterHtml(String value) {
   String result;
   print(value);

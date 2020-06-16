@@ -31,14 +31,14 @@ class RefreshWidget extends StatelessWidget {
       header: ClassicalHeader(
           infoColor: themeColor,
           textColor: themeColor,
-          refreshedText: '正在刷新',
+          refreshedText: 'OK',
           refreshReadyText: '刷新',
           refreshText: '下拉刷新'),
       footer: ClassicalFooter(
           textColor: themeColor,
           infoColor: themeColor,
           noMoreText: '没有更多了',
-          loadingText: '正在加载',
+          loadReadyText: '正在加载',
           loadedText: '加载更多'),
       onRefresh: onRefresh,
       onLoad: onLoad,

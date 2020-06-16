@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wanandroidflutter/widget/common/toast.dart';
 
 class SPUtil {
   //key
@@ -57,9 +56,13 @@ class SPUtil {
 
   static Future remove(key) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    if(!sp.containsKey(key)){
-      showToast(message: '删除失败');
-    }
+    if(!sp.containsKey(key)) return;
     sp.remove(key);
   }
+
+  static Future containsKey(key) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    return sp.containsKey(key);
+  }
+
 }

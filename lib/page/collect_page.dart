@@ -3,10 +3,10 @@ import 'package:wanandroidflutter/api/view_model/collect_article_view_model.dart
 import 'package:wanandroidflutter/model/collect_articles_model.dart';
 import 'package:wanandroidflutter/widget/base/base_Page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
+import 'package:wanandroidflutter/widget/base/empty_widget.dart';
 import 'package:wanandroidflutter/widget/common/article_widget.dart';
 import 'package:wanandroidflutter/widget/common/back_button.dart';
 import 'package:wanandroidflutter/widget/common/easyRefresh_widget.dart';
-import 'package:wanandroidflutter/widget/common/empty_widget.dart';
 
 class CollectPage extends StatefulWidget {
   @override
@@ -50,7 +50,7 @@ class _CollectPageState extends State<CollectPage> {
                             model.unCollectByMine(
                               articleId: m.id,
                               originId: m.originId ?? -1,
-                              index: index + 1,
+                              index: index,
                             );
                           },
                           isCollect: true,

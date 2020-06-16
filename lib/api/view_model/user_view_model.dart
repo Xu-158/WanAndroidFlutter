@@ -81,10 +81,11 @@ class UserViewModel extends BaseModel {
       user.type = 0;
       user.username = '';
       userIntegralModel.coinCount = 0;
-      SPUtil.remove(SPUtil.qqAvatarUrl);
       showToast(message: '退出成功');
       setState(ReqStatus.success);
       NavigatorUtil.pushAndRemoveUntil(RootPage());
+    }).catchError((e) {
+      showToast(message: '退出失败');
     });
   }
 
