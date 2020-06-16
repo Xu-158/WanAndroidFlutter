@@ -6,6 +6,7 @@ import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/common/article_widget.dart';
 import 'package:wanandroidflutter/widget/common/back_button.dart';
 import 'package:wanandroidflutter/widget/common/easyRefresh_widget.dart';
+import 'package:wanandroidflutter/widget/common/empty_widget.dart';
 
 class CollectPage extends StatefulWidget {
   @override
@@ -34,26 +35,28 @@ class _CollectPageState extends State<CollectPage> {
               controller: model.getEasyRefreshController,
               onRefresh: model.onRefresh,
               onLoad: model.onLoad,
-              child: ListView.builder(
-                itemCount: model.getCollectArticleList.length,
-                itemBuilder: (context, index) {
-                  CollectArticlesModel m = model.getCollectArticleList[index];
-                  return ArticleTileWidget(
-                    onTap: () => model.cardOnTap(url: m?.link, title: m?.title),
-                    title: m?.title,
-                    subTitle: m?.author,
-                    time: m?.niceDate,
-                    doCollect: () {
-                      model.unCollectByMine(
-                        articleId: m.id,
-                        originId: m.originId ?? -1,
-                        index: index + 1,
-                      );
-                    },
-                    isCollect: true,
-                  );
-                },
-              ),
+              child: model.getCollectArticleList.length == 0
+                  ? EmptyWidget()
+                  : ListView.builder(
+                      itemCount: model.getCollectArticleList.length,
+                      itemBuilder: (context, index) {
+                        CollectArticlesModel m = model.getCollectArticleList[index];
+                        return ArticleTileWidget(
+                          onTap: () => model.cardOnTap(url: m?.link, title: m?.title),
+                          title: m?.title,
+                          subTitle: m?.author,
+                          time: m?.niceDate,
+                          doCollect: () {
+                            model.unCollectByMine(
+                              articleId: m.id,
+                              originId: m.originId ?? -1,
+                              index: index + 1,
+                            );
+                          },
+                          isCollect: true,
+                        );
+                      },
+                    ),
             ),
           );
         },

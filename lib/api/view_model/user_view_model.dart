@@ -34,7 +34,8 @@ class UserViewModel extends BaseModel {
       if (value != null && value != '') {
         user = UserModel.fromJson(jsonDecode(value));
         userStatus = UserStatus.login;
-        SPUtil.get(type: 'String', key: SPUtil.qqAvatarUrl).then((value) => qqAvatarUrl = value??'');
+        SPUtil.get(type: 'String', key: SPUtil.qqAvatarUrl)
+            .then((value) => qqAvatarUrl = value ?? '');
         setState(ReqStatus.success);
       }
     });
@@ -80,7 +81,7 @@ class UserViewModel extends BaseModel {
       user.type = 0;
       user.username = '';
       userIntegralModel.coinCount = 0;
-      qqAvatarUrl = '';
+      SPUtil.remove(SPUtil.qqAvatarUrl);
       showToast(message: '退出成功');
       setState(ReqStatus.success);
       NavigatorUtil.pushAndRemoveUntil(RootPage());
