@@ -11,9 +11,9 @@ class EmptyWidget extends StatelessWidget {
           children: <Widget>[
             Text(
               '暂无数据',
-              style: TextStyle(fontSize: 30),
+              style: TextStyle(fontSize: 30,color: themeColor),
             ),
-            Icon(Icons.clear, size: 40)
+            Icon(Icons.clear, size: 40,color: themeColor)
           ],
           mainAxisAlignment: MainAxisAlignment.center,
         ),

@@ -7,6 +7,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wanandroidflutter/api/view_model/user_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
+import 'package:wanandroidflutter/page/todo_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_Page.dart';
 import 'package:wanandroidflutter/widget/common/ios_dialog_widget.dart';
@@ -84,7 +85,7 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                               children: <Widget>[
                                 InkWell(
                                   child: Container(
-                                    padding: EdgeInsets.all(5),
+                                    padding: EdgeInsets.all(10),
                                     decoration:
                                         BoxDecoration(color: Colors.white, shape: BoxShape.circle),
                                     child: model.getQQAvatarUrl == ''
@@ -162,7 +163,7 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                       color: Colors.green,
                     ),
                     title: 'TODO',
-                    onTap: () {},
+                    onTap: ()=>NavigatorUtil.push(TodoPage()),
                   ),
                   RowTileWidget(
                     icon: Icon(

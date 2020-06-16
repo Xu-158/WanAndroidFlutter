@@ -67,6 +67,7 @@ class UserViewModel extends BaseModel {
     }
     Api.logout().then((value) {
       SPUtil.remove(SPUtil.userInfo);
+      SPUtil.remove(SPUtil.qqAvatarUrl);
       userStatus = UserStatus.logout;
       user.admin = false;
       user.chapterTops = [];

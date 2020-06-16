@@ -86,11 +86,11 @@ class Api {
     return HttpUtil.requestPost('/lg/todo/update/$todoId/json', data: form);
   }
 
-  static Future deleteTodoList({todoId}) {
+  static Future deleteTodo({todoId}) {
     return HttpUtil.requestPost('/lg/todo/delete/$todoId/json');
   }
 
-  static Future completeTodoList({todoId, status}) {
+  static Future changeStatusTodo({todoId, status}) {
     FormData form = FormData.fromMap({'status': status});
     return HttpUtil.requestPost('/lg/todo/done/$todoId/json',data: form);
   }

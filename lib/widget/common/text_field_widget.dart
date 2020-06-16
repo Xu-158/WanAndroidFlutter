@@ -13,6 +13,8 @@ class MyTextField extends StatefulWidget {
   bool isPassword;
   final bool showSuffixIcon;
   final String hintText;
+  final int maxLength;
+  final double fontSize;
 
   MyTextField(
       {this.controller,
@@ -23,7 +25,8 @@ class MyTextField extends StatefulWidget {
       this.autoFocus = false,
       this.isPassword = false,
       this.showSuffixIcon = false,
-      this.hintText = ''});
+      this.hintText = '',
+      this.maxLength = 1, this.fontSize = 16});
   @override
   _MyTextFieldState createState() => _MyTextFieldState();
 }
@@ -34,16 +37,19 @@ class _MyTextFieldState extends State<MyTextField> {
     return Container(
       height: widget.height,
       width: widget.width,
-//      alignment: Alignment.center,
       child: TextField(
+        maxLines: widget.maxLength,
         controller: widget.controller,
         onSubmitted: widget.onSubmitted,
         cursorColor: themeColor,
         autofocus: widget.autoFocus,
         obscureText: widget.isPassword,
+        style: TextStyle(
+          fontSize: widget.fontSize,
+        ),
         decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: TextStyle(fontSize: 14,color: Colors.grey),
+            hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
             fillColor: Colors.white,
             filled: true,
             suffix: widget.showSuffixIcon
