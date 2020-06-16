@@ -54,7 +54,13 @@ class Api {
     return HttpUtil.requestPost('/lg/collect/$articleId/json');
   }
 
-  static Future unCollectArticle({articleId = 1186}) {
+  static Future unCollectArticleByHome({articleId = 1186}) {
     return HttpUtil.requestPost('/lg/uncollect_originId/$articleId/json');
+  }
+
+  static Future unCollectArticleByMine({articleId = 1186,originId = -1}) {
+    FormData form =
+    FormData.fromMap({'originId': originId});
+    return HttpUtil.requestPost('/lg/uncollect/$articleId/json',data: form);
   }
 }

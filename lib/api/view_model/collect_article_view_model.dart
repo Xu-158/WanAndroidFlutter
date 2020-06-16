@@ -20,11 +20,10 @@ class CollectArticleViewModel extends BaseModel {
 
   void getCollectArticleListData({page = 0}) {
     Api.getCollectArticleList(page: page).then((value) {
-      if (value == null) throw Exception('getBanner is null');
+      if (value['data'] == null) throw Exception('getCollectArticleList is null');
       totalPage = ((value['data']['total']) / 20).round();
       value['data']['datas'].map((m) {
-        CollectArticlesModel collectArticlesModel =
-            CollectArticlesModel.fromJson(m);
+        CollectArticlesModel collectArticlesModel = CollectArticlesModel.fromJson(m);
         _list.add(collectArticlesModel);
       }).toList();
       setState(ReqStatus.success);
@@ -56,15 +55,24 @@ class CollectArticleViewModel extends BaseModel {
     });
   }
 
-  void unCollect({@required articleId, inCollectPage = false}) {
-    Api.unCollectArticle(articleId: articleId).then((value) {
+  void unCollectByHome({@required articleId}) {
+    Api.unCollectArticleByHome(articleId: articleId).then((value) {
       if (value['errorCode'] == 0) {
         showToast(message: '取消成功');
       } else {
         showToast(message: '取消失败');
       }
-      if (inCollectPage) {
-        getCollectArticleListData(page: 0);
+    });
+  }
+
+  void unCollectByMine({@required articleId, originId = -1, index = 0}) {
+    Api.unCollectArticleByMine(articleId: articleId, originId: originId).then((value) {
+      if (value['errorCode'] == 0) {
+        setState(ReqStatus.success);
+        _list.removeAt(index);
+        showToast(message: '取消成功');
+      } else {
+        showToast(message: '取消失败');
       }
     });
   }

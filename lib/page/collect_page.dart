@@ -43,8 +43,13 @@ class _CollectPageState extends State<CollectPage> {
                     title: m?.title,
                     subTitle: m?.author,
                     time: m?.niceDate,
-                    doCollect: () => CollectArticleViewModel()
-                        .unCollect(articleId: m.id, inCollectPage: true),
+                    doCollect: () {
+                      model.unCollectByMine(
+                        articleId: m.id,
+                        originId: m.originId ?? -1,
+                        index: index + 1,
+                      );
+                    },
                     isCollect: true,
                   );
                 },

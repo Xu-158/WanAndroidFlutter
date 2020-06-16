@@ -21,7 +21,7 @@ class HttpUtil {
   static InterceptorsWrapper interceptorsWrapper =
       InterceptorsWrapper(onRequest: (RequestOptions options) {
     debugPrint("===================== 请求Url:::${options.uri} ===========");
-    debugPrint("===params:::${options.queryParameters}");
+    debugPrint("===params:::${options.queryParameters} ===data:: ${options.data.toString()}");
     debugPrint("===cookieHeader:::${options.headers[HttpHeaders.setCookieHeader]}");
   }, onResponse: (Response response) {
     debugPrint("===cookieHeader:::${response.headers[HttpHeaders.setCookieHeader]}");

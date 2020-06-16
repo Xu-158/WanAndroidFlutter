@@ -137,7 +137,7 @@ class ArticleListWidget extends StatelessWidget {
                 subTitle: m?.shareUser,
                 time: m?.niceDate,
                 doCollect: () => m.collect
-                    ? CollectArticleViewModel().unCollect(articleId: m.id)
+                    ? CollectArticleViewModel().unCollectByHome(articleId: m.id)
                     : CollectArticleViewModel().doCollect(articleId: m.id),
                 isCollect: m.collect,
               );
