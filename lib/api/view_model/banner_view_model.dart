@@ -13,7 +13,7 @@ class BannerViewModel extends BaseModel {
   void getBannerData() {
     if (reqStatus == ReqStatus.success) return;
     Api.getBanner().then((value) {
-      if (value == null) throw Exception('getBanner is null');
+      if (value['data'] == null) throw Exception('${value['errorMsg']}');
       value['data'].map((e) {
         BannerModel m = BannerModel.fromJson(e);
         bannerList.add(m);

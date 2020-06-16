@@ -20,13 +20,16 @@ class CollectArticleViewModel extends BaseModel {
 
   void getCollectArticleListData({page = 0}) {
     Api.getCollectArticleList(page: page).then((value) {
-      if (value['data'] == null) throw Exception('getCollectArticleList is null');
+      if (value['data'] == null) throw Exception('${value['errorMsg']}');
       totalPage = ((value['data']['total']) / 20).round();
       value['data']['datas'].map((m) {
         CollectArticlesModel collectArticlesModel = CollectArticlesModel.fromJson(m);
         _list.add(collectArticlesModel);
       }).toList();
       setState(ReqStatus.success);
+    }).catchError((e){
+      showToast(message: e.toString());
+      setState(ReqStatus.error);
     });
   }
 

@@ -5,6 +5,7 @@ import 'package:wanandroidflutter/model/user_integral_model.dart';
 import 'package:wanandroidflutter/model/user_model.dart';
 import 'package:wanandroidflutter/page/collect_page.dart';
 import 'package:wanandroidflutter/page/login_page.dart';
+import 'package:wanandroidflutter/root_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/util/sp_util.dart';
 import 'package:wanandroidflutter/widget/base/base_model.dart';
@@ -27,26 +28,20 @@ class UserViewModel extends BaseModel {
       if (value != null && value != '') {
         user = UserModel.fromJson(jsonDecode(value));
         userStatus = UserStatus.login;
-        Api.getUserIntegral().then((value) {
-          if (value == null) throw Exception('getUserIntegral is null');
-          userIntegralModel = UserIntegralModel.fromJson(value['data']);
-          setState(ReqStatus.success);
-        }).catchError((e) {
-          setState(ReqStatus.error);
-        });
         setState(ReqStatus.success);
       }
+    });
+    Api.getUserIntegral().then((value) {
+      if (value == null) throw Exception('getUserIntegral is null');
+      userIntegralModel = UserIntegralModel.fromJson(value['data']);
+      setState(ReqStatus.success);
+    }).catchError((e) {
+      setState(ReqStatus.error);
     });
   }
 
   void goLogin() {
-    NavigatorUtil.push(LoginPage()).then((value) {
-      if (value != null && value != '') {
-        user = UserModel.fromJson(value);
-        userStatus = UserStatus.login;
-        setState(ReqStatus.success);
-      }
-    });
+    NavigatorUtil.push(LoginPage());
   }
 
   void logout() {
@@ -68,8 +63,10 @@ class UserViewModel extends BaseModel {
       user.token = '';
       user.type = 0;
       user.username = '';
+      userIntegralModel.coinCount = 0;
       showToast(message: '退出成功');
       setState(ReqStatus.success);
+      NavigatorUtil.pushAndRemoveUntil(RootPage());
     });
   }
 

@@ -23,7 +23,7 @@ class ProjectListViewModel extends BaseModel {
     Api.getProjectList(page: page, cid: cid).then((value) {
       totalPage = ((value['data']['total']) / 20).round();
       value['data']['datas'].map((m) {
-        if (value == null) throw Exception('getProjectList is null');
+        if (value['data'] == null) throw Exception('${value['errorMsg']}');
         ProjectListModel projectListModel = ProjectListModel.fromJson(m);
         projectList.add(projectListModel);
       }).toList();

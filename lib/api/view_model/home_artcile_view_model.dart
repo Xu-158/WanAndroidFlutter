@@ -21,6 +21,7 @@ class HomeArticleViewModel extends BaseModel {
 
   void getHomeArticleData({int page = 0}) {
     Api.getHomeArticleList(page: page).then((value) {
+      if (value['data'] == null) throw Exception('${value['errorMsg']}');
       if (value != null && value['errorCode'] == 0) {
         totalPage = ((value['data']['total']) / 20).round();
         value['data']['datas'].map((m) {

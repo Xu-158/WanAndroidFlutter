@@ -26,7 +26,7 @@ class SearchResultViewModel extends BaseModel {
   void getSearchResultData({@required key, page = 0}) {
     thisKey = key;
     Api.postSearch(key: key, page: page).then((value) {
-      if (value == null) throw Exception('getHotSearchData is null');
+      if (value['data'] == null) throw Exception('${value['errorMsg']}');
       totalPage = ((value['data']['total']) / 20).round();
       value['data']['datas'].map((e) {
         SearchModel m = SearchModel.fromJson(e);

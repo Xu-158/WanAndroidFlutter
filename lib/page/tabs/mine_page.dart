@@ -86,7 +86,7 @@ class _MinePageState extends State<MinePage>
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       shape: BoxShape.circle),
-                                  child: FlutterLogo(size: 60),
+                                  child: FlutterLogo(size: 70),
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,12 +97,12 @@ class _MinePageState extends State<MinePage>
                                           decoration: BoxDecoration(
                                               color: Colors.white,
                                               shape: BoxShape.circle),
-                                          padding: EdgeInsets.all(3),
+                                          padding: EdgeInsets.all(4),
                                           margin: EdgeInsets.only(right: 5),
                                           child: Icon(
-                                            Icons.beenhere,
+                                            Icons.android,
                                             color: Colors.green,
-                                            size: 16,
+                                            size: 18,
                                           ),
                                         ),
                                         Text(

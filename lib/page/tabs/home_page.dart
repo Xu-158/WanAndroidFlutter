@@ -93,7 +93,7 @@ class BannerWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            fit: BoxFit.cover, image: CachedNetworkImageProvider(url))),
+                            fit: BoxFit.fill, image: CachedNetworkImageProvider(url))),
                   ),
                 );
               },

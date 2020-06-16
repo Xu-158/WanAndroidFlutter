@@ -10,8 +10,8 @@ class ProjectTreeViewModel extends BaseModel {
 
   void getProjectTreeData(){
     Api.getProjectTree().then((value){
+      if (value == null) throw Exception('${value['errorMsg']}');
       value['data'].map((v){
-        if (value == null) throw Exception('getProjectTree is null');
         ProjectTreeModel projectTree = ProjectTreeModel.fromJson(v);
         projectTreeList.add(projectTree);
       }).toList();
