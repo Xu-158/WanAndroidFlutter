@@ -32,6 +32,7 @@ class CollectArticleViewModel extends BaseModel {
 
   Future<void> onRefresh() {
     _list.clear();
+    currentPage = 0;
     getCollectArticleListData(page: 0);
     _easyRefreshController.finishLoad();
     return Future.value();

@@ -40,7 +40,8 @@ class SearchResultViewModel extends BaseModel {
 
   Future<void> onRefresh() {
     _list.clear();
-    getSearchResultData(key: thisKey, page: 0);
+    currentPage = 0;
+    getSearchResultData(key: thisKey, page: currentPage);
     _easyRefreshController.finishLoad();
     return Future.value();
   }

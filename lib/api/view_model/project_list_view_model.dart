@@ -6,7 +6,7 @@ import 'package:wanandroidflutter/page/web_view_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_model.dart';
 
-class ProjectListViewModel extends BaseModel{
+class ProjectListViewModel extends BaseModel {
   List<ProjectListModel> projectList = List();
 
   List<ProjectListModel> get getProjectList => projectList;
@@ -19,10 +19,10 @@ class ProjectListViewModel extends BaseModel{
 
   int totalPage = 0;
 
-  void getProjectListData({page = 1,cid = 294}){
-    Api.getProjectList(page: page,cid: cid).then((value){
+  void getProjectListData({page = 1, cid = 294}) {
+    Api.getProjectList(page: page, cid: cid).then((value) {
       totalPage = ((value['data']['total']) / 20).round();
-      value['data']['datas'].map((m){
+      value['data']['datas'].map((m) {
         if (value == null) throw Exception('getProjectList is null');
         ProjectListModel projectListModel = ProjectListModel.fromJson(m);
         projectList.add(projectListModel);
@@ -35,15 +35,16 @@ class ProjectListViewModel extends BaseModel{
 
   Future<void> onRefresh({cid}) {
     projectList.clear();
-    getProjectListData(cid: cid,page: 1);
+    currentPage = 1;
+    getProjectListData(cid: cid, page: currentPage);
     _easyRefreshController.finishLoad();
     return Future.value();
   }
 
-  Future<void> onLoad({cid}){
+  Future<void> onLoad({cid}) {
     if (currentPage < totalPage) {
       currentPage++;
-      getProjectListData(page: currentPage,cid:cid);
+      getProjectListData(page: currentPage, cid: cid);
     }
     return Future.value();
   }

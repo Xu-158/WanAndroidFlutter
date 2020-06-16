@@ -11,7 +11,7 @@ class HomeArticleViewModel extends BaseModel {
 
   EasyRefreshController _easyRefreshController = EasyRefreshController();
 
-  int articlePage = 0;
+  int currentPage = 0;
 
   int totalPage = 0;
 
@@ -37,15 +37,16 @@ class HomeArticleViewModel extends BaseModel {
 
   Future<void> onRefresh() {
     _articleList.clear();
-    getHomeArticleData();
+    currentPage = 0;
+    getHomeArticleData(page: currentPage);
     _easyRefreshController.finishLoad();
     return Future.value();
   }
 
   Future<void> onLoad() {
-    if (articlePage < totalPage) {
-      articlePage++;
-      getHomeArticleData(page: articlePage);
+    if (currentPage < totalPage) {
+      currentPage++;
+      getHomeArticleData(page: currentPage);
     }
     return Future.value();
   }
