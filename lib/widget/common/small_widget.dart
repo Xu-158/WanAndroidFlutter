@@ -6,7 +6,6 @@ class SmallWidget extends StatelessWidget {
   final Color bgColor;
   final Color fontColor;
   final double fontSize;
-  final double height;
   final double width;
 
   const SmallWidget(
@@ -16,7 +15,6 @@ class SmallWidget extends StatelessWidget {
       this.fontColor = Colors.black,
       this.fontSize = 16.0,
       this.textWidget,
-      this.height = 30,
       this.width})
       : super(key: key);
 
@@ -24,7 +22,6 @@ class SmallWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: height,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration:
           BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(8)),

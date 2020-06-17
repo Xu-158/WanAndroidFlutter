@@ -44,7 +44,6 @@ class _RegisterPageState extends State<RegisterPage> {
                             text: '注册',
                             fontColor: Colors.white,
                             fontSize: 24,
-                            height: 45.px,
                           ),
                         ),
                         Flexible(fit: FlexFit.tight, flex: 1, child: Container())
@@ -128,7 +127,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   bgColor: themeColor,
                   fontColor: Colors.white,
                   width: winWidth * 0.9,
-                  height: 40.px,
                   fontSize: 20,
                   text: '注册',
                 ),

@@ -61,7 +61,7 @@ class _TodoPageState extends State<TodoPage> {
                                       fontWeight: FontWeight.normal,
                                       fontSize: 17,
                                       decoration: TextDecoration.lineThrough,
-                                      decorationColor: const Color(0xff000000),
+                                      decorationColor:Colors.black87,
                                     ),
                                   )
                                 : Text(
@@ -95,7 +95,7 @@ class _TodoPageState extends State<TodoPage> {
                                                   padding: EdgeInsets.all(5),
                                                   child: Text(
                                                     t.content ?? '内容',
-                                                    maxLines: 3,
+                                                    maxLines: null,
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontWeight: FontWeight.w500,
@@ -114,7 +114,6 @@ class _TodoPageState extends State<TodoPage> {
                                         children: <Widget>[
                                           Text(
                                             t.dateStr ?? 'time',
-                                            maxLines: 3,
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 letterSpacing: 2,

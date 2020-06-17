@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/api/view_model/hot_search_view_model.dart';
-import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/common/back_button.dart';
@@ -66,7 +65,6 @@ class _SearchPageState extends State<SearchPage> {
                       fontColor: Colors.white,
                       bgColor: Colors.blue,
                       fontSize: 18,
-                      height: 35.px,
                     ),
                   ),
                   Wrap(
@@ -106,7 +104,6 @@ class _SearchPageState extends State<SearchPage> {
                                   fontColor: Colors.white,
                                   bgColor: Colors.blue,
                                   fontSize: 18,
-                                  height: 35.px,
                                 ),
                               ),
                               Spacer(),

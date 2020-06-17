@@ -15,6 +15,8 @@ class MyTextField extends StatefulWidget {
   final String hintText;
   final int maxLines;
   final double fontSize;
+  final Color fillColor;
+  final Color fontColor;
 
   MyTextField(
       {this.controller,
@@ -26,7 +28,9 @@ class MyTextField extends StatefulWidget {
       this.isPassword = false,
       this.showSuffixIcon = false,
       this.hintText = '',
-      this.maxLines = 1, this.fontSize = 16});
+      this.maxLines = 1,
+      this.fontSize = 16,
+      this.fillColor, this.fontColor});
   @override
   _MyTextFieldState createState() => _MyTextFieldState();
 }
@@ -47,11 +51,12 @@ class _MyTextFieldState extends State<MyTextField> {
         keyboardType: TextInputType.multiline,
         style: TextStyle(
           fontSize: widget.fontSize,
+          color: widget.fontColor,
         ),
         decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-            fillColor: Colors.white,
+            fillColor: widget.fillColor ?? Colors.white,
             filled: true,
             suffix: widget.showSuffixIcon
                 ? Row(

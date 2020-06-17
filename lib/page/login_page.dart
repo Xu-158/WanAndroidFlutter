@@ -122,7 +122,6 @@ class _LoginPageState extends State<LoginPage> {
                 bgColor: themeColor,
                 fontColor: Colors.white,
                 width: winWidth * 0.9,
-                height: 40.px,
                 fontSize: 20,
                 text: '登录',
               ),
