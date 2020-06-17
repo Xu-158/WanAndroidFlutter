@@ -61,19 +61,16 @@ class _EditTodoPageState extends State<EditTodoPage> {
                     '标题：',
                     style: TextStyle(fontSize: 17),
                   ),
-                  Container(
-                    color: themeColor,
-                    child: MyTextField(
-                      controller: _viewModel.getTitleC,
-                      width: winWidth * 0.7.px,
-                      borderRadius: 0.0,
-                    ),
-                  )
+                  MyTextField(
+                    controller: _viewModel.getTitleC,
+                    width: winWidth * 0.7.px,
+                    borderRadius: 2.0,
+                  ),
                 ],
               ),
               SizedBox(height: 20),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.symmetric(vertical: 5),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -82,9 +79,8 @@ class _EditTodoPageState extends State<EditTodoPage> {
                   controller: _viewModel.getContentC,
                   fontSize: 19,
                   width: winWidth * 0.85.px,
-                  height: winHeight * 0.7,
                   borderRadius: 10.0,
-                  maxLength: 28,
+                  maxLines: null,
                 ),
               )
             ],

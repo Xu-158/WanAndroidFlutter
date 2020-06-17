@@ -13,7 +13,7 @@ class MyTextField extends StatefulWidget {
   bool isPassword;
   final bool showSuffixIcon;
   final String hintText;
-  final int maxLength;
+  final int maxLines;
   final double fontSize;
 
   MyTextField(
@@ -26,7 +26,7 @@ class MyTextField extends StatefulWidget {
       this.isPassword = false,
       this.showSuffixIcon = false,
       this.hintText = '',
-      this.maxLength = 1, this.fontSize = 16});
+      this.maxLines = 1, this.fontSize = 16});
   @override
   _MyTextFieldState createState() => _MyTextFieldState();
 }
@@ -38,12 +38,13 @@ class _MyTextFieldState extends State<MyTextField> {
       height: widget.height,
       width: widget.width,
       child: TextField(
-        maxLines: widget.maxLength,
+        maxLines: widget.maxLines,
         controller: widget.controller,
         onSubmitted: widget.onSubmitted,
         cursorColor: themeColor,
         autofocus: widget.autoFocus,
         obscureText: widget.isPassword,
+        keyboardType: TextInputType.multiline,
         style: TextStyle(
           fontSize: widget.fontSize,
         ),
