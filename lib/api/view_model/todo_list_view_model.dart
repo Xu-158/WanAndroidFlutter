@@ -2,7 +2,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:wanandroidflutter/api/api.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/model/todo_list_model.dart';
-import 'file:///D:/FlutterProjects/WanAndroidFlutter/lib/page/edit_todo_page.dart';
+import 'package:wanandroidflutter/page/edit_todo_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_model.dart';
 import 'package:wanandroidflutter/widget/common/toast.dart';

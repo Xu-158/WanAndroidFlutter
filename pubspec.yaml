@@ -47,6 +47,8 @@ dependencies:
 
   #webview https://pub.dev/packages/webview_flutter#-readme-tab-
   webview_flutter: ^0.3.22+1
+  #启动URL https://pub.dev/packages/url_launcher#-installing-tab-
+  url_launcher: ^5.4.10
 
   #toast https://pub.dev/packages/fluttertoast#-readme-tab-
   fluttertoast: ^4.0.1
