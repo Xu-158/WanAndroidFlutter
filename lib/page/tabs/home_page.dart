@@ -89,11 +89,15 @@ class BannerWidget extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   String url = model.getBannerList[index].imagePath;
                   return Card(
-                    elevation: 10,
-                    child: CachedNetworkImage(
-                      imageUrl: url,
-                      placeholder: (context, url) => PlaceHolderWidget(),
-                      fit: BoxFit.fill,
+                    elevation: 4.0,
+                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25.0))),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                      child: CachedNetworkImage(
+                        imageUrl: url,
+                        placeholder: (context, url) => PlaceHolderWidget(),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   );
                 },
@@ -136,9 +140,10 @@ class ArticleListWidget extends StatelessWidget {
                 time: m?.niceDate,
                 doCollect: () {
                   m.collect = !m.collect;
-                  if(!m.collect){
-                    return CollectArticleViewModel().unCollectByHome(articleId: m.id);
-                  }else{
+                  if (!m.collect) {
+                    return CollectArticleViewModel()
+                        .unCollectByHome(articleId: m.id);
+                  } else {
                     return CollectArticleViewModel().doCollect(articleId: m.id);
                   }
                 },

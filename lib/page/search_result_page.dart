@@ -51,7 +51,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                         time: v?.niceDate,
                         doCollect: () {
                           v.collect = !v.collect;
-                          if(v.collect){
+                          if(!v.collect){
                             return CollectArticleViewModel().unCollectByHome(articleId: v.id);
                           }else{
                             return CollectArticleViewModel().doCollect(articleId: v.id);
