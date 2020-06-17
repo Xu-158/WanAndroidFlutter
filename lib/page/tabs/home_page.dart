@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:wanandroidflutter/api/view_model/banner_view_model.dart';
@@ -12,13 +13,15 @@ import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/common/article_widget.dart';
 import 'package:wanandroidflutter/widget/common/easyRefresh_widget.dart';
+import 'package:wanandroidflutter/widget/common/place_holder_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   final BannerViewModel _bannerViewModel = BannerViewModel();
   final HomeArticleViewModel _homeArticleViewModel = HomeArticleViewModel();
 
@@ -40,7 +43,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                   background: BannerWidget(viewModel: _bannerViewModel),
                 ),
               ),
-              SliverToBoxAdapter(child: ArticleListWidget(viewModel: _homeArticleViewModel)),
+              SliverToBoxAdapter(
+                  child: ArticleListWidget(viewModel: _homeArticleViewModel)),
             ],
           ),
         ),
@@ -75,32 +79,30 @@ class BannerWidget extends StatelessWidget {
       builder: (context, model, child) {
         return BaseWidget(
             reqStatus: model.reqStatus,
-            child: Swiper(
-              viewportFraction: 0.8,
-              scale: 0.9,
-              layout: SwiperLayout.DEFAULT,
-              itemWidth: winWidth * 0.90.px,
-              itemHeight: winHeight * 0.28.px,
-              itemCount: model.getBannerList.length,
-              itemBuilder: (BuildContext context, int index) {
-                String url = model.getBannerList[index].imagePath;
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.circular(10),
-                  ),
-                  elevation: 10,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            fit: BoxFit.fill, image: CachedNetworkImageProvider(url))),
-                  ),
-                );
-              },
-              onTap: (index) {
-                model.cardOnTap(
-                    url: model?.getBannerList[index].url, title: model?.getBannerList[index].title);
-              },
+            child: AspectRatio(
+              aspectRatio: 16.0 / 9.0,
+              child: Swiper(
+                viewportFraction: 0.8,
+                scale: 0.9,
+                layout: SwiperLayout.DEFAULT,
+                itemCount: model.getBannerList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  String url = model.getBannerList[index].imagePath;
+                  return Card(
+                    elevation: 10,
+                    child: CachedNetworkImage(
+                      imageUrl: url,
+                      placeholder: (context, url) => PlaceHolderWidget(),
+                      fit: BoxFit.fill,
+                    ),
+                  );
+                },
+                onTap: (index) {
+                  model.cardOnTap(
+                      url: model?.getBannerList[index].url,
+                      title: model?.getBannerList[index].title);
+                },
+              ),
             ));
       },
     );
@@ -133,10 +135,12 @@ class ArticleListWidget extends StatelessWidget {
                 subTitle: m?.shareUser,
                 time: m?.niceDate,
                 doCollect: () {
-                  m.collect
-                      ? CollectArticleViewModel().unCollectByHome(articleId: m.id)
-                      : CollectArticleViewModel().doCollect(articleId: m.id);
                   m.collect = !m.collect;
+                  if(!m.collect){
+                    return CollectArticleViewModel().unCollectByHome(articleId: m.id);
+                  }else{
+                    return CollectArticleViewModel().doCollect(articleId: m.id);
+                  }
                 },
                 isCollect: m.collect,
               );

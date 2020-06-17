@@ -23,11 +23,12 @@ class CollectArticleViewModel extends BaseModel {
       if (value['data'] == null) throw Exception('${value['errorMsg']}');
       totalPage = ((value['data']['total']) / 20).round();
       value['data']['datas'].map((m) {
-        CollectArticlesModel collectArticlesModel = CollectArticlesModel.fromJson(m);
+        CollectArticlesModel collectArticlesModel =
+            CollectArticlesModel.fromJson(m);
         _list.add(collectArticlesModel);
       }).toList();
       setState(ReqStatus.success);
-    }).catchError((e){
+    }).catchError((e) {
       showToast(message: e.toString());
       setState(ReqStatus.error);
     });
@@ -49,39 +50,51 @@ class CollectArticleViewModel extends BaseModel {
     return Future.value();
   }
 
-  void doCollect({@required articleId}) {
-    print('收藏操作');
-    setState(ReqStatus.success);
-    Api.doCollectArticle(articleId: articleId).then((value) {
+  Future<bool> doCollect({@required articleId}) {
+    return Api.doCollectArticle(articleId: articleId).then((value) {
       if (value['errorCode'] == 0) {
         showToast(message: '收藏成功');
-      } else {
-        showToast(message: '收藏失败');
-      }
-    });
-  }
-
-  void unCollectByHome({@required articleId}) {
-    print('取消收藏操作');
-    setState(ReqStatus.success);
-    Api.unCollectArticleByHome(articleId: articleId).then((value) {
-      if (value['errorCode'] == 0) {
-        showToast(message: '取消成功');
-      } else {
-        showToast(message: '取消失败');
-      }
-    });
-  }
-
-  void unCollectByMine({@required articleId, originId = -1, index = 0}) {
-    Api.unCollectArticleByMine(articleId: articleId, originId: originId).then((value) {
-      if (value['errorCode'] == 0) {
         setState(ReqStatus.success);
+        return Future.value(true);
+      } else {
+        showToast(message: '${value['errorMsg']}');
+        return Future.value(false);
+      }
+    }).catchError((e) {
+      showToast(message: '出现错误了');
+    });
+  }
+
+  Future<bool> unCollectByHome({@required articleId}) {
+    return Api.unCollectArticleByHome(articleId: articleId).then((value) {
+      if (value['errorCode'] == 0) {
+        showToast(message: '取消收藏');
+        setState(ReqStatus.success);
+        return Future.value(true);
+      } else {
+        showToast(message: '${value['errorMsg']}');
+        return Future.value(false);
+      }
+    }).catchError((e) {
+      showToast(message: '出现错误了');
+    });
+  }
+
+  Future<bool> unCollectByMine(
+      {@required articleId, originId = -1, index = 0}) {
+    return Api.unCollectArticleByMine(articleId: articleId, originId: originId)
+        .then((value) {
+      if (value['errorCode'] == 0) {
         _list.removeAt(index);
-        showToast(message: '取消成功');
+        setState(ReqStatus.success);
+        showToast(message: '取消收藏');
+        return Future.value(true);
       } else {
         showToast(message: '取消失败');
+        return Future.value(false);
       }
+    }).catchError((e) {
+      showToast(message: '出现错误了');
     });
   }
 

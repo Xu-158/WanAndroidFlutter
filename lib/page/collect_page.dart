@@ -47,7 +47,7 @@ class _CollectPageState extends State<CollectPage> {
                           subTitle: m?.author,
                           time: m?.niceDate,
                           doCollect: () {
-                            model.unCollectByMine(
+                            return model.unCollectByMine(
                               articleId: m.id,
                               originId: m.originId ?? -1,
                               index: index,

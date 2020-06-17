@@ -7,6 +7,7 @@ import 'package:wanandroidflutter/model/project_list_model.dart';
 import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/common/easyRefresh_widget.dart';
+import 'package:wanandroidflutter/widget/common/place_holder_widget.dart';
 
 class ProjectPage extends StatefulWidget {
   @override
@@ -114,6 +115,8 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage>
                                   width: winWidth,
                                   height: 180.px,
                                   fit: BoxFit.cover,
+                                  placeholder: (context, url) =>
+                                      PlaceHolderWidget(),
                                 )),
                           ),
                           onTap: () => viewModel.cardOnTap(

@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:wanandroidflutter/common/global.dart';
@@ -10,7 +12,7 @@ class ArticleTileWidget extends StatefulWidget {
   final String title;
   final String subTitle;
   final String time;
-  final Function doCollect;
+  final  doCollect;
   bool isCollect;
 
   ArticleTileWidget(
@@ -77,12 +79,13 @@ class _ArticleTileWidgetState extends State<ArticleTileWidget> {
                     child: widget.isCollect
                         ? Icon(Icons.favorite, color: Colors.red)
                         : Icon(Icons.favorite_border, color: Colors.white),
-                    onTap: () {
-                      setState(() {
-                        widget.isCollect = !widget.isCollect;
-                      });
-                      widget.doCollect();
-                    },
+                    onTap: () => widget.doCollect().then((value) {
+                      if (value) {
+                        setState(() {
+                          widget.isCollect = !widget.isCollect;
+                        });
+                      }
+                    }),
                   )
                 ],
               ),
