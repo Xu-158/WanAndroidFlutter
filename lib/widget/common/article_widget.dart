@@ -37,8 +37,7 @@ class _ArticleTileWidgetState extends State<ArticleTileWidget> {
             Container(
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                  color: tColor, borderRadius: BorderRadius.circular(10)),
+              decoration: BoxDecoration(color: tColor, borderRadius: BorderRadius.circular(10)),
               child: Html(
                 data: widget.title,
                 customTextStyle: (dom.Node node, TextStyle baseStyle) {

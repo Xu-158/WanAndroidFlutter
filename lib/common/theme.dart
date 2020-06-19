@@ -14,6 +14,8 @@ class AppTheme extends ChangeNotifier {
   }
 
   Color get getThemeColor => themeColorMap[themeColor];
+
+  String get getThemeColorName => themeColor;
 }
 
 Map<String, Color> themeColorMap = {
@@ -72,7 +74,7 @@ showColorPick(context, tColor) {
                         onTap: () {
                           tColor.setThemeColor(value);
                           SPUtil.setData(
-                              type: String, key: SPUtil.themeColor, value: tColor.getThemeColor);
+                              type: String, key: SPUtil.themeColor, value: tColor.getThemeColorName);
                           print(tColor.getThemeColor);
                         },
                       );

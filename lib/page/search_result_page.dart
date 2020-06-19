@@ -50,10 +50,11 @@ class _SearchResultPageState extends State<SearchResultPage> {
                         subTitle: v?.shareUser,
                         time: v?.niceDate,
                         doCollect: () {
-                          v.collect = !v.collect;
-                          if(!v.collect){
+                          if (!v.collect) {
+                            v.collect = false;
                             return CollectArticleViewModel().unCollectByHome(articleId: v.id);
-                          }else{
+                          } else {
+                            v.collect = true;
                             return CollectArticleViewModel().doCollect(articleId: v.id);
                           }
                         },

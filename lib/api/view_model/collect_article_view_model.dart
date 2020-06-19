@@ -29,7 +29,7 @@ class CollectArticleViewModel extends BaseModel {
       }).toList();
       setState(ReqStatus.success);
     }).catchError((e) {
-      showToast(message: e.toString());
+      showToast(message: e);
       setState(ReqStatus.error);
     });
   }

@@ -22,8 +22,7 @@ class HotSearchViewModel extends BaseModel {
   TextEditingController get getTextController => _controller;
 
   void getHotSearchData() async {
-    _historySearchList =
-        await SPUtil.get(type: List, key: SPUtil.historySearch)??[];
+    _historySearchList = await SPUtil.get(type: List, key: SPUtil.historySearch) ?? [];
     if (reqStatus == ReqStatus.success) return;
     Api.getHotSearch().then((value) {
       if (value['data'] == null) throw Exception('${value['errorMsg']}');
@@ -37,7 +36,7 @@ class HotSearchViewModel extends BaseModel {
     });
   }
 
-  void clearHistorySearch(){
+  void clearHistorySearch() {
     SPUtil.remove(SPUtil.historySearch);
     _historySearchList.clear();
     notifyListeners();
@@ -49,11 +48,11 @@ class HotSearchViewModel extends BaseModel {
       showToast(message: '搜索内容为空');
       return;
     }
-    _historySearchList.insert(0,key);
-    SPUtil.setData(
-        type: 'List', key: SPUtil.historySearch, value: _historySearchList);
+    if (_historySearchList[0] != key) {
+      _historySearchList.insert(0, key);
+    }
+    SPUtil.setData(type: List, key: SPUtil.historySearch, value: _historySearchList);
     notifyListeners();
     NavigatorUtil.push(SearchResultPage(keys: key));
   }
-
 }

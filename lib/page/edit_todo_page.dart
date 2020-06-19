@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/api/view_model/edit_todo_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/widget/common/back_button.dart';
-import 'package:wanandroidflutter/widget/common/small_widget.dart';
 import 'package:wanandroidflutter/widget/common/text_field_widget.dart';
 
 class EditTodoPage extends StatefulWidget {
@@ -11,8 +10,7 @@ class EditTodoPage extends StatefulWidget {
   final todoId;
   final isUpdate;
 
-  const EditTodoPage(
-      {Key key, this.title, this.content, this.todoId, this.isUpdate})
+  const EditTodoPage({Key key, this.title, this.content, this.todoId, this.isUpdate})
       : super(key: key);
 
   @override
@@ -40,13 +38,13 @@ class _EditTodoPageState extends State<EditTodoPage> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton1(),
-        title: Text('TODO'),
+        title: Text('TODO', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         actions: <Widget>[
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 25),
               child: InkWell(
-                child: Icon(Icons.check_circle_outline, size: 28),
+                child: Icon(Icons.check_circle_outline, color: Colors.white, size: 28),
                 onTap: () => widget.isUpdate
                     ? _viewModel.updateTodo(todoId: widget.todoId, date: _today)
                     : _viewModel.release(),
@@ -61,24 +59,27 @@ class _EditTodoPageState extends State<EditTodoPage> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  SmallWidget(
-                    text: '标题：',
-                    fontColor: Colors.white,
-                    fontSize: 18,
+                  Text(
+                    '标题：',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
                   ),
                   Expanded(
                     child: Container(
-                      height: 50.px,
-                      padding: EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          border: Border.all()),
-                      child: MyTextField(
-                        controller: _viewModel.getTitleC,
-                        borderRadius: 2.0,
-                        fontSize: 19,
-                        maxLines: 1,
+                      child: Card(
+                        color: Colors.white,
+                        clipBehavior: Clip.antiAlias,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.grey[350]),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        child: MyTextField(
+                          controller: _viewModel.getTitleC,
+                          borderRadius: 2.0,
+                          fontSize: 19,
+                          maxLines: 1,
+                        ),
                       ),
                     ),
                   )
@@ -90,15 +91,12 @@ class _EditTodoPageState extends State<EditTodoPage> {
                   return RadialGradient(
                     center: Alignment.topLeft,
                     radius: 1.0,
-                    colors: <Color>[
-                      Colors.grey[50],
-                      Colors.white,
-                      Colors.grey[200]
-                    ],
+                    colors: <Color>[Colors.grey[50], Colors.white, Colors.grey[200]],
                     tileMode: TileMode.clamp,
                   ).createShader(bounds);
                 },
                 child: Card(
+                  color: Colors.white,
                   clipBehavior: Clip.antiAlias,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: Colors.grey[350]),
@@ -110,15 +108,14 @@ class _EditTodoPageState extends State<EditTodoPage> {
                     ),
                   ),
                   elevation: 2,
-                  child:
-                  Padding(
+                  child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: MyTextField(
                       controller: _viewModel.getContentC,
                       borderRadius: 2.0,
                       fontSize: 19,
                       maxLines: null,
-                      height: 500.px,
+                      height: 450.px,
                     ),
                   ),
                 ),

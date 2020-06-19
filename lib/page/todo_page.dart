@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/api/view_model/todo_list_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
+import 'package:wanandroidflutter/common/theme.dart';
 import 'package:wanandroidflutter/model/todo_list_model.dart';
+import 'package:wanandroidflutter/util/sp_util.dart';
 import 'package:wanandroidflutter/widget/base/base_Page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/base/empty_widget.dart';
@@ -16,19 +18,26 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage> {
   TodoListViewModel _viewModel = TodoListViewModel();
+  Color tColor;
+
+  @override
+  void initState() {
+    super.initState();
+    SPUtil.get(type: String , key: SPUtil.themeColor).then((value) => tColor = themeColorMap[value]);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton1(),
-        title: Text('TODO'),
+        title: Text('TODO', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         actions: <Widget>[
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 25),
               child: InkWell(
-                child: Icon(Icons.add_circle_outline, size: 28),
+                child: Icon(Icons.add_circle_outline, color: Colors.white, size: 28),
                 onTap: () => _viewModel.doEdit(),
               ))
         ],
@@ -53,32 +62,33 @@ class _TodoPageState extends State<TodoPage> {
                         TodoListModel t = model.getTodoList[index];
                         return Container(
                           child: ExpansionTile(
-                            leading: Icon(Icons.edit),
+                            leading: Icon(Icons.edit,color: tColor,),
                             title: t.status == 1
                                 ? Text(
                                     t.title ?? 'title',
                                     style: TextStyle(
                                       fontWeight: FontWeight.normal,
-                                      fontSize: 17,
+                                      color: tColor.withOpacity(0.5),
+                                      fontSize: 18,
                                       decoration: TextDecoration.lineThrough,
-                                      decorationColor:Colors.black87,
+                                      decorationColor: Colors.black87,
                                     ),
                                   )
                                 : Text(
                                     t.title ?? 'title',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 17,
+                                      color: tColor,
+                                      fontSize: 18,
                                     ),
                                   ),
-//                            backgroundColor: themeColor.withOpacity(0.1),
+                            backgroundColor: tColor.withOpacity(0.2),
                             onExpansionChanged: (value) {},
                             initiallyExpanded: false,
                             children: <Widget>[
                               Container(
                                 color: Colors.white,
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Visibility(
                                       visible: t.content.isNotEmpty,
@@ -86,20 +96,24 @@ class _TodoPageState extends State<TodoPage> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: <Widget>[
                                           Container(
-                                              width: winWidth * 0.8,
-                                              margin: EdgeInsets.all(10),
-                                              child: Card(
-                                                elevation: 5,
-                                                child: Container(
-                                                  padding: EdgeInsets.all(5),
-                                                  child: Text(
-                                                    t.content ?? '内容',
-                                                    maxLines: null,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight: FontWeight.w500,
-                                                        letterSpacing: 2,
-                                                        fontSize: 17),
+                                              width: winWidth ,
+                                              child: Theme(
+                                                data: ThemeData(
+                                                  cardColor: tColor.withOpacity(0.5),
+                                                ),
+                                                child: Card(
+                                                  elevation: 5,
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(10),
+                                                    child: Text(
+                                                      t.content ?? '内容',
+                                                      maxLines: null,
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight: FontWeight.w500,
+                                                          letterSpacing: 2,
+                                                          fontSize: 18),
+                                                    ),
                                                   ),
                                                 ),
                                               ))
@@ -107,21 +121,22 @@ class _TodoPageState extends State<TodoPage> {
                                       ),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.only(top: 16),
+                                      margin: EdgeInsets.symmetric(vertical: 10),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
-                                            t.dateStr ?? 'time',
+                                            '编辑日期：${t.dateStr ?? 'time'}',
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 letterSpacing: 2,
-                                                fontSize: 14),
+                                                fontSize: 15),
                                           ),
                                         ],
                                       ),
                                     ),
                                     Container(
+                                      padding: EdgeInsets.only(bottom: 10),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: <Widget>[
@@ -129,7 +144,7 @@ class _TodoPageState extends State<TodoPage> {
                                             children: <Widget>[
                                               CupertinoSwitch(
                                                 trackColor: Colors.grey,
-//                                                activeColor: themeColor,
+                                                activeColor: tColor,
                                                 value: t.status == 1,
                                                 onChanged: (v) {
                                                   model.changeStatusTodo(
@@ -140,7 +155,11 @@ class _TodoPageState extends State<TodoPage> {
                                             ],
                                           ),
                                           InkWell(
-                                            child: Icon(Icons.edit, size: 35,),
+                                            child: Icon(
+                                              Icons.edit,
+                                              color: tColor,
+                                              size: 35,
+                                            ),
                                             onTap: () => model.doEdit(
                                                 todoId: t.id,
                                                 title: t.title,
@@ -148,8 +167,7 @@ class _TodoPageState extends State<TodoPage> {
                                                 isUpdate: true),
                                           ),
                                           InkWell(
-                                            child: Icon(Icons.delete_forever,
-                                                size: 35),
+                                            child: Icon(Icons.delete_forever,color: tColor, size: 35),
                                             onTap: () =>
                                                 model.deleteTodo(todoId: t.id, index: index),
                                           ),

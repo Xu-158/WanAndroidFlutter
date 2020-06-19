@@ -34,7 +34,7 @@ class UserViewModel extends BaseModel {
       if (value != null && value != '') {
         user = UserModel.fromJson(jsonDecode(value));
         userStatus = UserStatus.login;
-        SPUtil.get(type: 'String', key: SPUtil.qqAvatarUrl)
+        SPUtil.get(type: String, key: SPUtil.qqAvatarUrl)
             .then((value) => qqAvatarUrl = value ?? '');
         setState(ReqStatus.success);
       }
@@ -63,6 +63,7 @@ class UserViewModel extends BaseModel {
 
   void logout() {
     if (userStatus == UserStatus.logout) {
+      NavigatorUtil.maybePop();
       return showToast(message: '您还未登录');
     }
     Api.logout().then((value) {

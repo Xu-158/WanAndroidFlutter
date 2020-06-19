@@ -21,7 +21,7 @@ class LoginViewModel extends BaseModel {
       if (value['errorCode'] == -1) return showToast(message: '${value['errorMsg']}');
       if (value['errorCode'] == 0) {
         showToast(message: '登录成功');
-        SPUtil.setData(type: 'String', key: SPUtil.userInfo, value: json.encode(value['data']));
+        SPUtil.setData(type: String, key: SPUtil.userInfo, value: json.encode(value['data']));
         UserViewModel().initUser();
         NavigatorUtil.pushAndRemoveUntil(RootPage());
       }

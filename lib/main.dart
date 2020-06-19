@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/root_page.dart';
@@ -36,6 +37,17 @@ class MyApp extends StatelessWidget {
             title: 'FlutterWanAndroid',
             navigatorKey: NavigatorUtil.navKey,
             theme: ThemeData(
+              cupertinoOverrideTheme: CupertinoThemeData(
+                primaryColor: model.getThemeColor,
+                primaryContrastingColor: model.getThemeColor,
+                barBackgroundColor: model.getThemeColor,
+//                Brightness brightness,
+//                Color primaryColor,
+//                Color primaryContrastingColor,
+//                CupertinoTextThemeData textTheme,
+//                Color barBackgroundColor,
+//                Color scaffoldBackgroundColor,
+              ),
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                 backgroundColor: model.getThemeColor.withOpacity(0.8),
               ),
