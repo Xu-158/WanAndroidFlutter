@@ -30,7 +30,7 @@ class UserViewModel extends BaseModel {
   String get getQQAvatarUrl => qqAvatarUrl;
 
   void initUser() {
-    SPUtil.get(type: 'String', key: SPUtil.userInfo).then((value) {
+    SPUtil.get(type: String, key: SPUtil.userInfo).then((value) {
       if (value != null && value != '') {
         user = UserModel.fromJson(jsonDecode(value));
         userStatus = UserStatus.login;
@@ -56,7 +56,7 @@ class UserViewModel extends BaseModel {
     qqAvatarUrl = controller.text;
     qqAvatarUrl = 'http://q1.qlogo.cn/g?b=qq&nk=$qqAvatarUrl&s=640';
     print("url::::$qqAvatarUrl");
-    SPUtil.setData(type: 'String', key: SPUtil.qqAvatarUrl, value: qqAvatarUrl);
+    SPUtil.setData(type: String, key: SPUtil.qqAvatarUrl, value: qqAvatarUrl);
     setState(ReqStatus.success);
     NavigatorUtil.maybePop();
   }

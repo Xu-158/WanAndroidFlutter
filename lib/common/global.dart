@@ -32,6 +32,5 @@ double get winWidth => SizeUtil.screenWidth;
 double get winHeight => SizeUtil.screenHeight;
 
 ///==============ThemeColor=============
-Color get themeColor => Colors.blue;
 
 Color get bottomNavBtnColor => Colors.grey;

@@ -6,24 +6,24 @@ class SPUtil {
   static String get historySearch => 'historySearch';
   static String get userInfo => 'userInfo';
   static String get qqAvatarUrl => 'qqAvatarUrl';
+  static String get themeColor => 'themeColor';
 
-  static Future setData(
-      {@required String type, @required key, @required value}) async {
+  static Future setData({@required type, @required key, @required value}) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     switch (type) {
-      case 'String':
+      case String:
         sp.setString(key, value);
         break;
-      case 'bool':
+      case bool:
         sp.setBool(key, value);
         break;
-      case 'double':
+      case double:
         sp.setDouble(key, value);
         break;
-      case 'int':
+      case int:
         sp.setInt(key, value);
         break;
-      case 'List':
+      case List:
         sp.setStringList(key, value);
         break;
       default:
@@ -31,23 +31,23 @@ class SPUtil {
     }
   }
 
-  static Future get({@required String type, @required key}) async {
+  static Future get({@required type, @required key, defaultValue}) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     switch (type) {
-      case 'String':
-        return sp.getString(key);
+      case String:
+        return sp.getString(key) ?? defaultValue;
         break;
-      case 'bool':
-        return sp.getBool(key);
+      case bool:
+        return sp.getBool(key) ?? defaultValue;
         break;
-      case 'double':
-        return sp.getDouble(key);
+      case double:
+        return sp.getDouble(key) ?? defaultValue;
         break;
-      case 'int':
-        return sp.getInt(key);
+      case int:
+        return sp.getInt(key) ?? defaultValue;
         break;
-      case 'List':
-        return sp.getStringList(key);
+      case List:
+        return sp.getStringList(key) ?? defaultValue;
         break;
       default:
         break;
@@ -56,7 +56,7 @@ class SPUtil {
 
   static Future remove(key) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    if(!sp.containsKey(key)) return;
+    if (!sp.containsKey(key)) return;
     sp.remove(key);
   }
 
@@ -64,5 +64,4 @@ class SPUtil {
     SharedPreferences sp = await SharedPreferences.getInstance();
     return sp.containsKey(key);
   }
-
 }

@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
             height: 300.px,
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Card(
-              color: themeColor,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
               elevation: 5,
               child: Column(
@@ -49,7 +48,6 @@ class _LoginPageState extends State<LoginPage> {
                               margin: EdgeInsets.only(right: 5),
                               child: Icon(
                                 Icons.call_missed_outgoing,
-                                color: themeColor,
                                 size: 40,
                               ),
                             ),
@@ -119,7 +117,6 @@ class _LoginPageState extends State<LoginPage> {
           InkWell(
             child: Card(
               child: SmallWidget(
-                bgColor: themeColor,
                 fontColor: Colors.white,
                 width: winWidth * 0.9,
                 fontSize: 20,

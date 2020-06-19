@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wanandroidflutter/common/global.dart';
 
 // ignore: must_be_immutable
 class MyTextField extends StatefulWidget {
@@ -45,7 +44,7 @@ class _MyTextFieldState extends State<MyTextField> {
         maxLines: widget.maxLines,
         controller: widget.controller,
         onSubmitted: widget.onSubmitted,
-        cursorColor: themeColor,
+//        cursorColor: themeColor,
         autofocus: widget.autoFocus,
         obscureText: widget.isPassword,
         keyboardType: TextInputType.multiline,
@@ -63,14 +62,14 @@ class _MyTextFieldState extends State<MyTextField> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       InkWell(
-                        child: Icon(Icons.remove_red_eye, color: themeColor),
+                        child: Icon(Icons.remove_red_eye),
                         onTap: () {
                           widget.isPassword = !widget.isPassword;
                           setState(() {});
                         },
                       ),
                       InkWell(
-                        child: Icon(Icons.clear, color: themeColor),
+                        child: Icon(Icons.clear),
                         onTap: () => widget.controller.clear(),
                       )
                     ],

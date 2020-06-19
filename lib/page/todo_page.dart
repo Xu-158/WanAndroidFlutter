@@ -53,7 +53,7 @@ class _TodoPageState extends State<TodoPage> {
                         TodoListModel t = model.getTodoList[index];
                         return Container(
                           child: ExpansionTile(
-                            leading: Icon(Icons.comment),
+                            leading: Icon(Icons.edit),
                             title: t.status == 1
                                 ? Text(
                                     t.title ?? 'title',
@@ -71,7 +71,7 @@ class _TodoPageState extends State<TodoPage> {
                                       fontSize: 17,
                                     ),
                                   ),
-                            backgroundColor: themeColor.withOpacity(0.1),
+//                            backgroundColor: themeColor.withOpacity(0.1),
                             onExpansionChanged: (value) {},
                             initiallyExpanded: false,
                             children: <Widget>[
@@ -89,7 +89,6 @@ class _TodoPageState extends State<TodoPage> {
                                               width: winWidth * 0.8,
                                               margin: EdgeInsets.all(10),
                                               child: Card(
-                                                color: themeColor,
                                                 elevation: 5,
                                                 child: Container(
                                                   padding: EdgeInsets.all(5),
@@ -130,7 +129,7 @@ class _TodoPageState extends State<TodoPage> {
                                             children: <Widget>[
                                               CupertinoSwitch(
                                                 trackColor: Colors.grey,
-                                                activeColor: themeColor,
+//                                                activeColor: themeColor,
                                                 value: t.status == 1,
                                                 onChanged: (v) {
                                                   model.changeStatusTodo(
@@ -141,7 +140,7 @@ class _TodoPageState extends State<TodoPage> {
                                             ],
                                           ),
                                           InkWell(
-                                            child: Icon(Icons.edit, size: 35, color: themeColor),
+                                            child: Icon(Icons.edit, size: 35,),
                                             onTap: () => model.doEdit(
                                                 todoId: t.id,
                                                 title: t.title,
@@ -150,7 +149,7 @@ class _TodoPageState extends State<TodoPage> {
                                           ),
                                           InkWell(
                                             child: Icon(Icons.delete_forever,
-                                                size: 35, color: themeColor),
+                                                size: 35),
                                             onTap: () =>
                                                 model.deleteTodo(todoId: t.id, index: index),
                                           ),

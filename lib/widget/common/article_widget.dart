@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:wanandroidflutter/common/global.dart';
+import 'package:provider/provider.dart';
+import 'package:wanandroidflutter/common/theme.dart';
 import 'package:wanandroidflutter/widget/common/small_widget.dart';
 import 'package:html/dom.dart' as dom;
 
@@ -10,7 +11,7 @@ class ArticleTileWidget extends StatefulWidget {
   final String title;
   final String subTitle;
   final String time;
-  final  doCollect;
+  final doCollect;
   bool isCollect;
 
   ArticleTileWidget(
@@ -27,6 +28,7 @@ class ArticleTileWidget extends StatefulWidget {
 class _ArticleTileWidgetState extends State<ArticleTileWidget> {
   @override
   Widget build(BuildContext context) {
+    Color tColor = Provider.of<AppTheme>(context, listen: true).getThemeColor;
     return InkWell(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
@@ -36,7 +38,7 @@ class _ArticleTileWidgetState extends State<ArticleTileWidget> {
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
-                  color: themeColor, borderRadius: BorderRadius.circular(10)),
+                  color: tColor, borderRadius: BorderRadius.circular(10)),
               child: Html(
                 data: widget.title,
                 customTextStyle: (dom.Node node, TextStyle baseStyle) {
@@ -58,13 +60,11 @@ class _ArticleTileWidgetState extends State<ArticleTileWidget> {
               ),
             ),
             SmallWidget(
-              bgColor: themeColor,
+              bgColor: tColor,
               textWidget: Row(
                 children: <Widget>[
                   Text(
-                    widget.subTitle == ''
-                        ? 'by : 未知'
-                        : 'by : ${widget.subTitle}',
+                    widget.subTitle == '' ? 'by : 未知' : 'by : ${widget.subTitle}',
                     style: TextStyle(color: Colors.white),
                   ),
                   Spacer(),
@@ -75,7 +75,8 @@ class _ArticleTileWidgetState extends State<ArticleTileWidget> {
                   SizedBox(width: 10),
                   InkWell(
                     child: widget.isCollect
-                        ? Icon(Icons.favorite, color: Colors.red)
+                        ? Icon(Icons.favorite,
+                            color: tColor == Colors.red ? Colors.red[900] : Colors.red)
                         : Icon(Icons.favorite_border, color: Colors.white),
                     onTap: () => widget.doCollect().then((value) {
                       if (value) {

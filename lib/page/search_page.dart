@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/api/view_model/hot_search_view_model.dart';
+import 'package:wanandroidflutter/common/theme.dart';
+import 'package:wanandroidflutter/util/sp_util.dart';
 import 'package:wanandroidflutter/widget/base/base_page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/common/back_button.dart';
@@ -14,7 +16,13 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   HotSearchViewModel _hotSearchViewModel = HotSearchViewModel();
+  Color tipsColor;
 
+  @override
+  void initState() {
+    super.initState();
+    SPUtil.get(type: String , key: SPUtil.themeColor).then((value) => tipsColor = themeColorMap[value]);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +70,8 @@ class _SearchPageState extends State<SearchPage> {
                     elevation: 5,
                     child: SmallWidget(
                       text: '热门搜索',
+                      bgColor: tipsColor,
                       fontColor: Colors.white,
-                      bgColor: Colors.blue,
                       fontSize: 18,
                     ),
                   ),
@@ -102,7 +110,7 @@ class _SearchPageState extends State<SearchPage> {
                                 child: SmallWidget(
                                   text: '搜索记录',
                                   fontColor: Colors.white,
-                                  bgColor: Colors.blue,
+                                  bgColor: tipsColor,
                                   fontSize: 18,
                                 ),
                               ),

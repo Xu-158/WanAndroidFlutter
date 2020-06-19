@@ -23,7 +23,7 @@ class HotSearchViewModel extends BaseModel {
 
   void getHotSearchData() async {
     _historySearchList =
-        await SPUtil.get(type: 'List', key: SPUtil.historySearch)??[];
+        await SPUtil.get(type: List, key: SPUtil.historySearch)??[];
     if (reqStatus == ReqStatus.success) return;
     Api.getHotSearch().then((value) {
       if (value['data'] == null) throw Exception('${value['errorMsg']}');

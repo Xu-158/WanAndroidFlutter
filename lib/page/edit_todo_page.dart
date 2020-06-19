@@ -38,7 +38,6 @@ class _EditTodoPageState extends State<EditTodoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: themeColor,
       appBar: AppBar(
         leading: BackButton1(),
         title: Text('TODO'),
@@ -74,7 +73,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(color: themeColor)),
+                          border: Border.all()),
                       child: MyTextField(
                         controller: _viewModel.getTitleC,
                         borderRadius: 2.0,

@@ -5,8 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/api/view_model/user_view_model.dart';
 import 'package:wanandroidflutter/common/global.dart';
+import 'package:wanandroidflutter/common/theme.dart';
 import 'package:wanandroidflutter/page/todo_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/widget/base/base_Page.dart';
@@ -24,6 +26,7 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
 
   @override
   Widget build(BuildContext context) {
+    var tColor = Provider.of<AppTheme>(context, listen: true);
     super.build(context);
     return Scaffold(
       body: SafeArea(
@@ -41,7 +44,6 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                     height: 200.px,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     child: Card(
-                      color: themeColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                       elevation: 8,
@@ -69,8 +71,8 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                                     margin: EdgeInsets.only(right: 5),
                                     child: Icon(
                                       Icons.call_missed_outgoing,
-                                      color: themeColor,
                                       size: 40,
+                                      color: themeColorMap[tColor],
                                     ),
                                   ),
                                   onTap: () => model.goLogin(),
@@ -163,7 +165,7 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                       color: Colors.green,
                     ),
                     title: 'TODO',
-                    onTap: ()=>NavigatorUtil.push(TodoPage()),
+                    onTap: () => NavigatorUtil.push(TodoPage()),
                   ),
                   RowTileWidget(
                     icon: Icon(
@@ -187,7 +189,9 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                       color: Colors.orange,
                     ),
                     title: '换肤',
-                    onTap: () {},
+                    onTap: () {
+                      showColorPick(context, tColor);
+                    },
                   ),
                   RowTileWidget(
                     icon: Icon(

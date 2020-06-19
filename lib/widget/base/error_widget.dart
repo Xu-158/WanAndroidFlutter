@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:wanandroidflutter/common/global.dart';
 
 class ErrorWidgetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('出现错误了！'),
+    return Container(
+      child: Image.asset(
+        'assets/image/not_found.png',
+        fit: BoxFit.cover,
+        height: winHeight,
+      ),
     );
   }
 }

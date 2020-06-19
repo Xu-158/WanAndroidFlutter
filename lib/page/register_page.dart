@@ -27,7 +27,6 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 300.px,
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Card(
-                color: themeColor,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
                 elevation: 5,
                 child: Column(
@@ -124,7 +123,6 @@ class _RegisterPageState extends State<RegisterPage> {
             InkWell(
               child: Card(
                 child: SmallWidget(
-                  bgColor: themeColor,
                   fontColor: Colors.white,
                   width: winWidth * 0.9,
                   fontSize: 20,
