@@ -48,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                               margin: EdgeInsets.only(right: 5),
                               child: Icon(
                                 Icons.call_missed_outgoing,
+                                color: Colors.grey.withOpacity(0.8),
                                 size: 40,
                               ),
                             ),

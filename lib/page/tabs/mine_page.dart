@@ -72,7 +72,7 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                                     child: Icon(
                                       Icons.call_missed_outgoing,
                                       size: 40,
-                                      color: themeColorMap[tColor],
+                                      color: Colors.grey.withOpacity(0.8),
                                     ),
                                   ),
                                   onTap: () => model.goLogin(),
