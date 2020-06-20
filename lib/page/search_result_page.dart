@@ -23,7 +23,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('${widget.keys}'),
+        title: Text('${widget.keys}',style: TextStyle(color: Colors.white)),
         leading: BackButton1(),
       ),
       body: BasePage<SearchResultViewModel>(
