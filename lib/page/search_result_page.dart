@@ -46,7 +46,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     onTap: () => viewModel.searchResultOnTap(
                         title: m.title, url: m.link),
                     title: m?.title,
-                    subTitle: m?.author,
+                    subTitle: m?.author==''?m?.shareUser:m?.author,
                     time: m?.niceDate,
                     doCollect: () {
                       m.collect = !m.collect;

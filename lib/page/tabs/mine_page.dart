@@ -175,14 +175,14 @@ class _MinePageState extends State<MinePage> with AutomaticKeepAliveClientMixin 
                     title: '收藏',
                     onTap: () => model.push(title: '收藏'),
                   ),
-                  RowTileWidget(
-                    icon: Icon(
-                      Icons.settings,
-                      color: Colors.blue,
-                    ),
-                    title: '设置',
-                    onTap: () {},
-                  ),
+//                  RowTileWidget(
+//                    icon: Icon(
+//                      Icons.settings,
+//                      color: Colors.blue,
+//                    ),
+//                    title: '设置',
+//                    onTap: () {},
+//                  ),
                   RowTileWidget(
                     icon: Icon(
                       Icons.color_lens,

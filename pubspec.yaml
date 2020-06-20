@@ -47,6 +47,7 @@ dependencies:
 
   #webview https://pub.dev/packages/webview_flutter#-readme-tab-
   webview_flutter: ^0.3.22+1
+
   #启动URL https://pub.dev/packages/url_launcher#-installing-tab-
   url_launcher: ^5.4.10
 
@@ -59,6 +60,9 @@ dependencies:
 
   #path_provider 查找文件系统上的常用位置
   path_provider: ^1.6.10
+
+  #分享 https://pub.flutter-io.cn/packages/share#-example-tab-
+  share: ^0.6.4+3
 
 dev_dependencies:
   flutter_test:
