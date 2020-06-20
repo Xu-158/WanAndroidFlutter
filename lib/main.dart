@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wanandroidflutter/root_page.dart';
+import 'package:wanandroidflutter/page/tabs/splash_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/util/path_util.dart';
 import 'package:wanandroidflutter/util/sp_util.dart';
 import 'package:wanandroidflutter/widget/base/base_Page.dart';
-import 'package:wanandroidflutter/widget/base/base_model.dart';
 
 import 'common/theme.dart';
 
@@ -60,7 +59,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             routes: <String, WidgetBuilder>{
-              '/': (BuildContext context) => RootPage()
+              '/': (BuildContext context) => SplashPage()
             },
           );
         },

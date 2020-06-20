@@ -38,7 +38,9 @@ class NavigatorUtil {
     return navKey.currentState.popUntil(ModalRoute.withName('/'));
   }
 
-  static Future pushAndRemoveUntil(Widget page,{PushType type = PushType.cupertino}){
-    return navKey.currentState.pushAndRemoveUntil(pushUtil(type, page), (route) => route == null);
+  static Future pushAndRemoveUntil(Widget page,
+      {PushType type = PushType.cupertino}) {
+    return navKey.currentState
+        .pushAndRemoveUntil(pushUtil(type, page), (route) => route == null);
   }
 }
