@@ -27,7 +27,7 @@ class TodoListViewModel extends BaseModel {
       }).toList();
       setState(ReqStatus.success);
     }).catchError((e) {
-      showToast(message: e.toString());
+      showToast(message: '请先登录！');
       setState(ReqStatus.error);
     });
   }

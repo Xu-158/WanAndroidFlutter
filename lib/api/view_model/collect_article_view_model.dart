@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:wanandroidflutter/api/api.dart';
@@ -29,7 +31,7 @@ class CollectArticleViewModel extends BaseModel {
       }).toList();
       setState(ReqStatus.success);
     }).catchError((e) {
-      showToast(message: e);
+      showToast(message: '请先登录！');
       setState(ReqStatus.error);
     });
   }
@@ -62,6 +64,7 @@ class CollectArticleViewModel extends BaseModel {
       }
     }).catchError((e) {
       showToast(message: '出现错误了');
+      return Future.value(false);
     });
   }
 
@@ -77,6 +80,7 @@ class CollectArticleViewModel extends BaseModel {
       }
     }).catchError((e) {
       showToast(message: '出现错误了');
+      return Future.value(false);
     });
   }
 
@@ -85,9 +89,10 @@ class CollectArticleViewModel extends BaseModel {
     return Api.unCollectArticleByMine(articleId: articleId, originId: originId)
         .then((value) {
       if (value['errorCode'] == 0) {
-        _list.removeAt(index);
-        setState(ReqStatus.success);
         showToast(message: '取消收藏');
+        Future.delayed(Duration(milliseconds: 1000), () {
+          _list.removeAt(index);
+        }).then((value) => setState(ReqStatus.success));
         return Future.value(true);
       } else {
         showToast(message: '取消失败');
@@ -95,6 +100,7 @@ class CollectArticleViewModel extends BaseModel {
       }
     }).catchError((e) {
       showToast(message: '出现错误了');
+      return Future.value(false);
     });
   }
 

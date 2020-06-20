@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/api/view_model/collect_article_view_model.dart';
 import 'package:wanandroidflutter/api/view_model/search_result_view_model.dart';
+import 'package:wanandroidflutter/model/search_model.dart';
 import 'package:wanandroidflutter/widget/base/base_Page.dart';
 import 'package:wanandroidflutter/widget/base/base_widget.dart';
 import 'package:wanandroidflutter/widget/common/article_widget.dart';
@@ -40,27 +41,26 @@ class _SearchResultPageState extends State<SearchResultPage> {
               child: ListView.builder(
                 itemCount: viewModel.getSearchResultList.length,
                 itemBuilder: (context, index) {
-                  var v = viewModel.getSearchResultList[index];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ArticleTileWidget(
-                        onTap: () => viewModel.searchResultOnTap(title: v.title, url: v.link),
-                        title: v?.title,
-                        subTitle: v?.shareUser,
-                        time: v?.niceDate,
-                        doCollect: () {
-                          if (!v.collect) {
-                            v.collect = false;
-                            return CollectArticleViewModel().unCollectByHome(articleId: v.id);
-                          } else {
-                            v.collect = true;
-                            return CollectArticleViewModel().doCollect(articleId: v.id);
-                          }
-                        },
-                        isCollect: v.collect,
-                      ),
-                    ],
+                  SearchModel m = viewModel.getSearchResultList[index];
+                  return ArticleTileWidget(
+                    onTap: () => viewModel.searchResultOnTap(
+                        title: m.title, url: m.link),
+                    title: m?.title,
+                    subTitle: m?.author,
+                    time: m?.niceDate,
+                    doCollect: () {
+                      m.collect = !m.collect;
+                      if (!m.collect) {
+                        m.collect = false;
+                        return CollectArticleViewModel()
+                            .unCollectByHome(articleId: m.id);
+                      } else {
+                        m.collect = true;
+                        return CollectArticleViewModel()
+                            .doCollect(articleId: m.id);
+                      }
+                    },
+                    isCollect: m.collect,
                   );
                 },
               ),

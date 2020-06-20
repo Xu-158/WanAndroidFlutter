@@ -40,9 +40,11 @@ class _CollectPageState extends State<CollectPage> {
                   : ListView.builder(
                       itemCount: model.getCollectArticleList.length,
                       itemBuilder: (context, index) {
-                        CollectArticlesModel m = model.getCollectArticleList[index];
+                        CollectArticlesModel m =
+                            model.getCollectArticleList[index];
                         return ArticleTileWidget(
-                          onTap: () => model.cardOnTap(url: m?.link, title: m?.title),
+                          onTap: () =>
+                              model.cardOnTap(url: m?.link, title: m?.title),
                           title: m?.title,
                           subTitle: m?.author,
                           time: m?.niceDate,

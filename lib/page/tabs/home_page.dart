@@ -89,7 +89,8 @@ class BannerWidget extends StatelessWidget {
                   String url = model.getBannerList[index].imagePath;
                   return Card(
                     elevation: 4.0,
-                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25.0))),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(25.0))),
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(25.0)),
                       child: CachedNetworkImage(
@@ -133,11 +134,12 @@ class ArticleListWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               HomeArticleModel m = model.getArticleList[index];
               return ArticleTileWidget(
-                onTap: () => model.cardOnTap(url: m?.link, title: m?.title),
+                onTap: () => viewModel.cardOnTap(title: m.title, url: m.link),
                 title: m?.title,
-                subTitle: m?.shareUser,
+                subTitle: m?.author,
                 time: m?.niceDate,
                 doCollect: () {
+                  m.collect = !m.collect;
                   if (!m.collect) {
                     m.collect = false;
                     return CollectArticleViewModel()

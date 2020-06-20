@@ -49,13 +49,15 @@ class HotSearchViewModel extends BaseModel {
       showToast(message: '搜索内容为空');
       return;
     }
-    if (_historySearchList.isNotEmpty&&_historySearchList[0] == key) {
+    if (_historySearchList.isNotEmpty && _historySearchList[0] == key) {
       _historySearchList.removeAt(0);
     }
     _historySearchList.insert(0, key);
     SPUtil.setData(
         type: List, key: SPUtil.historySearch, value: _historySearchList);
-    notifyListeners();
+    Future.delayed(Duration(milliseconds: 200), () {
+      setState(ReqStatus.success);
+    });
     NavigatorUtil.push(SearchResultPage(keys: key));
   }
 }
