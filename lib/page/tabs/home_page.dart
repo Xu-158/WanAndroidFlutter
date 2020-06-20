@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     super.build(context);
     var imageCache = PaintingBinding.instance.imageCache;
-    int byte=imageCache.currentSizeBytes;
+    int byte = imageCache.currentSizeBytes;
     print('byte$byte');
     print('homeBuild');
     return Scaffold(
@@ -140,17 +140,17 @@ class ArticleListWidget extends StatelessWidget {
               return ArticleTileWidget(
                 onTap: () => viewModel.cardOnTap(title: m.title, url: m.link),
                 title: m?.title,
-                subTitle: m?.author==''?m?.shareUser:m?.author,
+                subTitle: m?.author == '' ? m?.shareUser : m?.author,
                 time: m?.niceDate,
                 doCollect: () {
-                  m.collect = !m.collect;
-                  if (!m.collect) {
-                    m.collect = false;
+                  if (m.collect) {
                     return CollectArticleViewModel()
-                        .unCollectByHome(articleId: m.id);
+                        .unCollectByHome(articleId: m.id)
+                        .then((value) => m.collect = !value);
                   } else {
-                    m.collect = true;
-                    return CollectArticleViewModel().doCollect(articleId: m.id);
+                    return CollectArticleViewModel()
+                        .doCollect(articleId: m.id)
+                        .then((value) => m.collect = value);
                   }
                 },
                 isCollect: m.collect,

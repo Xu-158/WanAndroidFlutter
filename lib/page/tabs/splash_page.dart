@@ -47,9 +47,10 @@ class _SplashPageState extends State<SplashPage>
         height: winHeight,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Opacity(
-              opacity: 1- _animationController.value * 2 / 100,
+            Visibility(
+              visible: _animationController.value <= 43.0,
               child: Container(
                 alignment: Alignment.center,
                 child: Transform.rotate(
@@ -68,10 +69,12 @@ class _SplashPageState extends State<SplashPage>
                 ),
               ),
             ),
-            Opacity(
-              opacity: _animationController.value * 2 / 100,
-              child: FlutterLogo(
-                size: 200,
+            Center(
+              child: Opacity(
+                opacity: _animationController.value * 2 / 100,
+                child: FlutterLogo(
+                  size: 200,
+                ),
               ),
             ),
           ],
@@ -127,7 +130,6 @@ class ClockPainter extends CustomPainter {
       canvas.restore();
       canvas.rotate(2 * pi / 12);
     }
-
 
     ///正常的时钟 时分秒
 //    DateTime dateTime = DateTime.now();

@@ -119,11 +119,16 @@ class _ArticleTileWidgetState extends State<ArticleTileWidget>
                               : Icon(Icons.favorite_border,
                               size: 28, color: Colors.white),
                           onTap: () {
+                            print('=============${widget.isCollect}');
                             animationController.forward();
                             widget.doCollect().then((value) {
                               if (value) {
                                 setState(() {
-                                  widget.isCollect = !widget.isCollect;
+                                  widget.isCollect = true;
+                                });
+                              }else{
+                                setState(() {
+                                  widget.isCollect = false;
                                 });
                               }
                             });

@@ -49,15 +49,14 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     subTitle: m?.author==''?m?.shareUser:m?.author,
                     time: m?.niceDate,
                     doCollect: () {
-                      m.collect = !m.collect;
-                      if (!m.collect) {
-                        m.collect = false;
+                      if (m.collect) {
                         return CollectArticleViewModel()
-                            .unCollectByHome(articleId: m.id);
+                            .unCollectByHome(articleId: m.id)
+                            .then((value) => m.collect = !value);
                       } else {
-                        m.collect = true;
                         return CollectArticleViewModel()
-                            .doCollect(articleId: m.id);
+                            .doCollect(articleId: m.id)
+                            .then((value) => m.collect = value);
                       }
                     },
                     isCollect: m.collect,
