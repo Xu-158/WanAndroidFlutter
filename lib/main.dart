@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<AppTheme>(
         builder: (context, model, child) {
-          SPUtil.get(type: String, key: SPUtil.themeColor, defaultValue: 'red')
+          SPUtil.get(type: String, key: SPUtil.themeColor, defaultValue: 'cyan')
               .then((value) => model.setThemeColor(value));
           return MaterialApp(
             title: 'FlutterWanAndroid',
@@ -41,12 +41,6 @@ class MyApp extends StatelessWidget {
                 primaryColor: model.getThemeColor,
                 primaryContrastingColor: model.getThemeColor,
                 barBackgroundColor: model.getThemeColor,
-//                Brightness brightness,
-//                Color primaryColor,
-//                Color primaryContrastingColor,
-//                CupertinoTextThemeData textTheme,
-//                Color barBackgroundColor,
-//                Color scaffoldBackgroundColor,
               ),
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                 backgroundColor: model.getThemeColor.withOpacity(0.8),
@@ -59,7 +53,9 @@ class MyApp extends StatelessWidget {
                 labelColor: Colors.white,
               ),
             ),
-            routes: <String, WidgetBuilder>{'/': (BuildContext context) => RootPage()},
+            routes: <String, WidgetBuilder>{
+              '/': (BuildContext context) => RootPage()
+            },
           );
         },
       ),
