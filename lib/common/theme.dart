@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/common/global.dart';
 import 'package:wanandroidflutter/util/sp_util.dart';
+import 'package:wanandroidflutter/widget/base/base_model.dart';
 import 'package:wanandroidflutter/widget/common/toast.dart';
 
-class AppTheme extends ChangeNotifier {
+class AppTheme extends BaseModel {
   String themeColor = 'blue';
 
   setThemeColor(String colorName) {
     themeColor = colorName;
+    setState(ReqStatus.success);
     notifyListeners();
   }
 
@@ -75,8 +77,10 @@ showColorPick(context, tColor) {
                         onTap: () {
                           tColor.setThemeColor(value);
                           SPUtil.setData(
-                              type: String, key: SPUtil.themeColor, value: tColor.getThemeColorName);
-                          showToast(message:'修改成功');
+                              type: String,
+                              key: SPUtil.themeColor,
+                              value: tColor.getThemeColorName);
+                          showToast(message: '修改成功');
                           NavigatorUtil.maybePop();
                         },
                       );

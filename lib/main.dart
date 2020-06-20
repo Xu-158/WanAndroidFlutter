@@ -5,6 +5,8 @@ import 'package:wanandroidflutter/root_page.dart';
 import 'package:wanandroidflutter/util/navigator_util.dart';
 import 'package:wanandroidflutter/util/path_util.dart';
 import 'package:wanandroidflutter/util/sp_util.dart';
+import 'package:wanandroidflutter/widget/base/base_Page.dart';
+import 'package:wanandroidflutter/widget/base/base_model.dart';
 
 import 'common/theme.dart';
 
@@ -23,16 +25,20 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  AppTheme model = AppTheme();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: AppTheme()),
       ],
-      child: Consumer<AppTheme>(
-        builder: (context, model, child) {
+      child: BasePage<AppTheme>(
+        viewModel: model,
+        onFirstLoading: (v) {
           SPUtil.get(type: String, key: SPUtil.themeColor, defaultValue: 'cyan')
               .then((value) => model.setThemeColor(value));
+        },
+        builder: (context, model, child) {
           return MaterialApp(
             title: 'FlutterWanAndroid',
             navigatorKey: NavigatorUtil.navKey,

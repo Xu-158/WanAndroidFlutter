@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    print('homeBuild');
     return Scaffold(
       body: SafeArea(
         child: RefreshWidget(
