@@ -60,7 +60,7 @@ class SPUtil {
     sp.remove(key);
   }
 
-  static Future containsKey(key) async {
+  static Future<bool> containsKey(key) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     return sp.containsKey(key);
   }

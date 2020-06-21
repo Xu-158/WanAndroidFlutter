@@ -36,6 +36,12 @@ class MyApp extends StatelessWidget {
         onFirstLoading: (v) {
           SPUtil.get(type: String, key: SPUtil.themeColor, defaultValue: 'cyan')
               .then((value) => model.setThemeColor(value));
+          SPUtil.containsKey(SPUtil.themeColor).then((value) {
+            if (!value) {
+              SPUtil.setData(
+                  type: String, key: SPUtil.themeColor, value: 'cyan');
+            }
+          });
         },
         builder: (context, model, child) {
           return MaterialApp(
